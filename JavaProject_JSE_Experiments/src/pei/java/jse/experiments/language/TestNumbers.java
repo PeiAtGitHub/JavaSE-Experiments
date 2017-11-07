@@ -1,4 +1,4 @@
-package my.open.java.jse.experiments.numbers;
+package pei.java.jse.experiments.language;
 
 public class TestNumbers {
 	
