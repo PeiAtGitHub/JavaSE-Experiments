@@ -1,23 +1,26 @@
 package pei.java.jse.experiments.language;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 /**
  * 
  * @author pei
  *
  */
 public class MathUtils {
-	
-	public static void main(String[] args) {
 
-		//
-		System.out.println(Math.round(0.4));
-		System.out.println(Math.round(0.6));
-
-		//
-		for(int i =0; i<=9;i++){
-			System.out.println(Math.random());
-		}
-
+	@Test
+	public void testRound() {
+		assertEquals(0, Math.round(0.4));
+		assertEquals(1, Math.round(0.6));
 	}
-	
+
+	@Test
+	public void testRandom() {
+		double r = Math.random();
+		assertTrue(r >= 0.0 && r < 1.0);
+	}
 }
