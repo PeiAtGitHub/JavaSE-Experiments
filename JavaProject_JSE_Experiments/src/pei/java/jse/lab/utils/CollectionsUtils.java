@@ -3,6 +3,7 @@ package pei.java.jse.lab.utils;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,12 +18,7 @@ public class CollectionsUtils {
 	
 	@Test
 	public void testSorting() {
-		List<Integer> aList = new ArrayList<>();
-		aList.add(5);
-		aList.add(2);
-		aList.add(1);
-		aList.add(4);
-		aList.add(3);
+		List<Integer> aList = Arrays.asList(5,2,1,4,3);
 
 		assertTrue(Collections.max(aList) == 5);
 		assertTrue(Collections.min(aList) == 1);
