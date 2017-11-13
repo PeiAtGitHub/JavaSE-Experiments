@@ -2,8 +2,7 @@ package pei.java.jse.lab.language;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
-import java.util.Arrays;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -14,7 +13,7 @@ import org.junit.Test;
  */
 public class StringTests {
 
-	@Test(expected = IndexOutOfBoundsException.class)
+	@Test
 	public void testIndexing() {
 		/*
 		 * The convention of indexing is: 
@@ -32,7 +31,13 @@ public class StringTests {
 		assertTrue(str.substring(0).equals(str));
 		assertTrue(str.substring(str.length() - 1).equals(";"));
 		assertTrue(str.substring(str.length()).isEmpty()); // this behavior, i think, makes no sense
-		str.substring(str.length()+1); // throw exception
+		
+		try {
+			str.substring(str.length()+1); 
+			fail("Should'v thrown IndexOutOfBoundsException.");
+		} catch (Exception e) {
+			assertTrue(e instanceof IndexOutOfBoundsException);
+		}
 	}
 	
 	
@@ -54,8 +59,10 @@ public class StringTests {
 	
 	@Test
 	public void testSplit() {
-		// when the string does not contain the splitter
+		String str = "abcde";
+		String[] splitted = str.split("$"); // when the string does not contain the splitter
 		// the entire string itself is the only resulted element
-		assertTrue(Arrays.toString("abc".split("$")).equals("[abc]"));
+		assertEquals(1, splitted.length);
+		assertTrue(splitted[0].equals(str));
 	}
 }

@@ -1,4 +1,4 @@
-package pei.java.jse.lab.language;
+package pei.java.jse.lab.java7new;
 
 import static org.junit.Assert.assertTrue;
 

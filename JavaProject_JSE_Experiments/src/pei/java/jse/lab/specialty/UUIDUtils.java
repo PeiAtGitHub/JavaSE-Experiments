@@ -1,4 +1,4 @@
-package pei.java.jse.lab.utils;
+package pei.java.jse.lab.specialty;
 
 import static org.junit.Assert.assertEquals;
 import java.util.UUID;
@@ -10,6 +10,7 @@ import org.junit.Test;
  *
  */
 public class UUIDUtils {
+	
 	@Test
 	public void testUUID() {
 		UUID uuid4 = UUID.randomUUID();
