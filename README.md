@@ -1,4 +1,4 @@
-# JavaSE-Experiments
+# JavaSE-Labs
 Java SE stuffs
 
 
