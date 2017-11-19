@@ -11,7 +11,7 @@ import org.junit.Test;
  * @author pei
  *
  */
-public class StringTests {
+public class StringAndCharTests {
 
 	@Test
 	public void testIndexing() {
@@ -64,5 +64,18 @@ public class StringTests {
 		// the entire string itself is the only resulted element
 		assertEquals(1, splitted.length);
 		assertTrue(splitted[0].equals(str));
+	}
+	
+	@Test 
+	public void numberToChar(){
+		assertEquals('0', (char) (48));
+		assertEquals('1', (char) (49));
+		assertEquals('H', (char) (72));
+		assertEquals('I', (char) (73));
+		// each char above takes only one byte (0~127)
+		// each char below takes more than one byte
+		assertEquals('Ä', (char) (196));
+		assertEquals('Ā', (char) (256));
+		assertEquals('횇', (char) (1234567));
 	}
 }

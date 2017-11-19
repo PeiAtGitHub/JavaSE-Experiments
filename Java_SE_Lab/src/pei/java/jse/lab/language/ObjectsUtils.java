@@ -24,7 +24,6 @@ public class ObjectsUtils {
 		}catch (Exception e) {
 			assertTrue(e instanceof NullPointerException);
 		}
-		
 	}
 
 }

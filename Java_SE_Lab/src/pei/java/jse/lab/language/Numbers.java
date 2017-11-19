@@ -70,6 +70,15 @@ public class Numbers {
 		}
 	}
 	
+	@Test
+	public void operator(){
+		// Mod
+		assertEquals(0, 0 % 255);
+		assertEquals(180, 180 % 255);
+		assertEquals(0, 255 % 255);
+		assertEquals(5, 155555 % 255);
+	}
+	
 
 	@Test
 	public void numberPrecise() {
