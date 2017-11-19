@@ -1,5 +1,8 @@
 package pei.java.jse.lab.systemANDruntime;
 
+import static org.junit.Assert.fail;
+
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
@@ -32,14 +35,5 @@ public class SystemAndRuntime {
 		Runtime rt = Runtime.getRuntime();
 		// TODO
 		
-	}
-	
-	@Test
-	public void networkHost() throws UnknownHostException {
-		InetAddress localHost = InetAddress.getLocalHost();
-
-	    System.out.println(Arrays.toString(localHost.getAddress()));
-	    System.out.println(localHost.getHostAddress());
-	    System.out.println(localHost.getHostName());
 	}
 }
