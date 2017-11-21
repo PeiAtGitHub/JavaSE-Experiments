@@ -26,14 +26,20 @@ public class SystemAndRuntime {
 		for (Entry<Object, Object> prop : System.getProperties().entrySet()){
 			MyJavaLogger.logger.info(prop.toString());
 		}
-		
-		//
 	}
 
 	@Test
 	public void runtime() {
 		Runtime rt = Runtime.getRuntime();
-		// TODO
-		
+		System.out.println("Max Memory: " +
+				FileSystem.convertBytesNumberToReadableString(rt.maxMemory()));
+		System.out.println("Total Memory: " +
+				FileSystem.convertBytesNumberToReadableString(rt.totalMemory()));
+		System.out.println("Free Memory: " +
+				FileSystem.convertBytesNumberToReadableString(rt.freeMemory()));
+		System.out.println("Available Processors: " + rt.availableProcessors());
+		rt.gc();
+		System.out.println("Free Memory AFTER called gc(): " +
+				FileSystem.convertBytesNumberToReadableString(rt.freeMemory()));		
 	}
 }
