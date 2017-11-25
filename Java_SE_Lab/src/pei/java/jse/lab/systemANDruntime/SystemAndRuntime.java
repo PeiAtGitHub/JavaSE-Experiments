@@ -32,14 +32,14 @@ public class SystemAndRuntime {
 	public void runtime() {
 		Runtime rt = Runtime.getRuntime();
 		System.out.println("Max Memory: " +
-				FileSystem.convertBytesNumberToReadableString(rt.maxMemory()));
+				FileSystemTests.convertBytesNumberToReadableString(rt.maxMemory()));
 		System.out.println("Total Memory: " +
-				FileSystem.convertBytesNumberToReadableString(rt.totalMemory()));
+				FileSystemTests.convertBytesNumberToReadableString(rt.totalMemory()));
 		System.out.println("Free Memory: " +
-				FileSystem.convertBytesNumberToReadableString(rt.freeMemory()));
+				FileSystemTests.convertBytesNumberToReadableString(rt.freeMemory()));
 		System.out.println("Available Processors: " + rt.availableProcessors());
 		rt.gc();
 		System.out.println("Free Memory AFTER called gc(): " +
-				FileSystem.convertBytesNumberToReadableString(rt.freeMemory()));		
+				FileSystemTests.convertBytesNumberToReadableString(rt.freeMemory()));		
 	}
 }

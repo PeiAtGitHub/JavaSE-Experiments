@@ -4,8 +4,18 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileStore;
+import java.nio.file.FileSystem;
+import java.nio.file.Path;
+import java.nio.file.PathMatcher;
+import java.nio.file.Paths;
+import java.nio.file.WatchService;
+import java.nio.file.attribute.UserPrincipalLookupService;
+import java.nio.file.spi.FileSystemProvider;
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -14,7 +24,7 @@ import org.junit.Test;
  * @author pei
  *
  */
-public class FileSystem {
+public class FileSystemTests {
 	
 	@Test
 	public void fs() {
@@ -54,6 +64,18 @@ public class FileSystem {
 		assertTrue(convertBytesNumberToReadableString(1024d * 1024d * 1024d * 1000d).equals("1000 GB"));
 		assertTrue(convertBytesNumberToReadableString(1024d * 1024d * 1024d * 9999d).equals("9999 GB"));
 		assertTrue(convertBytesNumberToReadableString(1024d * 1024d * 1024d * 10000d).equals("10000 GB"));
+	}
+	
+	
+	@Test
+	public void thePaths() {
+		String onlyFileName = "aFile.txt";
+		String fullWinFilePath = "C:\\what\\ever\\path\\" + onlyFileName;
+		String fullLnxFilePath = "/what/ever/path/" + onlyFileName;
+		
+		// the output depends on the OS u run this
+		System.out.println(Paths.get(fullWinFilePath).getFileName());
+		System.out.println(Paths.get(fullLnxFilePath).getFileName());
 	}
 
 	

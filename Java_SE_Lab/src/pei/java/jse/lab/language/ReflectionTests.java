@@ -10,6 +10,8 @@ import org.junit.Test;
 
 /**
  * 
+ * Somebody told me reflection is not encouraged to use nowadays.
+ * 
  * @author pei
  *
  */
