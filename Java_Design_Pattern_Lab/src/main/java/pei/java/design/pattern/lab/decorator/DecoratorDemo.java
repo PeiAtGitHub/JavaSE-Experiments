@@ -3,14 +3,6 @@ package pei.java.design.pattern.lab.decorator;
 
 /**
  * 
- * Decorator is like a wrapper, 
- * Decorators and the underlying (wrapped) object are of same type (same interfaces).
- * 
- * Decorator does not modify the underlying object's interface signature, 
- * but ADDs (usually Not change) sth to the operation.
- * 
- * Multiple decorators usually have NO hierarchy relation, they are of same type.
- * 
  * @author pei
  * 
  */
@@ -42,7 +34,7 @@ interface Window {
 
 class SimpleWindow implements Window {
 	public void draw() {
-		System.out.println("A simple window");
+		System.out.println("A simple window to be decorated.");
 	}
 }
 

@@ -1,12 +1,7 @@
 package pei.java.design.pattern.lab.adapter;
 
 /**
- * 
- * Adapter, is a wrapper
- * it translates one interface for a class into another interface that client needs.
- * The adapter translates calls to its interface into calls to the original interface of 
- * the wrapped(adapted) class, the adapter could also transform data into appropriate forms. 
- * 
+ *
  * @author pei
  *
  */
