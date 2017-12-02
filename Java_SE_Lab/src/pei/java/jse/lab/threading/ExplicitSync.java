@@ -1,6 +1,7 @@
 package pei.java.jse.lab.threading;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
@@ -8,6 +9,7 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static pei.java.jse.lab.Utils.*;
@@ -58,7 +60,64 @@ public class ExplicitSync {
 		printWithThreadName("All threads finished. Available permits: " + semp.availablePermits());
 		assertEquals(numberOfPermits, semp.availablePermits());
 	}
+	
+	@Test @Ignore("This method got stuck.")
+	public void deadLockDemo() throws InterruptedException {
+
+		final Object resource1 = new Object();
+		final Object resource2 = new Object();
+
+		Thread t1 = new Thread(()->{
+				synchronized (resource1) {
+					printWithThreadName("Locked resource1");
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						//
+					}
+					printWithThreadName("Blocked till get resource2 lock.");
+					synchronized (resource2) {
+						printWithThreadName("Should never get resource2 lock.");
+					}
+				}
+				printWithThreadName("Should never reach here.");
+			});
+		
+		Thread t2 = new Thread(()->{
+			synchronized (resource2) {
+				printWithThreadName("Locked resource2");
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					//
+				}
+				printWithThreadName("Blocked till get resource1 lock.");
+				synchronized (resource1) {
+					printWithThreadName("Should never get resource1 lock.");
+				}
+			}
+			printWithThreadName("Should never reach here.");
+		});
+		
+		t1.start();
+		t2.start();
+
+		t1.join();
+		t2.join();
+		
+		fail("Should never reach here.");
+		
+		/*
+		 * Sync cannot be interrupted.
+		 * ReentrantLock.lockInterruptibly() can achieve an 
+		 * interruptible waiting for a lock.
+		 */
+	}
 }
+
+/*
+ * 
+ */
 
 class Incrementor implements Runnable {
 	private Counter counter;
