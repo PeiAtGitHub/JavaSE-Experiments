@@ -80,7 +80,5 @@ class ThrLocalSetter implements Runnable {
 		return this.tlt.number.intValue();
 	}
 	
-	
-	
 }
 

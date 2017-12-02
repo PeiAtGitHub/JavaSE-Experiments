@@ -1,4 +1,4 @@
-package pei.java.jse.lab.networking;
+package pei.java.jse.lab.specialty;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
