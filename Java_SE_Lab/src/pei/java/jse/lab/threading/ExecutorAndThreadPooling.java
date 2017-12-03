@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
@@ -33,7 +35,24 @@ public class ExecutorAndThreadPooling {
 		assertTrue(thrPoolExecutor.isTerminated());
 		
 	}
-
+	
+	@Test
+	public void scheduled() throws InterruptedException {
+		ScheduledExecutorService scheduledThrPool 
+		= Executors.newScheduledThreadPool(1);
+		
+		ScheduledFuture<?> beepingTask = scheduledThrPool
+				.scheduleAtFixedRate(()->Utils.printWithThreadName("Beep")
+						, 3, 3, TimeUnit.SECONDS);
+				
+		scheduledThrPool.schedule(()->{
+			Utils.printWithThreadName("Gonna cancel beeping.");
+			beepingTask.cancel(true);
+		}, 16, TimeUnit.SECONDS);
+		
+		scheduledThrPool.awaitTermination(17, TimeUnit.SECONDS);
+		scheduledThrPool.shutdown();
+	}
 }
 
 

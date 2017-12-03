@@ -1,5 +1,8 @@
 package pei.java.jse.lab.threading;
 
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static pei.java.jse.lab.Utils.printWithThreadName;
 
 import org.junit.Test;
@@ -61,6 +64,26 @@ public class ThreadingBasics {
 			printWithThreadName("3.Gonna release lock of " + wfn);
 			wfn.wait(); // release wfn lock and wait to be notified
 			printWithThreadName("6.Got lock of " + wfn);
+		}
+		thr.join();
+	}
+	
+	@Test
+	public void interruption() throws InterruptedException {
+		Thread thr = new Thread(()->{
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				printWithThreadName("Interrupted!");
+			}
+		});
+		thr.start();
+		
+		if(thr.isAlive()) {
+			thr.interrupt();
+			assertTrue(thr.isInterrupted());
+		}else {
+			fail("The thread is not alive.");
 		}
 		thr.join();
 	}
