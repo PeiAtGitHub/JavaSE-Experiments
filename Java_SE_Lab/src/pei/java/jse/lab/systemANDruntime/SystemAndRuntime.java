@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
 import pei.java.jse.lab.io.MyJavaLogger;
@@ -32,14 +33,14 @@ public class SystemAndRuntime {
 	public void runtime() {
 		Runtime rt = Runtime.getRuntime();
 		System.out.println("Max Memory: " +
-				FileSystemTests.convertBytesNumberToReadableString(rt.maxMemory()));
+				FileUtils.byteCountToDisplaySize(rt.maxMemory()));
 		System.out.println("Total Memory: " +
-				FileSystemTests.convertBytesNumberToReadableString(rt.totalMemory()));
+				FileUtils.byteCountToDisplaySize(rt.totalMemory()));
 		System.out.println("Free Memory: " +
-				FileSystemTests.convertBytesNumberToReadableString(rt.freeMemory()));
+				FileUtils.byteCountToDisplaySize(rt.freeMemory()));
 		System.out.println("Available Processors: " + rt.availableProcessors());
 		rt.gc();
 		System.out.println("Free Memory AFTER called gc(): " +
-				FileSystemTests.convertBytesNumberToReadableString(rt.freeMemory()));		
+				FileUtils.byteCountToDisplaySize(rt.freeMemory()));		
 	}
 }
