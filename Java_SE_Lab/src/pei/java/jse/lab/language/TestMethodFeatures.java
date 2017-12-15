@@ -6,6 +6,12 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  * 
  * @author pei
@@ -65,21 +71,7 @@ public class TestMethodFeatures {
 	}
 }
 
-//
+@Setter @Getter @ToString @AllArgsConstructor @NoArgsConstructor
 class Person{
 	String name="";
-
-	public Person(String name) {
-		super();
-		this.name = name;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	
 }

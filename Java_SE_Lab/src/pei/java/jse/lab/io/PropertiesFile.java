@@ -31,7 +31,6 @@ public class PropertiesFile {
 		assertTrue(props.getProperty("p2").equals("1234567890"));
 		assertTrue(props.getProperty("p3").isEmpty());
 		assertNull(props.getProperty("NonExistentKey"));
-
 	}
 
 }
