@@ -1,0 +1,59 @@
+package pei.java.thirdp.lab.htmlunit;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.net.URL;
+
+import org.apache.commons.io.FileUtils;
+import org.junit.Test;
+
+import com.gargoylesoftware.htmlunit.UnexpectedPage;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
+/**
+ * 
+ * A demo of using HtmlUnit to download wikipedia's Today's Featured Picture
+ * 
+ * @author pei
+ *
+ */
+public class WikipediaTFPdownloader {
+
+	final static String wikipediaMainPageURL = "https://en.wikipedia.org/wiki/Main_Page";
+	final static String tfpDownloadDir = "downloads" + File.separator + "TFP";
+
+	/**
+	 * I'v tried several ways. Opening the image's URL in a page and then download
+	 * is the only way I found so far.
+	 */
+	@Test
+	public void testDownLoadTfp() throws Exception {
+		WebClient webClient = new WebClient();
+		try {
+			HtmlPage mainPage = webClient.getPage(wikipediaMainPageURL);
+
+			// click the image element to open image details page
+			HtmlElement tfpElement = mainPage.getHtmlElementById("mp-tfp").getElementsByTagName("img").get(0);
+			HtmlPage imageDetailsPage = (HtmlPage) tfpElement.click();
+
+			// the link "Original file"
+			HtmlAnchor link = imageDetailsPage.<HtmlAnchor>getFirstByXPath("//a[contains(., 'Original file')]");
+			// open the image in a page.
+			URL imgUrl = ((UnexpectedPage) link.click()).getUrl();
+			//
+			String fileName = imgUrl.getPath().substring(imgUrl.getPath().lastIndexOf('/') + 1);
+			File file = new File(tfpDownloadDir + File.separator + fileName);
+			FileUtils.cleanDirectory(new File(tfpDownloadDir));
+			assertFalse(file.exists());
+			FileUtils.copyURLToFile(imgUrl, file);
+			assertTrue(file.exists());
+		} finally {
+			webClient.close();
+		}
+	}
+}
