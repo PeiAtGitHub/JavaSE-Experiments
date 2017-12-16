@@ -18,7 +18,7 @@ import org.junit.Test;
  * @author pei
  *
  */
-public class IoTests {
+public class IoFiltUtilsTests {
 
 	static File dir1 = new File("dir1");
 	static File dir2 = new File("dir2");
