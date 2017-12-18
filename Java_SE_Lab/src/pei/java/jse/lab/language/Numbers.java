@@ -8,11 +8,14 @@ import java.util.Random;
 
 import org.junit.Test;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 
  * @author pei
  *
  */
+@Slf4j
 public class Numbers {
 
 	@Test
@@ -35,24 +38,23 @@ public class Numbers {
 
 	@Test
 	public void numberOverFlow() {
-		System.out.println("Integer.MAX_VALUE is " + Integer.MAX_VALUE + ", which is appx "
-				+ convertNumberToReadableString(Integer.MAX_VALUE));
+		log.info("Integer.MAX_VALUE is {}, which is appx {}", Integer.MAX_VALUE
+				,convertNumberToReadableString(Integer.MAX_VALUE));
+		log.info("Long.MAX_VALUE is {}, which is appx {}", Long.MAX_VALUE 
+				,convertNumberToReadableString(Long.MAX_VALUE));
+		log.info("Float.MAX_VALUE is {}, which is appx {}", Float.MAX_VALUE
+				,convertNumberToReadableString(Float.MAX_VALUE));
+		log.info("Double.MAX_VALUE is {}, which has no better representation.", Double.MAX_VALUE);
 
-		System.out.println("Long.MAX_VALUE is " + Long.MAX_VALUE + ", which is appx "
-				+ convertNumberToReadableString(Long.MAX_VALUE));
-
-		System.out.println("Float.MAX_VALUE is " + Float.MAX_VALUE + ", which is appx "
-				+ convertNumberToReadableString(Float.MAX_VALUE));
-
-		System.out.println("Double.MAX_VALUE is " + Double.MAX_VALUE + ", which has no better representation.");
-
-		System.out.println("Demo of number overflow:");
-		System.out.println("Integer.MAX_VALUE + 123 is: " + (Integer.MAX_VALUE + 123));
-		System.out.println("Integer.MAX_VALUE x 123 is: " + (Integer.MAX_VALUE * 123));
-
+		log.info("Demo of number overflow:");
+		log.info("Integer.MAX_VALUE + 123 is: {}", (Integer.MAX_VALUE + 123));
+		log.info("Integer.MAX_VALUE x 123 is: {}", (Integer.MAX_VALUE * 123));
 		assertTrue((Integer.MAX_VALUE + 123) < Integer.MAX_VALUE);
 		assertTrue((Integer.MAX_VALUE * 123) < Integer.MAX_VALUE);
-
+		
+		log.info("Interesting to Know, Integer.MIN_VALUE == -Integer.MAX_VALUE-1");
+		assertTrue(Integer.MIN_VALUE == (-Integer.MAX_VALUE-1));
+		assertTrue((Integer.MIN_VALUE - 1) > Integer.MIN_VALUE);// overflow
 	}
 	
 	@Test
@@ -85,18 +87,10 @@ public class Numbers {
 		// Some Demos
 		System.out.println("1 + 0.000000000000001 is: "+(1 + 0.000000000000001));// 1.000000000000001
 		System.out.println("1 + 0.0000000000000001 is: "+(1 + 0.0000000000000001));// 1.0
-	
-		System.out.println("100000000002.0002 + 100000000009.0009 is: "
-				+ (100000000002.0002d + 100000000009.0009d));   // 2.000000000110011E11
-		System.out.println("111111111111.1111 + 222222222222.2222 is: "
-				+ (111111111111.1111d + 222222222222.2222d));   // 3.333333333333333E11
-		
 		System.out.println("0.00000025 * 0.00000025 is: "+(0.00000025 * 0.00000025)); // 6.25E-14
 		System.out.println("0.000000025 * 0.000000025 is: "+(0.000000025 * 0.000000025)); // 6.249999999999999E-16
-		
 		System.out.println("100.00000025 * 100.00000025 is: "+(100.00000025 * 100.00000025)); // 10000.00005
 		System.out.println("100.000000025 * 100.000000025 is: "+(100.000000025 * 100.000000025)); // 10000.000005000002
-		System.out.println("2000000000 * 100.123456789 is: "+(2000000000 * 100.123456789)); // 2.00246913578E11
 	}
 
 	/*
