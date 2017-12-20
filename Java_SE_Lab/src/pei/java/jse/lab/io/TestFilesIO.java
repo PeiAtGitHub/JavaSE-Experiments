@@ -17,7 +17,7 @@ import org.junit.Test;
  *
  */
 public class TestFilesIO {
-	String fileToRead = "TestReadFile.txt";
+	String fileToRead = "Files/TestReadFile.txt";
 	
 	@Test
 	public void testFileReadLine() throws IOException {
@@ -39,7 +39,7 @@ public class TestFilesIO {
 	public void testFileWrite() throws IOException{
 		// if file does not exist, it will be created.
 		// if path does not exist, exception thrown
-		BufferedWriter bw = new BufferedWriter(new FileWriter("TestWriteFile.txt"));
+		BufferedWriter bw = new BufferedWriter(new FileWriter("Files/TestWriteFile.txt"));
 	    
 		bw.write("first");
 	    bw.newLine();

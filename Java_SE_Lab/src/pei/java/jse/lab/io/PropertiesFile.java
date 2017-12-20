@@ -23,7 +23,7 @@ public class PropertiesFile {
 		// which has default properties
 		// Demo for this feature is skipped here.
 		
-		FileInputStream in = new FileInputStream("TestProperties.properties");
+		FileInputStream in = new FileInputStream("Files/TestProperties.properties");
 		props.load(in);
 		in.close();
 		
