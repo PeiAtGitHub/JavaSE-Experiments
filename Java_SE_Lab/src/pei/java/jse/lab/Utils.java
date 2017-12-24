@@ -12,8 +12,19 @@ import org.slf4j.LoggerFactory;
  */
 public class Utils {
 	
-	public final static Logger gLogger = LoggerFactory.getLogger("Global_Logger");
+	// some resources
+	public final static String wikipediaUrl = "https://www.wikipedia.org/";
+	public final static String wikipediaDomain = "www.wikipedia.org";
+	public final static String googleDomain = "www.google.com";
+	public final static String anOnlineXmlFileUrl = "https://www.w3schools.com/xml/note.xml";
 	
+	// local files
+	public static final String inputXmlFile = "Files/PlantsCatalog.xml";
+	public static final String inputXsdFile = "Files/PlantsCatalog.xsd";
+	
+	/*
+	 * 
+	 */
 	
     public static void printWithThreadName(String message) {
         System.out.format("%s: %s%n", Thread.currentThread().getName(), message);

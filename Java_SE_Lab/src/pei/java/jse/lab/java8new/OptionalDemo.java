@@ -1,0 +1,58 @@
+package pei.java.jse.lab.java8new;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.Optional;
+import java.util.function.Function;
+
+import org.junit.Test;
+
+/**
+ * 
+ * @author pei
+ *
+ */
+public class OptionalDemo {
+	
+	final static String str1 = "abcdefg";
+	final static String str2 = "Good day!";
+	
+	@Test
+	public void basics() {
+		
+		Optional<String> strOpt1 = Optional.of(str2);
+		try {
+			Optional.of(null);
+			fail("Should'v thrown exception.");
+		} catch (Exception e) {
+			assertTrue(e instanceof NullPointerException);
+		}
+		Optional<Object> nullOpt = Optional.ofNullable(null);
+		Optional<Object> emptyOpt = Optional.empty();
+		Optional<String> strOpt2 = strOpt1.filter(s->s.contains("morning")); // empty 
+		
+		assertTrue(strOpt1.isPresent());
+		assertFalse(strOpt2.isPresent());
+		assertFalse(emptyOpt.isPresent());
+		assertFalse(nullOpt.isPresent());
+		
+		//
+		strOpt1.ifPresent(str -> System.out.println("Optional 1 present: " + str));
+		//
+		assertTrue(strOpt1.orElse(str1).equals(str2));
+		assertTrue(strOpt2.orElse(str2).equals(str2));
+		assertTrue(strOpt2.orElseGet(()->str1).equals(str1));
+		// 
+		Function<String, String> f = ((Function<String, String>) s->s.concat(" San"))
+				.andThen(s->s.concat(" Zhang"));
+		
+		Optional<String> strOpt1Mapped = strOpt1.map(f);
+		assertTrue(strOpt1Mapped.get().equals(str2.concat( " San").concat(" Zhang")));
+
+		Optional<String> strOpt2Mapped = strOpt2.map(f);
+		assertFalse(strOpt2Mapped.isPresent());
+	}
+
+}

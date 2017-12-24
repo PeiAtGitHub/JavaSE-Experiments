@@ -1,4 +1,4 @@
-package pei.java.jse.lab.jaxb;
+package pei.java.jse.lab.xml;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +10,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import lombok.extern.slf4j.Slf4j;
-import pei.java.jse.lab.jaxb.CATALOG.PLANT;
+import pei.java.jse.lab.Utils;
+import pei.java.jse.lab.xml.CATALOG.PLANT;
 
 /**
  * 
@@ -42,9 +43,9 @@ public class JaxbDemo {
 	
 	public static void xmlToObj() throws JAXBException {
 			Unmarshaller jaxbUnmarshaller = JAXBContext.newInstance(CATALOG.class).createUnmarshaller();
-			CATALOG catalog = (CATALOG) jaxbUnmarshaller.unmarshal(new File("Files/PlantsCatalog.xml"));
-			// the 3rd plant
+			CATALOG catalog = (CATALOG) jaxbUnmarshaller.unmarshal(new File(Utils.inputXmlFile));
 			PLANT the3rdPlant = catalog.getPLANT().get(2);
+			log.info("Data about the 3rd plant:");
 			log.info(String.valueOf(the3rdPlant.getId()));
 			log.info(the3rdPlant.getCOMMON());
 			log.info(the3rdPlant.getBOTANICAL());

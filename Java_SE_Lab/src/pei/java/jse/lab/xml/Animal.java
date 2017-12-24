@@ -1,4 +1,4 @@
-package pei.java.jse.lab.jaxb;
+package pei.java.jse.lab.xml;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

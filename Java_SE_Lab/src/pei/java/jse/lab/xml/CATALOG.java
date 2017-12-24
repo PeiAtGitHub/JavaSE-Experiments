@@ -6,7 +6,7 @@
 //
 
 
-package pei.java.jse.lab.jaxb;
+package pei.java.jse.lab.xml;
 
 import java.util.ArrayList;
 import java.util.List;

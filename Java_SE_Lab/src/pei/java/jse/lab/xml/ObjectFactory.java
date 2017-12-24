@@ -6,7 +6,7 @@
 //
 
 
-package pei.java.jse.lab.jaxb;
+package pei.java.jse.lab.xml;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
