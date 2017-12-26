@@ -52,7 +52,7 @@ public class TestMethodFeatures {
 
 
 	@Test
-	public void infiniteArgs() {
+	public void testVarArgs() {
 		assertEquals(0, sum());
 		assertEquals(1, sum(1));
 		assertEquals(3, sum(1,2));
