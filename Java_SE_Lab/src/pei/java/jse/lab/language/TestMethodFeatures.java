@@ -1,16 +1,13 @@
 package pei.java.jse.lab.language;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import java.util.ArrayList;
 
 import org.junit.Test;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import pei.java.jse.lab.utils.Person;
 
 /**
  * 
@@ -23,20 +20,20 @@ public class TestMethodFeatures {
 	public void testPassingArgs() throws Exception {
 		int i = 1;
 		manipulatePrimitive(i);
-		assertTrue(i==1);
+		assertThat(i, is(1));
 
 		String s = "abc";
 		manipulateString(s);
-		assertTrue(s.equals("abc"));
+		assertThat(s, is("abc"));
 		
 		ArrayList<String> list = new ArrayList<>();
 		list.add("abc");
 		manipulateList(list);
-		assertTrue(list.toString().equals("[abc, def]"));
+		assertThat(list.toString(), is("[abc, def]"));
 		
-		Person p = new Person("AAA");
+		Person p = new Person("AAA", "AAA", 0);
 		manipulateObj(p);
-		assertTrue(p.getName().equals("BBB"));
+		assertThat(p.getFirstName(), is("BBB"));
 	}
 	
 	static private void manipulatePrimitive(int i) {
@@ -49,7 +46,7 @@ public class TestMethodFeatures {
 		list.add("def");
 	}
 	static private void manipulateObj(Person p) {
-		p.setName("BBB");
+		p.setFirstName("BBB");
 	}
 	
 
@@ -71,7 +68,3 @@ public class TestMethodFeatures {
 	}
 }
 
-@Setter @Getter @ToString @AllArgsConstructor @NoArgsConstructor
-class Person{
-	String name="";
-}
