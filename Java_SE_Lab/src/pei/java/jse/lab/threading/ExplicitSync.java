@@ -2,6 +2,7 @@ package pei.java.jse.lab.threading;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static pei.java.jse.lab.utils.Utils.*;
 
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
@@ -11,8 +12,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import org.junit.Ignore;
 import org.junit.Test;
-
-import static pei.java.jse.lab.Utils.*;
 
 /**
  * 

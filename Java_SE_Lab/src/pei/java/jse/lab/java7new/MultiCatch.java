@@ -24,7 +24,7 @@ public class MultiCatch {
 					System.out.println("About to throw Exception B");
 					throw new ExceptionB();
 				}
-			} catch (ExceptionA | ExceptionB e) {// a concise way of catching multi exceptions; 
+			} catch (ExceptionA | ExceptionB e) { 
 				assertTrue(e instanceof ExceptionA 
 						|| e instanceof ExceptionB);
 			}

@@ -1,7 +1,7 @@
 package pei.java.jse.lab.threading;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import java.util.Random;
 
@@ -40,10 +40,9 @@ public class ThreadLocalTests {
 			assertEquals(10, t1.getTlNumber());
 			assertEquals(10, t2.getTlNumber());
 
-			assertTrue((tlt.number.intValue() == 50) 
-					|| (tlt.number.intValue() == 100));
-			assertTrue((tlt.number.intValue() == t1.getNumber()) 
-					&& (t1.getNumber() == t2.getNumber()));
+			assertThat(tlt.number.intValue(), anyOf(is(50), is(100)));
+			assertThat(tlt.number.intValue(), is(t1.getNumber())); 
+			assertThat(t1.getNumber() , is(t2.getNumber())); 
 		}
 
 }

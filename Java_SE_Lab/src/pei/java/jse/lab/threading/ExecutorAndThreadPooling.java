@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 
-import pei.java.jse.lab.Utils;
+import pei.java.jse.lab.utils.Utils;
 
 /**
  * 

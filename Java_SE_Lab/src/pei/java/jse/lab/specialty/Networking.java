@@ -12,7 +12,7 @@ import java.util.Arrays;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
-import pei.java.jse.lab.Utils;
+import pei.java.jse.lab.utils.Utils;
 
 /**
  * 

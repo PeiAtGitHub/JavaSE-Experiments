@@ -1,8 +1,7 @@
 package pei.java.thirdp.lab.apachecommons;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import java.io.File;
 import java.net.URL;
@@ -69,21 +68,21 @@ public class IoFileUtilsTests {
 		Collection<File> txtFiles = FileUtils.listFiles(dir2, new String[] { "txt" }, true);
 		int count = 0;
 		while (htmlFiles.hasNext()) {
-			assertTrue(((File) htmlFiles.next()).getName().endsWith(".html"));
+			assertThat(((File) htmlFiles.next()).getName(), endsWith(".html"));
 			count++;
 		}
-		assertTrue(count == 2);
-		assertTrue(txtFiles.size() == 2);
+		assertThat(count, is(2));
+		assertThat(txtFiles.size(), is(2));
 		for (File file : txtFiles) {
-			assertTrue(file.getName().endsWith(".txt"));
+			assertThat(file.getName(), endsWith(".txt"));
 		}
 
 		FileUtils.moveDirectoryToDirectory(dir2, dir1, false);
 		// after move: dir1/dir2/dir1
 		// after move: file obj won't change! its path won't change
-		assertTrue(dir2.getPath().equals("dir2"));
+		assertThat(dir2.getPath(), is("dir2"));
 		assertFalse(dir2.exists());
-		assertTrue(file211.getPath().equals("dir2/dir1/file1.html"));
+		assertThat(file211.getPath(), is("dir2/dir1/file1.html"));
 		assertFalse(file211.exists());
 
 		// write, read
@@ -92,7 +91,7 @@ public class IoFileUtilsTests {
 		// create a new file under dir1
 		FileUtils.writeStringToFile(fileWrite, "HELLO", Charset.defaultCharset(), true);
 		FileUtils.writeStringToFile(fileWrite, "WORLD", Charset.defaultCharset(), true);
-		assertTrue(FileUtils.readLines(fileWrite, Charset.defaultCharset()).toString().equals("[HELLOWORLD]"));
+		assertThat(FileUtils.readLines(fileWrite, Charset.defaultCharset()).toString(), is("[HELLOWORLD]"));
 
 		// clean, delete dir
 		assertTrue(dir1.exists());

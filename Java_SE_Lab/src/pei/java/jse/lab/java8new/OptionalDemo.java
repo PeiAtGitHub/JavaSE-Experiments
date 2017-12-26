@@ -1,13 +1,17 @@
 package pei.java.jse.lab.java8new;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.*;
 
 import java.util.Optional;
 import java.util.function.Function;
 
 import org.junit.Test;
+
+import pei.java.jse.lab.utils.Utils;
 
 /**
  * 
@@ -23,12 +27,9 @@ public class OptionalDemo {
 	public void basics() {
 		
 		Optional<String> strOpt1 = Optional.of(str2);
-		try {
-			Optional.of(null);
-			fail("Should'v thrown exception.");
-		} catch (Exception e) {
-			assertTrue(e instanceof NullPointerException);
-		}
+		assertThat(Utils.catchException(()->Optional.of(null)), 
+				instanceOf(NullPointerException.class));
+		
 		Optional<Object> nullOpt = Optional.ofNullable(null);
 		Optional<Object> emptyOpt = Optional.empty();
 		Optional<String> strOpt2 = strOpt1.filter(s->s.contains("morning")); // empty 
@@ -41,15 +42,15 @@ public class OptionalDemo {
 		//
 		strOpt1.ifPresent(str -> System.out.println("Optional 1 present: " + str));
 		//
-		assertTrue(strOpt1.orElse(str1).equals(str2));
-		assertTrue(strOpt2.orElse(str2).equals(str2));
-		assertTrue(strOpt2.orElseGet(()->str1).equals(str1));
+		assertThat(strOpt1.orElse(str1), is(str2));
+		assertThat(strOpt2.orElse(str2), is(str2));
+		assertThat(strOpt2.orElseGet(()->str1), is(str1));
 		// 
 		Function<String, String> f = ((Function<String, String>) s->s.concat(" San"))
 				.andThen(s->s.concat(" Zhang"));
 		
 		Optional<String> strOpt1Mapped = strOpt1.map(f);
-		assertTrue(strOpt1Mapped.get().equals(str2.concat( " San").concat(" Zhang")));
+		assertThat(strOpt1Mapped.get(), is(str2.concat( " San").concat(" Zhang")));
 
 		Optional<String> strOpt2Mapped = strOpt2.map(f);
 		assertFalse(strOpt2Mapped.isPresent());

@@ -1,7 +1,7 @@
 package pei.java.jse.lab.systemAndRuntime;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -41,11 +41,11 @@ public class FileSystemTests {
 		// the output depends on the OS u run this
 		// TODO: i'v never verified this test on windows OS
 		if(System.getProperties().getProperty("os.name").matches(".*Linux.*")) {
-			assertTrue(Paths.get("/what/ever/path/aFile.txt").getFileName().toString()
-					.equals("aFile.txt"));
+			assertThat(Paths.get("/what/ever/path/aFile.txt").getFileName().toString(),
+					is("aFile.txt"));
 		}else if(System.getProperties().getProperty("os.name").matches(".*Windows.*")){
-			assertTrue(Paths.get("C:\\what\\ever\\path\\aFile.txt").getFileName().toString()
-					.equals("aFile.txt"));
+			assertThat(Paths.get("C:\\what\\ever\\path\\aFile.txt").getFileName().toString(),
+					is("aFile.txt"));
 		}else {
 			fail("The test currently does not support OS besides Linux and Windows.");
 		}

@@ -1,7 +1,8 @@
 package pei.java.jse.lab.language;
 
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-
+import static org.hamcrest.CoreMatchers.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -28,17 +29,16 @@ public class ReflectionTests {
 		HashMap<?, ?> aHashMap = new HashMap<>();
 		LinkedHashMap<?, ?> aLinkedHashMap = new LinkedHashMap<>();
 		//
-		assertTrue(aLinkedHashMap instanceof HashMap);
-		assertTrue(aLinkedHashMap instanceof LinkedHashMap);
-		assertTrue(aLinkedHashMap.getClass().getName().equals("java.util.LinkedHashMap"));
-		assertTrue(aHashMap.getClass().getName().equals("java.util.HashMap"));
+		assertThat(aLinkedHashMap, instanceOf(HashMap.class));
+		assertThat(aLinkedHashMap, instanceOf(LinkedHashMap.class));
+		assertThat(aLinkedHashMap.getClass().getName(), is("java.util.LinkedHashMap"));
+		assertThat(aHashMap.getClass().getName(), is("java.util.HashMap"));
 
 		System.out.println("intanceofclass() Finished.");
 	}
 	
 	@Test
-	public void  testReflections()throws ClassNotFoundException,
-	InstantiationException, IllegalAccessException {
+	public void  testReflections()throws Exception {
 		
 		Class<?> classObj = Class.forName("pei.java.jse.lab.language.ReflectionTests", 
 					false, Thread.currentThread().getContextClassLoader());

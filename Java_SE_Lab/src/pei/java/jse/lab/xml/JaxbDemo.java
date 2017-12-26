@@ -10,7 +10,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import lombok.extern.slf4j.Slf4j;
-import pei.java.jse.lab.Utils;
+import pei.java.jse.lab.utils.Utils;
 import pei.java.jse.lab.xml.CATALOG.PLANT;
 
 /**

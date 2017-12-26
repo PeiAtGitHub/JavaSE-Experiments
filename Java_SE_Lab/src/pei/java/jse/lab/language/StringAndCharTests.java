@@ -2,8 +2,10 @@ package pei.java.jse.lab.language;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.*;
 
 import java.io.NotActiveException;
 import java.util.Random;
@@ -11,6 +13,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.junit.Test;
+
+import pei.java.jse.lab.utils.Utils;
 
 /**
  * 
@@ -32,17 +36,13 @@ public class StringAndCharTests {
 		assertEquals(7, str.indexOf(";", 4));
 		assertEquals(-1, str.indexOf("abc"));
 
-		assertTrue(str.substring(0, 2).equals("1,"));
-		assertTrue(str.substring(0).equals(str));
-		assertTrue(str.substring(str.length() - 1).equals(";"));
+		assertThat(str.substring(0, 2), is("1,"));
+		assertThat(str.substring(0), is(str));
+		assertThat(str.substring(str.length() - 1), is(";"));
 		assertTrue(str.substring(str.length()).isEmpty()); // this behavior, i think, makes no sense
 
-		try {
-			str.substring(str.length() + 1);
-			fail("Should'v thrown IndexOutOfBoundsException.");
-		} catch (Exception e) {
-			assertTrue(e instanceof IndexOutOfBoundsException);
-		}
+		assertThat(Utils.catchException(()->str.substring(str.length() + 1)),
+				instanceOf(IndexOutOfBoundsException.class));
 	}
 
 	@Test
@@ -67,7 +67,7 @@ public class StringAndCharTests {
 		String[] splitted = str.split("$"); // when the string does not contain the splitter
 		// the entire string itself is the only resulted element
 		assertEquals(1, splitted.length);
-		assertTrue(splitted[0].equals(str));
+		assertThat(splitted[0], is(str));
 	}
 
 	@Test
@@ -85,9 +85,9 @@ public class StringAndCharTests {
 
 	@Test
 	public void demoOfSpecialChars() {
-		assertTrue(String.format("\u007C").equals("|"));
-		assertTrue(String.format("\u00F1").equals("ñ"));
-		assertTrue(String.format("\\u007C").equals("\\u007C"));
+		assertThat(String.format("\u007C"), is("|"));
+		assertThat(String.format("\u00F1"), is("ñ"));
+		assertThat(String.format("\\u007C"), is("\\u007C"));
 
 		String first = "AAA\r\nBBB\r\nCCC\r\n";
 		String second = "AAA\nBBB\nCCC\n";
@@ -134,13 +134,13 @@ public class StringAndCharTests {
 		switch (regex) {
 		case greedy:
 			assertTrue(matcher.group().equals("abc-xxxxx-abbbc-ac"));
-			assertEquals(0, matcher.start());
-			assertEquals(18, matcher.end());
+			assertThat(matcher.start(), is(0));
+			assertThat(matcher.end(), is(18));
 			break;
 		case reluctant:
-			assertTrue(matcher.group().equals("abc"));
-			assertEquals(0, matcher.start());
-			assertEquals(3, matcher.end());
+			assertThat(matcher.group(), is("abc"));
+			assertThat(matcher.start(), is(0));
+			assertThat(matcher.end(), is(3));
 			break;
 		default:
 			break;
@@ -152,7 +152,7 @@ public class StringAndCharTests {
 			assertFalse(found);
 			break;
 		case reluctant:
-			assertTrue(matcher.group().equals("abbbc"));
+			assertThat(matcher.group(), is("abbbc"));
 			assertEquals(10, matcher.start());
 			assertEquals(15, matcher.end());
 			break;
@@ -181,7 +181,7 @@ public class StringAndCharTests {
 		Matcher matcher = Pattern.compile("First Name:(.*?); Last Name:")
 				.matcher("First Name: Three; Last Name: Zhang");
 		if (matcher.find()) {
-			assertTrue(matcher.group(1).trim().equals("Three"));
+			assertThat(matcher.group(1).trim(), is("Three"));
 		} else {
 			fail("Should have a match...");
 		}
@@ -192,22 +192,22 @@ public class StringAndCharTests {
 		final String theStr = "111,aaa,bbb,,ccc";
 		String delimiter = ",";
 		
-		assertTrue(getSubString(theStr, delimiter, 2, 3).equals("bbb"));
-		assertTrue(getSubString(theStr, delimiter, 2, 4).equals("bbb,"));
-		assertTrue(getSubString(theStr, delimiter, 3, 4).equals(""));
-		assertTrue(getSubString(theStr, delimiter, 0, 2).equals("111,aaa"));
-		assertTrue(getSubString(theStr, delimiter, 0, 100).equals(""));
+		assertThat(getSubString(theStr, delimiter, 2, 3), is("bbb"));
+		assertThat(getSubString(theStr, delimiter, 2, 4), is("bbb,"));
+		assertThat(getSubString(theStr, delimiter, 3, 4), is(""));
+		assertThat(getSubString(theStr, delimiter, 0, 2), is("111,aaa"));
+		assertThat(getSubString(theStr, delimiter, 0, 100), is(""));
 		// unusual edge cases
-		assertTrue(getSubString(theStr, delimiter, 1, 1).equals(""));
-		assertTrue(getSubString(theStr, delimiter, 100, 100).equals(""));
-		assertTrue(getSubString(theStr, delimiter, 2, 1).equals(""));
-		assertTrue(getSubString(theStr, delimiter, 2, -1).equals(""));
-		assertTrue(getSubString(theStr, delimiter, -2, -1).equals(""));
-		assertTrue(getSubString(theStr, delimiter, -2, -2).equals(""));
-		assertTrue(getSubString(theStr, delimiter, -1, -2).equals(""));
-		assertTrue(getSubString(theStr, delimiter, -1, 2).equals("111,aaa"));
-		assertTrue(getSubString(theStr, delimiter, -2, 2).equals("111,aaa"));
-		assertTrue(getSubString(theStr, delimiter, -2, 100).equals(""));
+		assertThat(getSubString(theStr, delimiter, 1, 1), is(""));
+		assertThat(getSubString(theStr, delimiter, 100, 100), is(""));
+		assertThat(getSubString(theStr, delimiter, 2, 1), is(""));
+		assertThat(getSubString(theStr, delimiter, 2, -1), is(""));
+		assertThat(getSubString(theStr, delimiter, -2, -1), is(""));
+		assertThat(getSubString(theStr, delimiter, -2, -2), is(""));
+		assertThat(getSubString(theStr, delimiter, -1, -2), is(""));
+		assertThat(getSubString(theStr, delimiter, -1, 2), is("111,aaa"));
+		assertThat(getSubString(theStr, delimiter, -2, 2), is("111,aaa"));
+		assertThat(getSubString(theStr, delimiter, -2, 100), is(""));
 	}
 
 	/*

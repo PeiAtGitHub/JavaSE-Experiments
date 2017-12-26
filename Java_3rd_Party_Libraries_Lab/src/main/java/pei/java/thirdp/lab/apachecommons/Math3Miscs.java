@@ -1,6 +1,7 @@
 package pei.java.thirdp.lab.apachecommons;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import java.util.Random;
 
@@ -10,6 +11,7 @@ import org.apache.commons.math3.util.ArithmeticUtils;
 import org.junit.Test;
 
 import lombok.extern.slf4j.Slf4j;
+import pei.java.thirdp.lab.utils.Utils;
 
 /**
  * 
@@ -35,19 +37,11 @@ public class Math3Miscs {
 	
 	@Test
 	public void arithmeticTest() throws Exception {
-		try {
-			ArithmeticUtils.addAndCheck(Integer.MAX_VALUE, 1);
-			fail("Add should'v caused overflow.");
-		} catch (Exception e) {
-			assertTrue(e instanceof MathArithmeticException);
-		}
-		
-		try {
-			ArithmeticUtils.subAndCheck(Integer.MIN_VALUE, 1);
-			fail("Sub should'v caused overflow.");
-		} catch (Exception e) {
-			assertTrue(e instanceof MathArithmeticException);
-		}
+		// overflows
+		assertThat(Utils.catchException(()->ArithmeticUtils.addAndCheck(Integer.MAX_VALUE, 1)),
+				instanceOf(MathArithmeticException.class));
+		assertThat(Utils.catchException(()->ArithmeticUtils.subAndCheck(Integer.MIN_VALUE, 1)),
+				instanceOf(MathArithmeticException.class));
 		
 	}
 }

@@ -3,7 +3,7 @@ package pei.java.jse.lab.threading;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static pei.java.jse.lab.Utils.printWithThreadName;
+import static pei.java.jse.lab.utils.Utils.printWithThreadName;
 
 import org.junit.Test;
 

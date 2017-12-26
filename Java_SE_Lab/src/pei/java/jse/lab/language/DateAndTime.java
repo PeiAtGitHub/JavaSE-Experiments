@@ -1,8 +1,9 @@
 package pei.java.jse.lab.language;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-
+import static org.hamcrest.CoreMatchers.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -26,7 +27,7 @@ public class DateAndTime {
 				+ " or later than 2286.Nov.20, ",
 				13, String.valueOf(System.currentTimeMillis()).length());
 
-		assertTrue((System.nanoTime() - nanoTime1) > 0);
+		assertTrue((System.nanoTime() - nanoTime1)  > 0);
 	}
 
 	@Test
@@ -37,7 +38,7 @@ public class DateAndTime {
 		Date date = calendar.getTime();
 		
 		// get a human readable text
-		assertTrue(date.toString().equals("Sat Nov 20 18:46:39 CET 2286"));
+		assertThat(date.toString(), is("Sat Nov 20 18:46:39 CET 2286"));
 		
 		assertEquals(THE_MAX_13_DIGIT_NUMBER , calendar.getTimeInMillis());
 		assertEquals(2286, calendar.get(Calendar.YEAR));
@@ -49,7 +50,7 @@ public class DateAndTime {
 		assertEquals(6, calendar.get(Calendar.HOUR));
 	
 		// Representation
-		assertTrue(calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US).equals("Nov"));
+		assertThat(calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US), is("Nov"));
 		
 		// Manipulation
 		calendar.add(Calendar.DATE, 100); // after 100 days 
@@ -62,7 +63,6 @@ public class DateAndTime {
 		System.out.format("%tY-%tm-%td%n", calendar, calendar, calendar);// 2287-02-28
 		System.out.format("%tD%n", calendar); // 02/28/87
 
-		
 	}
 
 }

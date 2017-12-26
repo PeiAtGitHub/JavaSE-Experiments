@@ -8,6 +8,8 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+import pei.java.jse.lab.utils.Person;
+
 /**
  * 
  * @author pei
@@ -29,7 +31,7 @@ public class LambdaExpressionDemos {
 				new Person("Wu", "Wang", 80));
 		// 
 		System.out.println("Sort by Last Name:");
-		Collections.sort(persons, (p1, p2)->p1.getLn().compareTo(p2.getLn()));
+		Collections.sort(persons, (p1, p2)->p1.getLastName().compareTo(p2.getLastName()));
 		System.out.println(persons);
 		// 
 		System.out.println("Sort by Age:");
@@ -84,52 +86,3 @@ public class LambdaExpressionDemos {
 
 }
 
-
-/*
- * 
- */
-
-class Person {
-	String fn = "";
-	String ln = "";
-	int age = 0;
-
-	public Person(String fn, String ln, int age) {
-		super();
-		this.fn = fn;
-		this.ln = ln;
-		this.age = age;
-	}
-
-	public String getFn() {
-		return fn;
-	}
-
-	public void setFn(String fn) {
-		this.fn = fn;
-	}
-
-	public String getLn() {
-		return ln;
-	}
-
-	public void setLn(String ln) {
-		this.ln = ln;
-	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-
-	@Override
-	public String toString() {
-		return String.format("[%s, %s, %d]", fn, ln, age);
-
-	}
-
-
-}

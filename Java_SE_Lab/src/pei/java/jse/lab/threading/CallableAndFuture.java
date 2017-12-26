@@ -2,6 +2,7 @@ package pei.java.jse.lab.threading;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -13,6 +14,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import org.junit.Test;
+
+import pei.java.jse.lab.utils.Utils;
 
 /**
  * A Future represents the result of an asynchronous computation.
@@ -46,12 +49,13 @@ public class CallableAndFuture {
 		future = Executors.newCachedThreadPool().submit(theTask);
 		try {
 			future.get(3, TimeUnit.SECONDS);
+			fail(Utils.SHOULD_THROW_EXCEPTION);
 		} catch (Exception e) {
 			assertTrue(e instanceof TimeoutException);
-			future.cancel(true);
-			assertTrue(future.isCancelled());
-			assertTrue(future.isDone());
 		}
+		future.cancel(true);
+		assertTrue(future.isCancelled());
+		assertTrue(future.isDone());
 	}
 }
 
