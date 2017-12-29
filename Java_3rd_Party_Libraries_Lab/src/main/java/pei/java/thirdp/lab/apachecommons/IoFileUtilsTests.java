@@ -2,6 +2,7 @@ package pei.java.thirdp.lab.apachecommons;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static pei.java.thirdp.lab.utils.Utils.*;
 
 import java.io.File;
 import java.net.URL;
@@ -33,7 +34,6 @@ public class IoFileUtilsTests {
 	static File file211 = new File("dir2/dir1/file1.html");
 	static File file212 = new File("dir2/dir1/file2.txt");
 
-	static final String ACIO_MAIN_PAGE = "https://commons.apache.org/proper/commons-io/index.html";
 
 	@Test
 	public void testFileUtils() throws Exception {
@@ -50,7 +50,7 @@ public class IoFileUtilsTests {
 		FileUtils.deleteDirectory(dir1);
 		assertTrue(dir1.mkdir());
 		assertTrue(dir1.listFiles().length == 0);
-		FileUtils.copyURLToFile(new URL(ACIO_MAIN_PAGE), file11);
+		FileUtils.copyURLToFile(new URL(APACHE_COMMONS_IO_MAIN_PAGE), file11);
 		Thread.sleep(1000);
 		FileUtils.copyFile(file11, file12, false);
 		assertTrue(FileUtils.isFileNewer(file12, file11));

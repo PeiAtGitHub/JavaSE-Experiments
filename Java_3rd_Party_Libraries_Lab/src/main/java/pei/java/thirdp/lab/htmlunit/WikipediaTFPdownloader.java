@@ -1,7 +1,7 @@
 package pei.java.thirdp.lab.htmlunit;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static pei.java.thirdp.lab.utils.Utils.*;
 
 import java.io.File;
 import java.net.URL;
@@ -24,7 +24,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public class WikipediaTFPdownloader {
 
-	final static String wikipediaMainPageURL = "https://en.wikipedia.org/wiki/Main_Page";
 	final static String tfpDownloadDir = "downloads" + File.separator + "TFP";
 
 	/**
@@ -35,7 +34,7 @@ public class WikipediaTFPdownloader {
 	public void testDownLoadTfp() throws Exception {
 		WebClient webClient = new WebClient();
 		try {
-			HtmlPage mainPage = webClient.getPage(wikipediaMainPageURL);
+			HtmlPage mainPage = webClient.getPage(WIKIPEDIA_MAIN_PAGE_URL);
 
 			// click the image element to open image details page
 			HtmlElement tfpElement = mainPage.getHtmlElementById("mp-tfp").getElementsByTagName("img").get(0);

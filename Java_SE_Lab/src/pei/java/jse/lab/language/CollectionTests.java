@@ -1,13 +1,6 @@
 package pei.java.jse.lab.language;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -124,7 +117,7 @@ public class CollectionTests {
 	}
 
 	@Test
-	public void arrayFeatures() {
+	public void arrayDefaults() {
 		int n = 3;
 		
 		long[] longArr = new long[n];
@@ -137,7 +130,6 @@ public class CollectionTests {
 			assertNull(strArr[i]);
 			assertFalse(booleanArr[i]);
 		}
-		
 				
 	}
 	
