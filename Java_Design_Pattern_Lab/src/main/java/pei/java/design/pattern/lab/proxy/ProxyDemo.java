@@ -1,5 +1,7 @@
 package pei.java.design.pattern.lab.proxy;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 
  * @author pei
@@ -21,16 +23,17 @@ interface Image {
     void displayImage();
 }
 //
+@Slf4j
 class RealImage implements Image {
     private String filename;
  
     public RealImage(String filename) { 
         this.filename = filename;
-        System.out.println("Loading   " + this.filename);
+        log.info("Loading {}", this.filename);
     }
  
     public void displayImage() { 
-        System.out.println("Displaying " + this.filename); 
+    	log.info("Displaying {}", this.filename); 
     }
 }
 //

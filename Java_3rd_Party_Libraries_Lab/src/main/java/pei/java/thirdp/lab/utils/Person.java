@@ -22,4 +22,12 @@ public class Person {
 	int age;
 	Gender gender;
 	
+	//
+	public Person(String firstName) {
+		super();
+		this.firstName = firstName;
+	}
+	
+	
+	
 }

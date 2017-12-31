@@ -13,7 +13,6 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 
 import pei.java.thirdp.lab.utils.Person;
-import pei.java.thirdp.lab.utils.Utils;
 
 
 
@@ -46,12 +45,12 @@ public class BaseDemos {
 	
 	@Test
 	public void testPreconditions() throws Exception {
-		Person zhang = new Person(FIRST_NAME, LAST_NAME, 50, Person.Gender.MALE);
+		Person person = new Person(FIRST_NAME, LAST_NAME, 50, Person.Gender.MALE);
 		
-		System.out.println(checkNotNull(zhang).toString());
+		System.out.println(checkNotNull(person).toString());
 		
-		checkState(zhang.getAge()>30);
-		assertThat(Utils.catchException(()->Preconditions.checkState(((Person) zhang).getAge()<30)),
+		checkState(person.getAge()>30);
+		assertThat(catchException(()->Preconditions.checkState(((Person) person).getAge()<30)),
 				instanceOf(IllegalStateException.class));
 	}
 }

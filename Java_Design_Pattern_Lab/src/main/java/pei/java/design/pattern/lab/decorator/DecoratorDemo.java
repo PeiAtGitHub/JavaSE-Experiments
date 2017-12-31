@@ -1,5 +1,6 @@
 package pei.java.design.pattern.lab.decorator;
 
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
@@ -19,56 +20,56 @@ public class DecoratorDemo {
 		//
 		(new VerticalScrollBarDecorator(new VerticalScrollBarDecorator(new SimpleWindow())))
 		.draw();
-		
 	}
-	
-	
 }
 
-/*
- * 
- */
+//
 interface Window {
 	public void draw(); 
 }
 
+@Slf4j
 class SimpleWindow implements Window {
+	
 	public void draw() {
-		System.out.println("A simple window to be decorated.");
+		log.info("A simple window to be decorated.");
 	}
 }
 
-/*
- * Below two decorators could extract an abstract class which
- * implements the interface and be inherited by the below two decorators.
- * But to make things simpler, I don't introduce one more layer of complexity 
- * in this demo.
- */
-class VerticalScrollBarDecorator implements Window{
-	
+abstract class WindowDecorator implements Window {
+
 	protected Window window; // the Window to be decorated
+
+	public WindowDecorator(Window window) {
+		this.window = window;
+	}
+	
+	public abstract void draw();
+}
+
+@Slf4j
+class VerticalScrollBarDecorator extends WindowDecorator{
 
 	public VerticalScrollBarDecorator(Window window) {
-		this.window = window;
+		super(window);
 	}
 
 	public void draw() {
 		this.window.draw();
-		System.out.println("AND here's a Vertical Scroll Bar.");
+		log.info("AND here's a Vertical Scroll Bar.");
 	}
 }
 
-class HorizontalScrollBarDecorator implements Window {
+@Slf4j
+class HorizontalScrollBarDecorator extends WindowDecorator{
 	
-	protected Window window; // the Window to be decorated
-
 	public HorizontalScrollBarDecorator(Window window) {
-		this.window = window;
+		super(window);
 	}
 
 	public void draw() {
 		this.window.draw();
-		System.out.println("AND here's a Horizontal Scroll Bar.");
+		log.info("AND here's a Horizontal Scroll Bar.");
 	}
 }
 
