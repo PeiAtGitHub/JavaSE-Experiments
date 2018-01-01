@@ -29,5 +29,8 @@ public class Person {
 	}
 	
 	
+	public String getFullName() {
+		return this.firstName + " " + this.lastName;
+	}
 	
 }
