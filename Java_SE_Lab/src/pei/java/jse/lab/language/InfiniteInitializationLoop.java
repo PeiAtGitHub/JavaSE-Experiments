@@ -5,7 +5,6 @@ public class InfiniteInitializationLoop {
 	
 	public String str= new String("I am a string");
 	
-	// the class has a member object of its own type
 	public InfiniteInitializationLoop stupid = new InfiniteInitializationLoop();
 	
 	static public void main(String args[]){

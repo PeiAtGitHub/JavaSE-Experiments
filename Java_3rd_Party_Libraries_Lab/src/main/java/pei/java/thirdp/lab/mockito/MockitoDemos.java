@@ -116,8 +116,8 @@ public class MockitoDemos {
       public void regiesterCustomers() {
     	  List<Customer> customers = Lists.newArrayList(
     			  new Customer(FIRST_NAME, LAST_NAME),
-    			  new Customer(TOM, TOM),
-    			  new Customer(JERRY, JERRY));
+    			  new Customer(TOM, CAT),
+    			  new Customer(JERRY, MOUSE));
     	  
           doAnswer(invocation -> {
         	  Customer customer = invocation.getArgument(0);

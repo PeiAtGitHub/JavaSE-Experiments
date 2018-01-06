@@ -34,8 +34,7 @@ public class TestTimer {
 
 }
 
-// TimerTask implemented Runnable
-class Task extends TimerTask {
+class Task extends TimerTask {// TimerTask implemented Runnable
 	
 	private String taskName;
 	private int runCounter = 0;

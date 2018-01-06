@@ -50,10 +50,7 @@ public class CollectionDemos {
 
 		assertThat(Sets.combinations(set1, 2).size(), is(3));
 		//
-		EnumSet<SolarPlanet> onlyEarth = Sets.newEnumSet(Sets.newHashSet(EARTH)
-				, SolarPlanet.class);
-		assertThat(onlyEarth.size(), is(1));
-		EnumSet<SolarPlanet> otherPlanets = Sets.complementOf(onlyEarth);
+		EnumSet<SolarPlanet> otherPlanets = Sets.complementOf(EnumSet.of(EARTH));
 		assertThat(otherPlanets.size(), is(7));
 		assertThat(otherPlanets, not(hasItem(EARTH)));
 		assertThat(otherPlanets, hasItems(MARS, SATURN, VENUS, NEPTUNE, JUPITER, URANUS, MERCURY));

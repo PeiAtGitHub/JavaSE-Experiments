@@ -37,7 +37,6 @@ public class DateAndTime {
 		calendar.setTimeInMillis(THE_MAX_13_DIGIT_NUMBER ); 
 		Date date = calendar.getTime();
 		
-		// get a human readable text
 		assertThat(date.toString(), is("Sat Nov 20 18:46:39 CET 2286"));
 		
 		assertEquals(THE_MAX_13_DIGIT_NUMBER , calendar.getTimeInMillis());
