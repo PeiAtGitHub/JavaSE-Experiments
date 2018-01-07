@@ -1,6 +1,8 @@
 package pei.java.jse.lab.java7new;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
+import static pei.java.jse.lab.utils.Utils.*;
 
 import org.junit.Test;
 
@@ -15,19 +17,18 @@ public class SwitchTakesString {
 		/*
 		 * Since Java 7 the good old 'switch' takes a string
 		 */
-		String name = "Pei";
-		String thisIsMe = "This is me.";
-		String msg = null;
+		String name = TOM;
+		String msg = MOUSE;
 		
 		switch (name) {
-		case "Pei":
-			msg = thisIsMe;
+		case TOM:
+			msg = CAT;
 			break;
 		default:
 			break;
 		}
 
-		assertTrue(msg.equals(thisIsMe));
+		assertThat(msg, is(CAT));
 	}
 	
 }

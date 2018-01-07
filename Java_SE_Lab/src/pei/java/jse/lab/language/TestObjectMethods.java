@@ -20,10 +20,10 @@ public class TestObjectMethods {
 		Computer computer2 = computer1.clone();
 		
 		assertNotSame(computer1, computer2);
-		// the default clone() is just a SHALLOW copy
+		// the default clone() is a SHALLOW copy
 		assertSame(computer1.cpu, computer2.cpu);
 		assertSame(computer1.name, computer2.name);
-		// but primitives are independent
+		// primitives are independent
 		computer1.memoryGB = 16;
 		assertEquals(16, computer1.memoryGB);
 		assertEquals(8, computer2.memoryGB);

@@ -9,9 +9,22 @@ package pei.java.jse.lab.utils;
  *
  */
 public class Utils {
-	//
-	public final static String SHOULD_THROW_EXCEPTION = "Should'v thrown exception.";
+	// Some commonly used strings
+	public final static String FIRST_NAME = "FirstName";
+	public final static String LAST_NAME = "LastName";
 	
+	public final static String ABC = "abc";
+	public final static String DEF = "def";
+	public final static String GHI = "ghi";
+	public final static String TOM = "TOM";
+	public final static String DORAEMON = "DORAEMON";
+	public final static String CAT = "CAT";
+	public final static String JERRY = "JERRY";
+	public final static String MICKEY = "MICKEY";
+	public final static String MOUSE = "MOUSE";
+
+	public final static String SHOULD_THROW_EXCEPTION = "Should'v thrown exception.";
+
 	// some resources
 	public final static String wikipediaUrl = "https://www.wikipedia.org/";
 	public final static String wikipediaDomain = "www.wikipedia.org";
