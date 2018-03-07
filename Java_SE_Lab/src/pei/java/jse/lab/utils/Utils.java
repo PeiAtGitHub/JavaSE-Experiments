@@ -1,5 +1,8 @@
 package pei.java.jse.lab.utils;
 
+import java.text.DecimalFormat;
+
+import org.apache.commons.io.FileUtils;
 
 /**
  * 
@@ -54,6 +57,34 @@ public class Utils {
 			return e;
 		}
 	}
+    
+    /**
+     * FileUtils.byteCountToDisplaySize() rounds down to integer numbers
+     * 
+     * This method keep 1 digit after decimal point
+     * 
+     * @param numOfBytes
+     * @return
+     */
+    
+    public static String bytesToReadable(double numOfBytes) {
+		
+    	if (numOfBytes < 0) {
+			throw new IllegalArgumentException("Number of bytes must bigger than or equal to 0.");
+		}
+		
+		DecimalFormat df = new DecimalFormat("#.#");
+
+		if (numOfBytes >= FileUtils.ONE_GB) {
+			return df.format(numOfBytes / FileUtils.ONE_GB) + " GB";
+		} else if (numOfBytes >= FileUtils.ONE_MB) {
+			return df.format(numOfBytes / FileUtils.ONE_MB) + " MB";
+		} else if (numOfBytes >= FileUtils.ONE_KB) {
+			return df.format(numOfBytes / FileUtils.ONE_KB) + " KB";
+		} else {
+			return df.format(numOfBytes) + " Bytes";
+		}
+    }
 
 
 }

@@ -1,6 +1,7 @@
 package pei.java.jse.lab.systemAndRuntime;
 
 import static org.junit.Assert.*;
+import static pei.java.jse.lab.utils.Utils.*;
 import static org.hamcrest.CoreMatchers.*;
 
 import java.io.File;
@@ -26,9 +27,15 @@ public class FileSystemTests {
 		assertTrue(roots.length > 0);
 		log.info("FS roots: {}", Arrays.toString(roots));
 		log.info("Abs Path: {}", roots[0].getAbsolutePath());
-		log.info("Total Space: {}", FileUtils.byteCountToDisplaySize(roots[0].getTotalSpace()));
-		log.info("Free Space: {}", FileUtils.byteCountToDisplaySize(roots[0].getFreeSpace()));
-		log.info("Usable Space: {}", FileUtils.byteCountToDisplaySize(roots[0].getUsableSpace()));
+		log.info("Total Space: {} or {}"
+				, FileUtils.byteCountToDisplaySize(roots[0].getTotalSpace())
+				, bytesToReadable(roots[0].getTotalSpace()));
+		log.info("Free Space: {} or {}"
+				, FileUtils.byteCountToDisplaySize(roots[0].getFreeSpace())
+				, bytesToReadable(roots[0].getFreeSpace()));
+		log.info("Usable Space: {} or {}"
+				, FileUtils.byteCountToDisplaySize(roots[0].getUsableSpace())
+				, bytesToReadable(roots[0].getUsableSpace()));
 		
 		log.info("File.pathSeparator: {}", File.pathSeparator);
 		log.info("File.separator: {}", File.separator);

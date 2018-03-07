@@ -11,6 +11,7 @@ import org.apache.commons.io.comparator.SizeFileComparator;
 import org.junit.Test;
 
 import lombok.extern.slf4j.Slf4j;
+import static pei.java.thirdp.lab.utils.Utils.*;
 
 /**
  * 
@@ -31,8 +32,9 @@ public class IoMiscs {
 		
 		Collections.sort((List<File>)files, new SizeFileComparator());
 		log.info("---Downloaded files after sorting by SIZE:---");
-		files.forEach(f-> log.info("{}({}):{}" 
+		files.forEach(f-> log.info("{} or {} ({}):{}" 
 				,FileUtils.byteCountToDisplaySize(FileUtils.sizeOf(f)) 
+				,bytesToReadable(FileUtils.sizeOf(f))
 				,FileUtils.sizeOf(f), f.getName()));
 	}
 }

@@ -9,7 +9,6 @@ import java.util.Random;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 
 import pei.java.thirdp.lab.utils.Utils;

@@ -59,7 +59,7 @@ public class DateAndTime {
 		
 		// Output formatting
 		// Format method has features particularly for calendar 
-		System.out.format("%tY-%tm-%td%n", calendar, calendar, calendar);// 2287-02-28
+		System.out.format("%1$tY-%1$tm-%1$td%n", calendar);// 2287-02-28
 		System.out.format("%tD%n", calendar); // 02/28/87
 
 	}
