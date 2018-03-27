@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import lombok.AllArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -18,30 +19,41 @@ import lombok.Setter;
  */
 public class MediatorDemo {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		JPanel p = new JPanel();
-    	Mediator med = new Mediator();
-    	BtnActionListener bal = new BtnActionListener();
-    	p.add(new BtnView(bal, med));
-    	p.add(new BtnBook(bal, med));
-    	p.add(new BtnSearch(bal, med));
-    	//
-    	JFrame jfr = new JFrame();
-    	jfr.getContentPane().add(new TextDisplay(med), "North");
-    	jfr.getContentPane().add(p, "South");
-    	jfr.setBounds(500, 300, 300, 300);
-    	jfr.setVisible(true);
+        BtnActionListener bal = new BtnActionListener();
+        
+        BtnView btnView = new BtnView(bal);
+        BtnBook btnBook = new BtnBook(bal);
+        BtnSearch btnSearch = new BtnSearch(bal);
+        TextDisplay textDisplay = new TextDisplay();
+        
+        Mediator med = new Mediator(textDisplay, btnView, btnSearch, btnBook);
+        
+        btnView.setMediator(med);
+        btnSearch.setMediator(med);
+        btnBook.setMediator(med);
+        
+        JPanel p = new JPanel();
+		p.add(btnView);
+		p.add(btnBook);
+		p.add(btnSearch);
+        //
+        JFrame jfr = new JFrame();
+		jfr.getContentPane().add(textDisplay, "North");
+        jfr.getContentPane().add(p, "South");
+        jfr.setBounds(500, 300, 300, 300);
+        jfr.setVisible(true);
     }
 }
 
  
-@Setter
+@AllArgsConstructor
 class Mediator {
  
-	TextDisplay textDisplay;
+    TextDisplay textDisplay;
 
-	BtnView btnView;
+    BtnView btnView;
     BtnSearch btnSearch;
     BtnBook btnBook;
  
@@ -71,72 +83,66 @@ class Mediator {
  * Colleague interface
  */
 interface Command {
-    void execute();
+    
+    public void execute();
 }
 
 /*
- * Colleague impl
+ * Colleagues impls
  */
 class TextDisplay extends JLabel {
-	
-	Mediator med;
-	
-	TextDisplay(Mediator m) {
-		super("Just start...");
-		med = m;
-		med.setTextDisplay(this);
-		setFont(new Font("Arial", Font.BOLD, 26));
-	}
-	
+
+    TextDisplay() {
+        super("Just start...");
+        setFont(new Font("Arial", Font.BOLD, 26));
+    }
+    
 }
 
 class BtnView extends JButton implements Command {
- 
-    Mediator med;
- 
-    BtnView(ActionListener al, Mediator m) {
+
+	@Setter
+    Mediator mediator;
+
+    BtnView(ActionListener al) {
         super("View");
         addActionListener(al);
-        med = m;
-        med.setBtnView(this);
     }
  
     public void execute() {
-        med.view();
+        mediator.view();
     }
  
 }
  
 class BtnSearch extends JButton implements Command {
  
-    Mediator med;
- 
-    BtnSearch(ActionListener al, Mediator m) {
+    @Setter
+    Mediator mediator;
+
+    BtnSearch(ActionListener al) {
         super("Search");
         addActionListener(al);
-        med = m;
-        med.setBtnSearch(this);
     }
  
     public void execute() {
-        med.search();
+        mediator.search();
     }
  
 }
  
 class BtnBook extends JButton implements Command {
  
-    Mediator med;
- 
-    BtnBook(ActionListener al, Mediator m) {
+    @Setter
+    Mediator mediator;
+
+    BtnBook(ActionListener al) {
         super("Book");
         addActionListener(al);
-        med = m;
-        med.setBtnBook(this);
     }
  
     public void execute() {
-        med.book();
+        mediator.book();
     }
  
 }
