@@ -17,13 +17,13 @@ import pei.java.jse.lab.utils.Utils;
 public class ObjectsUtils {
 
 
-	@Test
-	public void testNullnessChecking(){
-		// Null checking made one liner.
-		Exception e = Utils.catchException(()->Objects.requireNonNull(null, "Sth is null!"));
-		assertTrue(e instanceof NullPointerException);
-		assertTrue(e.getMessage().equals("Sth is null!"));
-						
-	}
+    @Test
+    public void testNullnessChecking(){
+        // Null checking made one liner.
+        Exception e = Utils.catchException(()->Objects.requireNonNull(null, "Sth is null!"));
+        assertTrue(e instanceof NullPointerException);
+        assertTrue(e.getMessage().equals("Sth is null!"));
+                        
+    }
 
 }

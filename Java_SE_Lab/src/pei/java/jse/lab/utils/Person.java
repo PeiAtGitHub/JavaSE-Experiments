@@ -13,8 +13,8 @@ import lombok.ToString;
 @Setter @Getter @AllArgsConstructor @ToString
 public class Person {
 
-	String firstName = "";
-	String lastName = "";
-	int age = 0;
+    String firstName = "";
+    String lastName = "";
+    int age = 0;
 
 }

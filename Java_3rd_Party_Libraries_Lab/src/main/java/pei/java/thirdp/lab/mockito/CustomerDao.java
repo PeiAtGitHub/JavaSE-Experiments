@@ -11,33 +11,33 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j @AllArgsConstructor
 public class CustomerDao {
 
-	EntityManager entityManager;
+    EntityManager entityManager;
 
-	
-	/**
-	 * 
-	 * @param customerID
-	 * @return
-	 */
-	public Customer findCustomer(Long customerID) {
-		return entityManager.find(Customer.class, customerID);
-	}
+    
+    /**
+     * 
+     * @param customerID
+     * @return
+     */
+    public Customer findCustomer(Long customerID) {
+        return entityManager.find(Customer.class, customerID);
+    }
 
-	/**
-	 * 
-	 * @param customer
-	 * @return
-	 */
-	public Customer saveCustomer(Customer customer) {
-		if (customer == null) {
-			throw new IllegalArgumentException();
-		}
-		entityManager.persist(customer); // implicitly assign id to customer
-		entityManager.flush();
-		
-		log.info("Saved customer {} with id {}", customer.getFullName(), customer.getId());
-		
-		return customer; 
-	}
+    /**
+     * 
+     * @param customer
+     * @return
+     */
+    public Customer saveCustomer(Customer customer) {
+        if (customer == null) {
+            throw new IllegalArgumentException();
+        }
+        entityManager.persist(customer); // implicitly assign id to customer
+        entityManager.flush();
+        
+        log.info("Saved customer {} with id {}", customer.getFullName(), customer.getId());
+        
+        return customer; 
+    }
 
 }

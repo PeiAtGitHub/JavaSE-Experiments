@@ -13,14 +13,14 @@ import pei.java.design.pattern.lab.singleton.SingletonLazy;
  *
  */
 public class TestSingleton {
-	
-	@Test
-	public void testSingletonLazy() {
-		assertSame(SingletonLazy.getInstance(), SingletonLazy.getInstance());
-	}
+    
+    @Test
+    public void testSingletonLazy() {
+        assertSame(SingletonLazy.getInstance(), SingletonLazy.getInstance());
+    }
 
-	@Test
-	public void testSingletonEager() {
-		assertSame(SingletonEager.getInstance(), SingletonEager.getInstance());
-	}
+    @Test
+    public void testSingletonEager() {
+        assertSame(SingletonEager.getInstance(), SingletonEager.getInstance());
+    }
 }

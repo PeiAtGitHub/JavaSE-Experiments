@@ -6,22 +6,21 @@ package pei.java.design.pattern.lab.singleton;
  *
  */
 public class SingletonLazy {
-	
-	private static SingletonLazy instance = null;
-	
-	private static Object syncObj = new Object();
+    
+    private static SingletonLazy instance = null;
+    
+    private static Object syncObj = new Object();
 
-	// prevents external instantiation
-	private SingletonLazy() {
-	}
+    private SingletonLazy() {// private constructor, for internal use only
+    }
 
-	public static SingletonLazy getInstance() {
-		synchronized (syncObj) {// thread-safe, otherwise more than 1 instance could be created.
-			if (instance == null) {
-				instance = new SingletonLazy();
-			}	
-			return instance;
-		}
-	}
+    public static SingletonLazy getInstance() {
+        synchronized (syncObj) {// thread-safe, otherwise more than 1 instance could be created.
+            if (instance == null) {
+                instance = new SingletonLazy();
+            }    
+            return instance;
+        }
+    }
 
 }

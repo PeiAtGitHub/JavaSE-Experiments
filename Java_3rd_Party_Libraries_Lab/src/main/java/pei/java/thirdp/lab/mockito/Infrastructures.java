@@ -9,30 +9,30 @@ public interface Infrastructures {}
 
 interface EntityManager{
 
-	Customer find(Class<Customer> class1, Long customerID);
+    Customer find(Class<Customer> class1, Long customerID);
 
-	void persist(Customer customer);
+    void persist(Customer customer);
 
-	void flush();
-	
+    void flush();
+    
 }
 
 interface InvoiceStorage{
 
-	boolean hasOutstandingInvoice(Customer customer);
-	
-	
+    boolean hasOutstandingInvoice(Customer customer);
+    
+    
 }
 
 interface EmailSender{
 
-	void sendEmail(Customer customer);
-	
+    void sendEmail(Customer customer);
+    
 }
 
 interface EventRecorder{
 
-	void recordEvent(Event capture);
-	
+    void recordEvent(Event capture);
+    
 }
 

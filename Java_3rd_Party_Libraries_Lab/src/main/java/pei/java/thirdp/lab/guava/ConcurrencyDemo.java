@@ -24,44 +24,44 @@ import lombok.extern.slf4j.Slf4j;
 public class ConcurrencyDemo {
 
 
-	@Test
-	public void testListenableFuture() throws Exception {
-		
-		ListeningExecutorService exeService = 
-				MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(2));
+    @Test
+    public void testListenableFuture() throws Exception {
+        
+        ListeningExecutorService exeService = 
+                MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(2));
 
-		Futures.addCallback((ListenableFuture<String>) exeService.submit(new CallableImpl())
-				, new FutureCallbackImpl<String>(), exeService);
-		
-		exeService.awaitTermination(2, TimeUnit.SECONDS);
-	}
-	
+        Futures.addCallback((ListenableFuture<String>) exeService.submit(new CallableImpl())
+                , new FutureCallbackImpl<String>(), exeService);
+        
+        exeService.awaitTermination(2, TimeUnit.SECONDS);
+    }
+    
 }
 
 @Slf4j
 class FutureCallbackImpl<String> implements FutureCallback<String> {
-	
-	public void onSuccess(String result) {
-		log.info("Got Result: {}", result);
-	}
+    
+    public void onSuccess(String result) {
+        log.info("Got Result: {}", result);
+    }
 
-	public void onFailure(Throwable thrown) {
-		log.info("Got Failure throwable: ", thrown);
-	}
+    public void onFailure(Throwable thrown) {
+        log.info("Got Failure throwable: ", thrown);
+    }
 
 }
 
 class CallableImpl<String> implements Callable<String> {
-	@Override
-	public String call() throws Exception {
-		Thread.sleep(1000);
-		if(new Random().nextBoolean()) {
-			return (String) "Callable Task Complete!";
-		}else {
-			throw new Exception("Callable Task Fail!");
-		}
-		
-	}
+    @Override
+    public String call() throws Exception {
+        Thread.sleep(1000);
+        if(new Random().nextBoolean()) {
+            return (String) "Callable Task Complete!";
+        }else {
+            throw new Exception("Callable Task Fail!");
+        }
+        
+    }
 
 }
 

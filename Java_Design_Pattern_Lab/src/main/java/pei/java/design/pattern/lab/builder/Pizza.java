@@ -7,9 +7,9 @@ import lombok.Setter;
 
 @Setter @Getter @AllArgsConstructor @NoArgsConstructor
 public class Pizza {
-	String name;
-	int size; // in cm
-	private String dough = "";
-	private String sauce = "";
-	private String topping = "";
+    String name;
+    int size; // in cm
+    private String dough = "";
+    private String sauce = "";
+    private String topping = "";
 }

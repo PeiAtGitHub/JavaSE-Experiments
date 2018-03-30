@@ -8,13 +8,13 @@ package pei.java.design.pattern.lab.singleton;
  */
 public class SingletonEager {
 
-	private static SingletonEager instance = new SingletonEager();
+    private static SingletonEager instance = new SingletonEager();
 
-	private SingletonEager() {
-	}
+    private SingletonEager() {// private constructor, for internal use only
+    }
 
-	public static SingletonEager getInstance() {
-		return instance;
-	}
+    public static SingletonEager getInstance() {
+        return instance;
+    }
 
 }

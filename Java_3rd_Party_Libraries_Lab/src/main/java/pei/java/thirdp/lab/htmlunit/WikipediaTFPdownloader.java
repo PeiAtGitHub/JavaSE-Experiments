@@ -24,37 +24,37 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public class WikipediaTFPdownloader {
 
-	final static String tfpDownloadDir = "downloads" + File.separator + "TFP";
+    final static String tfpDownloadDir = "downloads" + File.separator + "TFP";
 
-	/**
-	 * I'v tried several ways. Opening the image's URL in a page and then download
-	 * is the only way I found so far.
-	 */
-	@Test
-	public void testDownLoadTfp() throws Exception {
-		WebClient webClient = new WebClient();
-		try {
-			HtmlPage mainPage = webClient.getPage(WIKIPEDIA_MAIN_PAGE_URL);
+    /**
+     * I'v tried several ways. Opening the image's URL in a page and then download
+     * is the only way I found so far.
+     */
+    @Test
+    public void testDownLoadTfp() throws Exception {
+        WebClient webClient = new WebClient();
+        try {
+            HtmlPage mainPage = webClient.getPage(WIKIPEDIA_MAIN_PAGE_URL);
 
-			// click the image element to open image details page
-			HtmlElement tfpElement = mainPage.getHtmlElementById("mp-tfp").getElementsByTagName("img").get(0);
-			HtmlPage imageDetailsPage = (HtmlPage) tfpElement.click();
+            // click the image element to open image details page
+            HtmlElement tfpElement = mainPage.getHtmlElementById("mp-tfp").getElementsByTagName("img").get(0);
+            HtmlPage imageDetailsPage = (HtmlPage) tfpElement.click();
 
-			// the link "Original file"
-			HtmlAnchor link = imageDetailsPage.<HtmlAnchor>getFirstByXPath("//a[contains(., 'Original file')]");
-			// open the image in a page.
-			URL imgUrl = ((UnexpectedPage) link.click()).getUrl();
-			//
-			String fileName = imgUrl.getPath().substring(imgUrl.getPath().lastIndexOf('/') + 1);
-			File file = new File(tfpDownloadDir + File.separator + fileName);
-			if(file.exists()) {
-				file.delete();
-			}
-			assertFalse(file.exists());
-			FileUtils.copyURLToFile(imgUrl, file);
-			assertTrue(file.exists());
-		} finally {
-			webClient.close();
-		}
-	}
+            // the link "Original file"
+            HtmlAnchor link = imageDetailsPage.<HtmlAnchor>getFirstByXPath("//a[contains(., 'Original file')]");
+            // open the image in a page.
+            URL imgUrl = ((UnexpectedPage) link.click()).getUrl();
+            //
+            String fileName = imgUrl.getPath().substring(imgUrl.getPath().lastIndexOf('/') + 1);
+            File file = new File(tfpDownloadDir + File.separator + fileName);
+            if(file.exists()) {
+                file.delete();
+            }
+            assertFalse(file.exists());
+            FileUtils.copyURLToFile(imgUrl, file);
+            assertTrue(file.exists());
+        } finally {
+            webClient.close();
+        }
+    }
 }

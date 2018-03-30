@@ -7,7 +7,7 @@ package pei.java.thirdp.lab.utils;
  */
 @FunctionalInterface
 public interface NonArgFunction {
-	
-	public void doSth();
+    
+    public void doSth();
 
 }

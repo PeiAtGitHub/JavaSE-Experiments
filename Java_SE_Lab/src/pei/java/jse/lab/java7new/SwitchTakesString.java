@@ -12,23 +12,23 @@ import org.junit.Test;
 public class SwitchTakesString {
 
 
-	@Test
-	public void testSwitchTakesString() {
-		/*
-		 * Since Java 7 the good old 'switch' takes a string
-		 */
-		String name = TOM;
-		String msg = MOUSE;
-		
-		switch (name) {
-		case TOM:
-			msg = CAT;
-			break;
-		default:
-			break;
-		}
+    @Test
+    public void testSwitchTakesString() {
+        /*
+         * Since Java 7 the good old 'switch' takes a string
+         */
+        String name = TOM;
+        String msg = MOUSE;
+        
+        switch (name) {
+        case TOM:
+            msg = CAT;
+            break;
+        default:
+            break;
+        }
 
-		assertThat(msg, is(CAT));
-	}
-	
+        assertThat(msg, is(CAT));
+    }
+    
 }

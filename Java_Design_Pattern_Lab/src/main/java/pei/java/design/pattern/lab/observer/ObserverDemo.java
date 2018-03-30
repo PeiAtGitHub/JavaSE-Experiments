@@ -33,31 +33,31 @@ public class ObserverDemo {
 
 @ToString
 class TheSubject extends Observable {
-	
-	private int counter = 0;
-	
-	public void whatever() {
-		counter++;
-		setChanged();
-		notifyObservers(new Event("Counter changed to: " + counter));
-	}
-	
+    
+    private int counter = 0;
+    
+    public void whatever() {
+        counter++;
+        setChanged();
+        notifyObservers(new Event("Counter changed to: " + counter));
+    }
+    
 }
 
 @ToString @AllArgsConstructor @Slf4j
 class TheObserver implements Observer {
     
-	String name;
-	
+    String name;
+    
     public void update(Observable obj, Object arg) {
         log.info("{} got sth({}) from {}", 
-        		this.toString(), arg.toString(), obj.toString());
+                this.toString(), arg.toString(), obj.toString());
     }
     
 }
 
 @AllArgsConstructor @ToString
 class Event {
-	String description;
+    String description;
 }
 

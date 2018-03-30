@@ -18,40 +18,40 @@ import org.junit.Test;
 
 public class CallableAndFuture {
 
-	final static String TASK_RETURNED_TEXT = "Callable Task Finished";
+    final static String TASK_RETURNED_TEXT = "Callable Task Finished";
 
-	@Test
-	public void basics() throws ExecutionException, InterruptedException {
-		ExecutorService threadPool = Executors.newFixedThreadPool(1);
+    @Test
+    public void basics() throws ExecutionException, InterruptedException {
+        ExecutorService threadPool = Executors.newFixedThreadPool(1);
 
-		Callable<String> theTask = new CallableTask();
-		Future<String> future = threadPool.submit(theTask);
-		assertThat(future.get(), is(TASK_RETURNED_TEXT));
+        Callable<String> theTask = new CallableTask();
+        Future<String> future = threadPool.submit(theTask);
+        assertThat(future.get(), is(TASK_RETURNED_TEXT));
 
-		FutureTask<String> fTask = new FutureTask<String>(theTask);
-		threadPool.submit(fTask);
-		assertThat(fTask.get(), is(TASK_RETURNED_TEXT));
+        FutureTask<String> fTask = new FutureTask<String>(theTask);
+        threadPool.submit(fTask);
+        assertThat(fTask.get(), is(TASK_RETURNED_TEXT));
 
-		threadPool.shutdown();
+        threadPool.shutdown();
 
-		//
-		future = Executors.newCachedThreadPool().submit(theTask);
-		try {
-			future.get(1, TimeUnit.SECONDS);
-			fail(SHOULD_THROW_EXCEPTION);
-		} catch (Exception e) {
-			assertThat(e, instanceOf(TimeoutException.class));
-		}
-		future.cancel(true);
-		assertTrue(future.isCancelled());
-		assertTrue(future.isDone());
-	}
+        //
+        future = Executors.newCachedThreadPool().submit(theTask);
+        try {
+            future.get(1, TimeUnit.SECONDS);
+            fail(SHOULD_THROW_EXCEPTION);
+        } catch (Exception e) {
+            assertThat(e, instanceOf(TimeoutException.class));
+        }
+        future.cancel(true);
+        assertTrue(future.isCancelled());
+        assertTrue(future.isDone());
+    }
 }
 
 //
 class CallableTask implements Callable<String> {
-	public String call() throws Exception {
-		Thread.sleep(3000);
-		return CallableAndFuture.TASK_RETURNED_TEXT;
-	}
+    public String call() throws Exception {
+        Thread.sleep(3000);
+        return CallableAndFuture.TASK_RETURNED_TEXT;
+    }
 }

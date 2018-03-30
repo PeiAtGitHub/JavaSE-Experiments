@@ -14,10 +14,10 @@ import lombok.Setter;
 @Setter @Getter @AllArgsConstructor
 public class Event {
 
-	public enum Type {REMINDER_SENT, REGISTRATION, INVOICE_ISSUED, PAYMENT, SETTLEMENT};
-	
-	Type type;
-	String customerFullName;
-	long customerId;
-	LocalDate eventTimestamp;
+    public enum Type {REMINDER_SENT, REGISTRATION, INVOICE_ISSUED, PAYMENT, SETTLEMENT};
+    
+    Type type;
+    String customerFullName;
+    long customerId;
+    LocalDate eventTimestamp;
 }

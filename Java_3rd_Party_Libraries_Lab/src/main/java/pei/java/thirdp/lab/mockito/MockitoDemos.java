@@ -22,56 +22,56 @@ import static org.hamcrest.CoreMatchers.*;
  *
  */
 public class MockitoDemos {
-	
-	//Classes to be tested
-	CustomerDao customerDao;
-	ReminderSender reminderSender;
-	RegistrationService registrationService;
-	
-	// dependent infrastructures (will be mocked)
-	EntityManager entityManager;
-	EmailSender emailSender;
-	InvoiceStorage invoiceStorage; 
-	EventRecorder eventRecorder;
+    
+    //Classes to be tested
+    CustomerDao customerDao;
+    ReminderSender reminderSender;
+    RegistrationService registrationService;
+    
+    // dependent infrastructures (will be mocked)
+    EntityManager entityManager;
+    EmailSender emailSender;
+    InvoiceStorage invoiceStorage; 
+    EventRecorder eventRecorder;
 
-	
-	// 
-	long id;
-	Customer customer;
-	
-	@Before
-	public void setup() {
-		//
-		entityManager = mock(EntityManager.class);
-		invoiceStorage = mock(InvoiceStorage.class);
-		emailSender = mock(EmailSender.class);
+    
+    // 
+    long id;
+    Customer customer;
+    
+    @Before
+    public void setup() {
+        //
+        entityManager = mock(EntityManager.class);
+        invoiceStorage = mock(InvoiceStorage.class);
+        emailSender = mock(EmailSender.class);
         eventRecorder = mock(EventRecorder.class);
 
         //
-		customerDao = new CustomerDao(entityManager);
-		reminderSender = new ReminderSender(invoiceStorage, emailSender, eventRecorder);
-		registrationService = new RegistrationService(customerDao, eventRecorder);
-	
-		//
-		id = getRandom16DigitNumber();
-		customer = new Customer(FIRST_NAME, LAST_NAME);
-		
-	}
-	
-	
-	 @Test
+        customerDao = new CustomerDao(entityManager);
+        reminderSender = new ReminderSender(invoiceStorage, emailSender, eventRecorder);
+        registrationService = new RegistrationService(customerDao, eventRecorder);
+    
+        //
+        id = getRandom16DigitNumber();
+        customer = new Customer(FIRST_NAME, LAST_NAME);
+        
+    }
+    
+    
+     @Test
      public void findCustomerHappyPath(){
          when(entityManager.find(Customer.class,id)).thenReturn(customer);
          assertThat(customerDao.findCustomer(id).getFullName(), is(FIRST_NAME + " " + LAST_NAME));
      }
 
-	 @Test
-	 public void notFoundCustomer(){
-		 when(entityManager.find(Customer.class, id)).thenReturn(null);// non-existent customer id
-		 assertNull(customerDao.findCustomer(id));
-	 }
-	 
-	  @Test
+     @Test
+     public void notFoundCustomer(){
+         when(entityManager.find(Customer.class, id)).thenReturn(null);// non-existent customer id
+         assertNull(customerDao.findCustomer(id));
+     }
+     
+      @Test
       public void sendReminder(){
           when(invoiceStorage.hasOutstandingInvoice(customer)).thenReturn(true);
           reminderSender.sendEmailIfHasOutstandingInvoice(customer);
@@ -98,9 +98,9 @@ public class MockitoDemos {
       @Test
       public void saveCustomerHappyPath() {
           doAnswer(invocation -> {
-        	  Customer customer = invocation.getArgument(0);
-        	  customer.setId(id);
-        	  return null;})
+              Customer customer = invocation.getArgument(0);
+              customer.setId(id);
+              return null;})
           .when(entityManager).persist(ArgumentMatchers.any(Customer.class));
 
           assertThat(customerDao.saveCustomer(customer).getId(), is(id));
@@ -110,24 +110,24 @@ public class MockitoDemos {
       @Test(expected = IllegalArgumentException.class)
       public void saveCustomerNull() {
           customerDao.saveCustomer(null);
-      }	 
+      }     
       
       @Test
       public void regiesterCustomers() {
-    	  List<Customer> customers = Lists.newArrayList(
-    			  new Customer(FIRST_NAME, LAST_NAME),
-    			  new Customer(TOM, CAT),
-    			  new Customer(JERRY, MOUSE));
-    	  
+          List<Customer> customers = Lists.newArrayList(
+                  new Customer(FIRST_NAME, LAST_NAME),
+                  new Customer(TOM, CAT),
+                  new Customer(JERRY, MOUSE));
+          
           doAnswer(invocation -> {
-        	  Customer customer = invocation.getArgument(0);
-        	  customer.setId(getRandom16DigitNumber());
-        	  return null;})
+              Customer customer = invocation.getArgument(0);
+              customer.setId(getRandom16DigitNumber());
+              return null;})
           .when(entityManager).persist(ArgumentMatchers.any(Customer.class));
-    	  
-    	 registrationService.register(customers);
-    	 
-    	 ArgumentCaptor<Event> myCaptor = ArgumentCaptor.forClass(Event.class);
+          
+         registrationService.register(customers);
+         
+         ArgumentCaptor<Event> myCaptor = ArgumentCaptor.forClass(Event.class);
          verify(eventRecorder, times(customers.size())).recordEvent(myCaptor.capture());
          
          List<Event> sentEvents = myCaptor.getAllValues();

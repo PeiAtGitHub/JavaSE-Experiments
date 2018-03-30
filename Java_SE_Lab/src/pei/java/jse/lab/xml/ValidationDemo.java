@@ -23,16 +23,16 @@ import pei.java.jse.lab.utils.Utils;
 @Slf4j
 public class ValidationDemo {
 
-	public static void main(String[] args) throws Exception {
-		
-		Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-				.parse(new File(Utils.inputXmlFile));
+    public static void main(String[] args) throws Exception {
+        
+        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+                .parse(new File(Utils.inputXmlFile));
 
-		log.info("Validating {} against {}", Utils.inputXmlFile, Utils.inputXsdFile);
-		SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(new File(Utils.inputXsdFile))
-				.newValidator().validate(new DOMSource(document));
-		log.info("Validate {} successfully against {}.", Utils.inputXmlFile, Utils.inputXsdFile);
+        log.info("Validating {} against {}", Utils.inputXmlFile, Utils.inputXsdFile);
+        SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(new File(Utils.inputXsdFile))
+                .newValidator().validate(new DOMSource(document));
+        log.info("Validate {} successfully against {}.", Utils.inputXmlFile, Utils.inputXsdFile);
 
-	}
+    }
 
 }

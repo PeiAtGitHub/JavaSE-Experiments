@@ -14,18 +14,18 @@ import lombok.Setter;
  */
 public class StrategyOrPolicyDemo {
 
-	public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
-		SingleCalculator sc = new SingleCalculator(new StrategyAdd());
-		System.out.println(sc.execute(3, 3));
-		
-		sc.setStrategy(new StrategyMultiply());
-		System.out.println(sc.execute(3, 3));
+        SingleCalculator sc = new SingleCalculator(new StrategyAdd());
+        System.out.println(sc.execute(3, 3));
+        
+        sc.setStrategy(new StrategyMultiply());
+        System.out.println(sc.execute(3, 3));
 
-		sc.setStrategy(new StrategySubtract());
-		System.out.println(sc.execute(3, 3));
-	}
-	
+        sc.setStrategy(new StrategySubtract());
+        System.out.println(sc.execute(3, 3));
+    }
+    
 }
 
 /**
@@ -33,29 +33,29 @@ public class StrategyOrPolicyDemo {
  */
 @AllArgsConstructor @Setter
 class SingleCalculator {
-	
-	private Strategy strategy;
-	
-	public int execute(int a, int b) {
-		return strategy.execute(a, b);
-	}
+    
+    private Strategy strategy;
+    
+    public int execute(int a, int b) {
+        return strategy.execute(a, b);
+    }
 }
 
 interface Strategy {
-	int execute(int a, int b);
+    int execute(int a, int b);
 }
 class StrategyAdd implements Strategy {
-	public int execute(int a, int b) {
-		return a + b;
-	}
+    public int execute(int a, int b) {
+        return a + b;
+    }
 }
 class StrategySubtract implements Strategy {
-	public int execute(int a, int b) {
-		return a - b;
-	}
+    public int execute(int a, int b) {
+        return a - b;
+    }
 }
 class StrategyMultiply implements Strategy {
-	public int execute(int a, int b) {
-		return a * b;
-	}
+    public int execute(int a, int b) {
+        return a * b;
+    }
 }

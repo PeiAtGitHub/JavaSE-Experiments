@@ -7,8 +7,8 @@ package pei.java.design.pattern.lab.visitor;
  */
 public interface Visitor {
 
-	public void visit(SuperMarketItem item);
-	
-	public void visit(ShoppingCart cart);
+    public void visit(SuperMarketItem item);
+    
+    public void visit(ShoppingCart cart);
 
 }

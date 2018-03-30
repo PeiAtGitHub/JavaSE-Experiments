@@ -11,13 +11,13 @@ import static org.apache.commons.lang3.StringUtils.*;
  */
 public class StateDemo {
 
-	public static void main(String[] args) {
-		final String str = "Today is my good day.";
-		TextWriter wrt = new TextWriter();
-		for (int i = 0; i < 12; i++) {// x12
-			wrt.write(str);
-		} 
-	}
+    public static void main(String[] args) {
+        final String str = "Today is my good day.";
+        TextWriter wrt = new TextWriter();
+        for (int i = 0; i < 12; i++) {// x12
+            wrt.write(str);
+        } 
+    }
 
 }
 
@@ -28,62 +28,62 @@ public class StateDemo {
  */
 @Setter
 class TextWriter {
-	// both context object and states themselves can change the state
-	private TextingState txtState = new lowerCaseState(); // initial state
-	
-	public void write(String txt) {
-		txtState.write(this, txt);
-	}
+    // both context object and states themselves can change the state
+    private TextingState txtState = new lowerCaseState(); // initial state
+    
+    public void write(String txt) {
+        txtState.write(this, txt);
+    }
 }
 /**
  * the State interface
  */
 interface TextingState {
-	void write(TextWriter stateCtxt, String txt);
+    void write(TextWriter stateCtxt, String txt);
 }
 
 class lowerCaseState implements TextingState {
-	public void write(TextWriter stateCtxt, String txt) {
-		System.out.println(txt.toLowerCase());
-		stateCtxt.setTxtState(new upperCaseState());
-	}
+    public void write(TextWriter stateCtxt, String txt) {
+        System.out.println(txt.toLowerCase());
+        stateCtxt.setTxtState(new upperCaseState());
+    }
 }
 
 class upperCaseState implements TextingState {
-	public void write(TextWriter stateCtxt, String txt) {
-		System.out.println(txt.toUpperCase());
-		stateCtxt.setTxtState(new camelCaseState());
-	}
+    public void write(TextWriter stateCtxt, String txt) {
+        System.out.println(txt.toUpperCase());
+        stateCtxt.setTxtState(new camelCaseState());
+    }
 }
 
 class camelCaseState implements TextingState {
-	public void write(TextWriter stateCtxt, String txt) {
-		StringBuilder result = new StringBuilder();
-		for(String s : txt.split(SPACE)) {
-			result.append(StringUtils.capitalize(s));
-		}
-		System.out.println(result.toString());
-		stateCtxt.setTxtState(new removeSpaceState());
-	}
+    public void write(TextWriter stateCtxt, String txt) {
+        StringBuilder result = new StringBuilder();
+        for(String s : txt.split(SPACE)) {
+            result.append(StringUtils.capitalize(s));
+        }
+        System.out.println(result.toString());
+        stateCtxt.setTxtState(new removeSpaceState());
+    }
 }
 
 class removeSpaceState implements TextingState {
-	public void write(TextWriter stateCtxt, String txt) {
-		System.out.println(txt.replaceAll(SPACE, EMPTY));
-		stateCtxt.setTxtState(new dashJoinedState());
-	}
+    public void write(TextWriter stateCtxt, String txt) {
+        System.out.println(txt.replaceAll(SPACE, EMPTY));
+        stateCtxt.setTxtState(new dashJoinedState());
+    }
 }
 
 class dashJoinedState implements TextingState {
-	public void write(TextWriter stateCtxt, String txt) {
-		System.out.println(txt.replaceAll(SPACE, "-"));
-		stateCtxt.setTxtState(new underScoreJoinedState());
-	}
+    public void write(TextWriter stateCtxt, String txt) {
+        System.out.println(txt.replaceAll(SPACE, "-"));
+        stateCtxt.setTxtState(new underScoreJoinedState());
+    }
 }
 
 class underScoreJoinedState implements TextingState {
-	public void write(TextWriter stateCtxt, String txt) {
-		System.out.println(txt.replaceAll(SPACE, "_"));
-		stateCtxt.setTxtState(new lowerCaseState());
-	}
+    public void write(TextWriter stateCtxt, String txt) {
+        System.out.println(txt.replaceAll(SPACE, "_"));
+        stateCtxt.setTxtState(new lowerCaseState());
+    }
 }

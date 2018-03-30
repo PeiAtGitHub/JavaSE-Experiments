@@ -18,15 +18,15 @@ import pei.java.jse.lab.utils.Utils;
 @Slf4j
 public class DomDemo {
 
-	public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
-		Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-				.parse(new File(Utils.inputXmlFile));
-		Element root = document.getDocumentElement();
-		root.normalize();
-		Element the3rdPlant = (Element)root.getElementsByTagName("PLANT").item(2);
-		log.info("The 3rd plant common name: {}", 
-				the3rdPlant.getElementsByTagName("COMMON").item(0).getTextContent());
-	}
-	
+        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+                .parse(new File(Utils.inputXmlFile));
+        Element root = document.getDocumentElement();
+        root.normalize();
+        Element the3rdPlant = (Element)root.getElementsByTagName("PLANT").item(2);
+        log.info("The 3rd plant common name: {}", 
+                the3rdPlant.getElementsByTagName("COMMON").item(0).getTextContent());
+    }
+    
 }

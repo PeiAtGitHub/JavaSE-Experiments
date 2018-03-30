@@ -8,13 +8,13 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 public class ProxyDemo {
-	
-	public static void main(String[] args) {
-		Image img1 = new RealImage("Photo1"); 
-		Image img2 = new ImageProxy("Photo2");
-		// so far image2 is not loaded
-		img1.displayImage();
-		img2.displayImage();
+    
+    public static void main(String[] args) {
+        Image img1 = new RealImage("Photo1"); 
+        Image img2 = new ImageProxy("Photo2");
+        // so far image2 is not loaded
+        img1.displayImage();
+        img2.displayImage();
     }
 }
 
@@ -33,7 +33,7 @@ class RealImage implements Image {
     }
  
     public void displayImage() { 
-    	log.info("Displaying {}", this.filename); 
+        log.info("Displaying {}", this.filename); 
     }
 }
 //
@@ -49,9 +49,9 @@ class ImageProxy implements Image {
     }
  
     public void displayImage() {
-    	if(image == null) {
-        	image = new RealImage(this.filename);
-    	}
+        if(image == null) {
+            image = new RealImage(this.filename);
+        }
         image.displayImage();
     }
 }
