@@ -15,6 +15,9 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
 import org.junit.Test;
 
 import com.dumbster.smtp.SimpleSmtpServer;
@@ -27,7 +30,7 @@ import com.dumbster.smtp.SmtpMessage;
  * @author pei
  *
  */
-public class JavaMailAndDumbster {
+public class TestEMailsWithDumbster {
 	
 	private static final String SUBJECT = "java mail test subject";
 	private static final String BODY = "java mail test body";
@@ -39,26 +42,24 @@ public class JavaMailAndDumbster {
 	public void testJavaMailAndDumbster() throws Exception {
 		
 		try (SimpleSmtpServer server = SimpleSmtpServer.start(SimpleSmtpServer.AUTO_SMTP_PORT)) {
-			
-			sendEmail("smtp", "localhost", server.getPort());
-			
-			List<SmtpMessage> emails = server.getReceivedEmails();
-			assertThat(emails.size(), is(1));
+			sendEmailByJavaMail("smtp", "localhost", server.getPort());
+			dumbsterEmailAssertions(server);
+		}
 
-			SmtpMessage email = emails.get(0);
-			System.out.format("A demo of all email headers: %n%s", email.getHeaderNames());
+	}
+	
+	@Test
+	public void testApacheCommonsEmailAndDumbster() throws Exception {
 
-			assertThat(email.getBody(), is(BODY));
-			assertThat(email.getHeaderValue("Subject"), is(SUBJECT));
-			assertThat(email.getHeaderValue("To"), is(TO));
-			assertThat(email.getHeaderValue("From"), is(FROM));
-			assertThat(email.getHeaderValue("Cc"), is(CC));
+		try (SimpleSmtpServer server = SimpleSmtpServer.start(SimpleSmtpServer.AUTO_SMTP_PORT)) {
+			sendEmailByCommonsEmail("localhost", server.getPort());
+			dumbsterEmailAssertions(server);
 		}
 
 	}
 
 
-	private void sendEmail(String protocol, String host, int port) throws AddressException, MessagingException {
+	private void sendEmailByJavaMail(String protocol, String host, int port) throws AddressException, MessagingException {
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", host);
@@ -78,7 +79,37 @@ public class JavaMailAndDumbster {
 		System.out.format("Message sent to host %s, port %s, protocol %s%n"
 				,host, port, protocol);
 
-
 	}
 
+	private void sendEmailByCommonsEmail(String host, int port) throws EmailException {
+		
+		Email email = new SimpleEmail();
+		email.setDebug(false);
+		email.setHostName(host);
+		email.setSmtpPort(port);
+		email.setFrom(FROM);
+		email.setSubject(SUBJECT);
+		email.addTo(TO);
+		email.addCc(CC);
+		email.setMsg(BODY);
+		email.send();
+		System.out.format("Message sent to host %s, port %s, protocol smtp%n"
+				,host, port);
+	}
+
+	private void dumbsterEmailAssertions(SimpleSmtpServer server) {
+		
+		List<SmtpMessage> emails = server.getReceivedEmails();
+		assertThat(emails.size(), is(1));
+
+		SmtpMessage email = emails.get(0);
+		System.out.format("A demo of all email headers: %n%s", email.getHeaderNames());
+
+		assertThat(email.getBody(), is(BODY));
+		assertThat(email.getHeaderValue("Subject"), is(SUBJECT));
+		assertThat(email.getHeaderValue("To"), is(TO));
+		assertThat(email.getHeaderValue("From"), is(FROM));
+		assertThat(email.getHeaderValue("Cc"), is(CC));
+	}
+	
 }
