@@ -32,8 +32,8 @@ public class WikipediaTFPdownloader {
      */
     @Test
     public void testDownLoadTfp() throws Exception {
-        WebClient webClient = new WebClient();
-        try {
+        
+        try(WebClient webClient = new WebClient();) {
             HtmlPage mainPage = webClient.getPage(WIKIPEDIA_MAIN_PAGE_URL);
 
             // click the image element to open image details page
@@ -53,8 +53,7 @@ public class WikipediaTFPdownloader {
             assertFalse(file.exists());
             FileUtils.copyURLToFile(imgUrl, file);
             assertTrue(file.exists());
-        } finally {
-            webClient.close();
-        }
+        } 
+        
     }
 }
