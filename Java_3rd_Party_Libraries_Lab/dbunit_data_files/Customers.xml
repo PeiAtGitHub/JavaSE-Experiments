@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <Customers CustomerName='Alfreds Futterkiste' ContactName='Maria Anders' Address='Obere Str. 57' City='Berlin' PostalCode='12209' Country='Germany' />
+    <Customers CustomerName='Ana Trujillo Emparedados y helados' ContactName='Ana Trujillo' Address='Avda. de la Constitución 2222' City='México D.F.' PostalCode='05021' Country='Mexico' />
+    <Customers CustomerName='Antonio Moreno Taquería' ContactName='Antonio Moreno' Address='Mataderos 2312' City='México D.F.' PostalCode='05023' Country='Mexico' />
+    <Customers CustomerName='Around the Horn' ContactName='Thomas Hardy' Address='120 Hanover Sq.' City='London' PostalCode='WA1 1DP' Country='UK' />
+    <Customers CustomerName='Berglunds snabbköp' ContactName='Christina Berglund' Address='Berguvsvägen 8' City='Luleå' PostalCode='S-958 22' Country='Sweden' />
+</dataset>
