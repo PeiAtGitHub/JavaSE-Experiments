@@ -44,11 +44,9 @@ public class CollectionTests {
          *  faster and safer than "new" an new list object.
          *  a better return value than returning null
          */
-        List<String> emptyList = Collections.<String> emptyList();
-        List<String> emptyListAgain = Collections.<String> emptyList();
-        assertSame(emptyList, emptyListAgain); // same reference
+        assertSame(Collections.<String> emptyList(), Collections.<String> emptyList()); 
         
-        assertThat(Utils.catchException(()->emptyList.add("abc")),
+        assertThat(Utils.catchException(()->Collections.<String> emptyList().add("abc")),
                 instanceOf(UnsupportedOperationException.class));
 
     }
@@ -56,14 +54,13 @@ public class CollectionTests {
     
     @Test
     public void someArraysUtils() {
-        // Arrays.asList
-        List<Integer> list = Arrays.asList(6,2,1); // convenient!
-        assertThat(list.toString(), is("[6, 2, 1]")); // List.toString() is human readable
         
-        // convert list to array
+        List<Integer> list = Arrays.asList(6,2,1); 
+        assertThat(list.toString(), is("[6, 2, 1]")); 
+        
+        // list --> array
         Integer[] arr = list.toArray(new Integer[list.size()]);
         
-        // Arrays.toString
         System.out.println(arr.toString()); // An array's toString() is unreadable for human
         assertThat(Arrays.toString(arr), is("[6, 2, 1]")); // converted to human readable string
         
@@ -75,12 +72,11 @@ public class CollectionTests {
     @Test
     public void constructCollection() {
         List<String> originalList = Arrays.asList("aaa", "bbb", "ccc");
-        // make a new list copying from an existing list
         ArrayList<String> newList = new ArrayList<>(originalList);
         
-        assertNotSame(originalList, newList); // not same object reference
-        assertThat(originalList, is(newList)); // object.equals() is overridden for List
-        assertEquals(originalList, newList); // this method makes use of object.equals()
+        assertNotSame(originalList, newList); 
+        assertThat(originalList, is(newList)); // object.equals()
+        assertEquals(originalList, newList); // object.equals()
         
         // they don't share the common base
         newList.remove(2);
@@ -101,19 +97,17 @@ public class CollectionTests {
         theMap.put("B", "Y");
         theMap.put("C", "Z");
         
-        // toString is human readable
         assertThat(theMap.toString(), is("{A=X, B=Y, C=Z}"));
         
-        // get non-existing key returns null
+        // non-existing key 
         assertNull(theMap.get("F"));
-        // remove non-existing key returns null
         assertNull(theMap.remove("F"));
-        // remove() returns the Value of Key
+        // map.remove() returns the Value 
         assertThat(theMap.remove("A"), is("X"));
-        // Set.remove() returns boolean
+        // set.remove() returns boolean
         assertFalse(theMap.keySet().remove("A")); 
         assertTrue(theMap.keySet().remove("B")); 
-        assertFalse(theMap.keySet().remove("F"));
+        assertThat(theMap.size(), is(1));
     }
 
     @Test

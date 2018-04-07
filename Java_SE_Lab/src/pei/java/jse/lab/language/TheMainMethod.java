@@ -8,13 +8,17 @@ public class TheMainMethod {
     
     
     public static void main(String[] args) {
+    	
         assertNotNull(args); // by default, args is an empty array
-        System.out.println(args.length);
+        System.out.println(args.length); // 0
+        
     }
     
     @Test
     public void callMainMethodExplicitly() throws Exception {
+    	
         TheMainMethod.main(new String[] {"a1", "a2", "a3"});
+        
     }
 
 }

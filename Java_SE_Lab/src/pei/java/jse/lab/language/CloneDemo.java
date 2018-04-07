@@ -11,11 +11,13 @@ import org.junit.Test;
  * @author pei
  *
  */
-public class TestObjectMethods {
+public class CloneDemo {
 
     @Test
     public void cloneMethod(){
-        // (new Nut()).clone(); // compile error, invisible method, Object.clone is "protected"
+    	
+        // (new Nut()).clone(); // compile error, invisible method, Object.clone() is "protected"
+    	
         Computer computer1 = new Computer();
         Computer computer2 = computer1.clone();
         

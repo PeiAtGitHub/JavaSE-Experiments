@@ -14,7 +14,7 @@ import pei.java.jse.lab.utils.Person;
  * @author pei
  *
  */
-public class TestMethodFeatures {
+public class MethodFeatures {
     
     @Test
     public void testPassingArgs() throws Exception {
