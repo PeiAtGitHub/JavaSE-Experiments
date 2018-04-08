@@ -80,5 +80,9 @@ public class Utils {
         }
 
     }
+    
+    public static void printlnWithThreadName(String message) {
+        System.out.format("%s: %s%n", Thread.currentThread().getName(), message);
+    }
 }
 
