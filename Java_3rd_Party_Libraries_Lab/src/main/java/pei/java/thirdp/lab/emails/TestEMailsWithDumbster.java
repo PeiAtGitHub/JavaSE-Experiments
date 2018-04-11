@@ -22,6 +22,7 @@ import org.junit.Test;
 
 import com.dumbster.smtp.SimpleSmtpServer;
 import com.dumbster.smtp.SmtpMessage;
+import com.google.common.collect.ImmutableMap;
 
 
 /**
@@ -62,9 +63,10 @@ public class TestEMailsWithDumbster {
 	private void sendEmailByJavaMail(String protocol, String host, int port) throws AddressException, MessagingException {
 
 		Properties props = new Properties();
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.port", port);
-		props.put("mail.transport.protocol", protocol);
+		props.putAll(ImmutableMap.of(
+				"mail.smtp.host", host,
+				"mail.smtp.port", port,
+				"mail.transport.protocol", protocol));
 
 		//
 		Message msg = new MimeMessage(Session.getInstance(props, null));

@@ -17,7 +17,6 @@ public class RegistrationService {
 
     CustomerDao customerDao;
     EventRecorder eventRecorder;
-    
 
     /**
      * 

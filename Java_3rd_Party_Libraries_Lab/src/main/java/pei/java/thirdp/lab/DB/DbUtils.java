@@ -39,6 +39,9 @@ public class DbUtils {
 
     public static final String sqlDropTable(String table) {
         return String.format("drop table %s", table);
-        
+    }
+
+    public static final String sqlClearTable(String table) {
+    	return String.format("delete from %s", table);
     }
 }

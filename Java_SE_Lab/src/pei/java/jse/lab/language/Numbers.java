@@ -1,7 +1,8 @@
 package pei.java.jse.lab.language;
 
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.text.DecimalFormat;
 import java.util.Random;
@@ -21,18 +22,17 @@ public class Numbers {
     @Test
     public void someMathUtils() {
         //
-        assertEquals(0, Math.round(0.4));
-        assertEquals(1, Math.round(0.6));
+    	assertThat(Math.round(0.4), is(0l));
+    	assertThat(Math.round(0.6), is(1l));
         //
-        double r = Math.random();
-        assertTrue(r >= 0.0 && r < 1.0);
+        assertThat(Math.random(), allOf(greaterThanOrEqualTo(0d), lessThan(1d)));
         //
-        assertTrue(Math.max(1, 2) == 2);
-        assertTrue(Math.min(1, 2) == 1);
+        assertThat(Math.max(1, 2), is(2));
+        assertThat(Math.min(1, 2), is(1));
         //
-        assertTrue(Math.pow(2, 8) == 256);
-        assertTrue(Math.sqrt(36) == 6);
-        assertTrue(Math.toDegrees(Math.PI) == 180);
+        assertThat(Math.pow(2, 8), is(256d));
+        assertThat(Math.sqrt(36), is(6d));
+        assertThat(Math.toDegrees(Math.PI), is(180d));
 
     }
 
@@ -49,12 +49,12 @@ public class Numbers {
         log.info("Demo of number overflow:");
         log.info("Integer.MAX_VALUE + 123 is: {}", (Integer.MAX_VALUE + 123));
         log.info("Integer.MAX_VALUE x 123 is: {}", (Integer.MAX_VALUE * 123));
-        assertTrue((Integer.MAX_VALUE + 123) < Integer.MAX_VALUE);
-        assertTrue((Integer.MAX_VALUE * 123) < Integer.MAX_VALUE);
+        assertThat((Integer.MAX_VALUE + 123), lessThan(Integer.MAX_VALUE));
+        assertThat((Integer.MAX_VALUE * 123), lessThan(Integer.MAX_VALUE));
         
         log.info("Interesting to Know, Integer.MIN_VALUE == -Integer.MAX_VALUE-1");
-        assertTrue(Integer.MIN_VALUE == (-Integer.MAX_VALUE-1));
-        assertTrue((Integer.MIN_VALUE - 1) > Integer.MIN_VALUE);// overflow
+        assertThat(Integer.MIN_VALUE, is(-Integer.MAX_VALUE-1));
+        assertThat((Integer.MIN_VALUE - 1), greaterThan(Integer.MIN_VALUE));// overflow
     }
     
     @Test

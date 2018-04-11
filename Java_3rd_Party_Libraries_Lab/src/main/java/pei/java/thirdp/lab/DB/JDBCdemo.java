@@ -1,6 +1,11 @@
 package pei.java.thirdp.lab.DB;
-import static pei.java.thirdp.lab.DB.DbUtils.*;
-import static org.junit.Assert.*;
+import static pei.java.thirdp.lab.DB.DbUtils.JDBC_URL_DERBY;
+import static pei.java.thirdp.lab.DB.DbUtils.JDBC_URL_SHUTDOWN_DERBY;
+import static pei.java.thirdp.lab.DB.DbUtils.PASSWORD;
+import static pei.java.thirdp.lab.DB.DbUtils.SQL_CREATE_TABLE_CUSTOMERS;
+import static pei.java.thirdp.lab.DB.DbUtils.TABLE_CUSTOMERS;
+import static pei.java.thirdp.lab.DB.DbUtils.USERNAME;
+import static pei.java.thirdp.lab.DB.DbUtils.sqlSelectFrom;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,7 +26,6 @@ public class JDBCdemo {
     
     @Test
     public void jdbcDemo() throws Exception    {
-        
         try (Connection conn = startEmbeddedDB(JDBC_URL_DERBY, USERNAME, PASSWORD);
               Statement stmt = conn.createStatement()){
             if(isTableExisting(conn, USERNAME, TABLE_CUSTOMERS)) {
@@ -44,9 +48,25 @@ public class JDBCdemo {
         } finally {
             shutDownDerby();
         }
-        
     }
     
+    @Test
+    public void jdbcClearTable() throws Exception{
+        try (Connection conn = startEmbeddedDB(JDBC_URL_DERBY, USERNAME, PASSWORD);
+              Statement stmt = conn.createStatement()){
+            if(isTableExisting(conn, USERNAME, TABLE_CUSTOMERS)) {
+            	stmt.execute(DbUtils.sqlClearTable(TABLE_CUSTOMERS));
+            	System.out.format("Table %s cleared.%n", TABLE_CUSTOMERS);
+            }else {
+                System.out.format("Table %s NOT existing.%n", TABLE_CUSTOMERS);
+            }
+        } catch (Exception ex) {
+            System.err.println(ex);
+        } finally {
+            shutDownDerby();
+        }
+    
+    }
     
     /*
      * Util methods
@@ -81,7 +101,14 @@ public class JDBCdemo {
                 pstmt.setString(2, "Tom Cat");
                 pstmt.setString(3, "Tom Str. 11");
                 pstmt.setString(4, "San Francisco");
-                pstmt.setString(5, "1234567890");
+                pstmt.setString(5, "12345");
+                pstmt.setString(6, "USA");
+                pstmt.executeUpdate();
+                pstmt.setString(1, "Jerry Corporation");
+                pstmt.setString(2, "Jerry Mouse");
+                pstmt.setString(3, "Jerry Str. 11");
+                pstmt.setString(4, "San Francisco");
+                pstmt.setString(5, "67890");
                 pstmt.setString(6, "USA");
                 pstmt.executeUpdate();
             }
@@ -97,7 +124,6 @@ public class JDBCdemo {
     
     public static void displayTableContents(Statement stmt, String table) throws Exception {
         try (ResultSet rs = stmt.executeQuery(sqlSelectFrom("*", table.toUpperCase()))) {
-            System.out.format("Table %s has %d entry(s):%n", table, rs.getFetchSize());
             switch (table) {
             case TABLE_CUSTOMERS:
                 while (rs.next()) {
@@ -108,9 +134,7 @@ public class JDBCdemo {
             default:
                 throw new Exception("Unsupported table: " + table);
             }
-
         }
-
     }
     
     

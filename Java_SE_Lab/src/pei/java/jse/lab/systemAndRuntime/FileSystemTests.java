@@ -47,15 +47,18 @@ public class FileSystemTests {
     public void thePaths() {
         // the output depends on the OS u run this
         // TODO: i'v never verified this test on windows OS
-        if(System.getProperties().getProperty("os.name").matches(".*Linux.*")) {
+        String sysPropertyOsName = System.getProperties().getProperty("os.name");
+        
+		if(sysPropertyOsName.matches(".*Linux.*")) {
             assertThat(Paths.get("/what/ever/path/aFile.txt").getFileName().toString(),
                     is("aFile.txt"));
-        }else if(System.getProperties().getProperty("os.name").matches(".*Windows.*")){
+        }else if(sysPropertyOsName.matches(".*Windows.*")){
             assertThat(Paths.get("C:\\what\\ever\\path\\aFile.txt").getFileName().toString(),
                     is("aFile.txt"));
         }else {
             fail("The test currently does not support OS besides Linux and Windows.");
         }
+		
     }
 
 }

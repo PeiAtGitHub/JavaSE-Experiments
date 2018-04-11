@@ -1,5 +1,7 @@
 package pei.java.design.pattern.lab.flyweight;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,12 +19,7 @@ public class FlyWeightDemo1 {
         int ids[] = { 1001, 1002, 1003 };//3 IDs
         int scores[] = { 70, 80, 90 };// 3 scores
         
-        double total = 0;
-        for (int i = 0; i < SIZE; i++) {
-            total += scores[i];
-        }
-        
-        Student student = new Student(total / scores.length);
+        Student student = Student.builder().averageScore(80d).build();
 
         for (int i = 0; i < SIZE; i++) {
             student.setName(names[i]);
@@ -34,17 +31,14 @@ public class FlyWeightDemo1 {
     }
 }
 
-@Getter @Setter
+@Getter @Setter 
+@Builder @AllArgsConstructor
 class Student {
     int id;
     String name;
     int score;
 
     double averageScore; //common data
-
-    public Student(double avg) {
-        averageScore = avg;
-    }
 
     /**
      * the percentage by which the student's score differs from the average

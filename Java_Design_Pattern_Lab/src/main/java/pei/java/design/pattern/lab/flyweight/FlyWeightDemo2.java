@@ -1,11 +1,13 @@
 package pei.java.design.pattern.lab.flyweight;
 
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 /**
@@ -39,19 +41,15 @@ public class FlyWeightDemo2 {
         coffeOrderFactory.getCoffeeOrder(CAPPUCCINO).setTableNumber(95).serveCoffee();
         coffeOrderFactory.getCoffeeOrder(XPRESSO).setTableNumber(96).serveCoffee();
         
-        assertTrue(coffeOrderFactory.getOrders().size() == 3);
+        assertThat(coffeOrderFactory.getOrders().size(), is(3));
     }
 }
 
-@Getter @AllArgsConstructor
+@Getter @AllArgsConstructor @Builder
 class CoffeeOrder {
 
     private String flavor; //common data
     private int tableNumber;
-    
-    public CoffeeOrder(String flavor) {
-        this.flavor = flavor;
-    }
     
     public CoffeeOrder setTableNumber(int num) {
         this.tableNumber = num;
@@ -71,7 +69,7 @@ class CoffeeOrderFactory {
 
     public CoffeeOrder getCoffeeOrder(String flavor) {
         if(!orders.containsKey(flavor)) {
-            orders.put(flavor, new CoffeeOrder(flavor));
+            orders.put(flavor, CoffeeOrder.builder().flavor(flavor).build());
         }
         return orders.get(flavor);
     }

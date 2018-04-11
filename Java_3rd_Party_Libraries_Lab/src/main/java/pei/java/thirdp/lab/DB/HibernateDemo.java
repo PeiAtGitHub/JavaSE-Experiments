@@ -24,8 +24,8 @@ public class HibernateDemo {
 
     		Integer customerID = null;
     		String customerName = "Alfreds Futterkiste";
-    		Customer theCustomer 
-    		    = new Customer(customerName, "Maria Anders", "Obere Str. 57", "Berlin", "12209", "Germany");
+    		Customer theCustomer = Customer.builder().customerName(customerName).contactName("Maria Anders")
+    		    .address("Obere Str. 57").city("Berlin").postalCode("12209").country("Germany").build();
 
     		// list customers
     		List<Customer> customers = listCustomers(factory);

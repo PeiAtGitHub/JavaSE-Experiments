@@ -13,16 +13,9 @@ public class Customer extends Person {
     long id;
     LocalDate registrationDate;
     
-    
     public Customer(String firstName, String lastName) {
-        this.setFirstName(firstName);
-        this.setLastName(lastName);
+        super.setFirstName(firstName);
+        super.setLastName(lastName);
     }
 
-    public Customer(String firstName, String lastName, LocalDate registrationDate) {
-        this.setFirstName(firstName);
-        this.setLastName(lastName);
-        this.registrationDate = registrationDate;
-    }
-    
 }

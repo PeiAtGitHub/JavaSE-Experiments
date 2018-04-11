@@ -1,5 +1,6 @@
 package pei.java.design.pattern.lab.decorator;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -7,19 +8,12 @@ import lombok.extern.slf4j.Slf4j;
  * @author pei
  * 
  */
-
-
 public class DecoratorDemo {
     
     public static void main(String[] args) {
-        (new HorizontalScrollBarDecorator (new VerticalScrollBarDecorator(new SimpleWindow())))
-        .draw();
-        //
-        (new VerticalScrollBarDecorator(new HorizontalScrollBarDecorator(new SimpleWindow())))
-        .draw();
-        //
-        (new VerticalScrollBarDecorator(new VerticalScrollBarDecorator(new SimpleWindow())))
-        .draw();
+        (new HorizontalScrollBarDecorator (new VerticalScrollBarDecorator(new SimpleWindow()))).draw();
+        (new VerticalScrollBarDecorator(new HorizontalScrollBarDecorator(new SimpleWindow()))).draw();
+        (new VerticalScrollBarDecorator(new VerticalScrollBarDecorator(new SimpleWindow()))).draw();
     }
 }
 
@@ -36,14 +30,11 @@ class SimpleWindow implements Window {
     }
 }
 
+@AllArgsConstructor
 abstract class WindowDecorator implements Window {
 
     protected Window window; // the Window to be decorated
 
-    public WindowDecorator(Window window) {
-        this.window = window;
-    }
-    
     public abstract void draw();
 }
 

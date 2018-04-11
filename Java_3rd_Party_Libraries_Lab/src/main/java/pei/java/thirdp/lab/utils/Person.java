@@ -1,6 +1,7 @@
 package pei.java.thirdp.lab.utils;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import lombok.ToString;
  */
 
 @Setter @Getter @AllArgsConstructor @NoArgsConstructor 
+@Builder
 @ToString
 public class Person {
     
@@ -21,13 +23,6 @@ public class Person {
     String lastName;
     int age;
     Gender gender;
-    
-    //
-    public Person(String firstName) {
-        super();
-        this.firstName = firstName;
-    }
-    
     
     public String getFullName() {
         return this.firstName + " " + this.lastName;

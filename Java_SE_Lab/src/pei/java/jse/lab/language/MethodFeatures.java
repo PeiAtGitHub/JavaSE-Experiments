@@ -62,8 +62,9 @@ public class MethodFeatures {
     
     private static int sum(int... numbers) {
         int sum = 0;
-        for (int num : numbers)
+        for (int num : numbers) {
             sum = sum + num;
+        }
         return sum;
     }
 }

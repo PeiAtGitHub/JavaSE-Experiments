@@ -1,8 +1,14 @@
 package pei.java.thirdp.lab.apachecommons;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-import static pei.java.thirdp.lab.utils.Utils.*;
+import static org.hamcrest.CoreMatchers.endsWith;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static pei.java.thirdp.lab.utils.Utils.APACHE_COMMONS_IO_MAIN_PAGE;
 
 import java.io.File;
 import java.net.URL;
@@ -49,20 +55,20 @@ public class IoFileUtilsTests {
          */
         FileUtils.deleteDirectory(dir1);
         assertTrue(dir1.mkdir());
-        assertTrue(dir1.listFiles().length == 0);
+        assertThat(dir1.listFiles().length, is(0));
         FileUtils.copyURLToFile(new URL(APACHE_COMMONS_IO_MAIN_PAGE), file11);
         Thread.sleep(1000);
         FileUtils.copyFile(file11, file12, false);
         assertTrue(FileUtils.isFileNewer(file12, file11));
         // now: dir1/two identical files
-        assertTrue(dir1.listFiles().length == 2);
+        assertThat(dir1.listFiles().length, is(2));
         assertTrue(FileUtils.contentEquals(file11, file12));
 
         FileUtils.copyDirectory(dir1, dir2);
         FileUtils.copyDirectoryToDirectory(dir1, dir2);
         // after copy: dir1, dir2/dir1, each dir contains the two files
         assertTrue(FileUtils.directoryContains(dir2, file21));
-        assertTrue(dir2.list().length == 3);
+        assertThat(dir2.list().length, is(3));
         // iterate dir
         Iterator<File> htmlFiles = FileUtils.iterateFiles(dir2, new String[] { "html" }, true);
         Collection<File> txtFiles = FileUtils.listFiles(dir2, new String[] { "txt" }, true);
@@ -72,7 +78,7 @@ public class IoFileUtilsTests {
             count++;
         }
         assertThat(count, is(2));
-        assertThat(txtFiles.size(), is(2));
+        assertThat(txtFiles, hasSize(2));
         for (File file : txtFiles) {
             assertThat(file.getName(), endsWith(".txt"));
         }
@@ -86,8 +92,9 @@ public class IoFileUtilsTests {
         assertFalse(file211.exists());
 
         // write, read
-        assertTrue("Commons IO main page has changed", FileUtils.readFileToString(file11, Charset.defaultCharset())
-                .contains("Commons IO 2.6 is the latest version"));
+        assertThat("Commons IO main page has changed"
+        		, FileUtils.readFileToString(file11, Charset.defaultCharset())
+                , containsString("Commons IO 2.6 is the latest version"));
         // create a new file under dir1
         FileUtils.writeStringToFile(fileWrite, "HELLO", Charset.defaultCharset(), true);
         FileUtils.writeStringToFile(fileWrite, "WORLD", Charset.defaultCharset(), true);
@@ -95,10 +102,10 @@ public class IoFileUtilsTests {
 
         // clean, delete dir
         assertTrue(dir1.exists());
-        assertTrue(dir1.list().length == 4);
+        assertThat(dir1.list().length, is(4));
         FileUtils.cleanDirectory(dir1);
         assertTrue(dir1.exists());
-        assertTrue(dir1.list().length == 0);
+        assertThat(dir1.list().length, is(0));
         FileUtils.deleteDirectory(dir1);
         assertFalse(dir1.exists());
 

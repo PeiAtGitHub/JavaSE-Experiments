@@ -65,5 +65,3 @@ class CallableImpl<String> implements Callable<String> {
 
 }
 
-
-
