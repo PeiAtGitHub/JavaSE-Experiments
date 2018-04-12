@@ -1,16 +1,13 @@
 package pei.java.jse.lab.xml;
 
 import java.io.File;
-import java.io.IOException;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.validation.SchemaFactory;
 
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import lombok.extern.slf4j.Slf4j;
 import pei.java.jse.lab.utils.Utils;

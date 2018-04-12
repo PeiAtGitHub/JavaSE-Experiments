@@ -12,10 +12,9 @@ import static org.apache.commons.lang3.StringUtils.*;
 public class StateDemo {
 
     public static void main(String[] args) {
-        final String str = "Today is my good day.";
         TextWriter wrt = new TextWriter();
         for (int i = 0; i < 12; i++) {// x12
-            wrt.write(str);
+            wrt.write("Today is my good day.");
         } 
     }
 

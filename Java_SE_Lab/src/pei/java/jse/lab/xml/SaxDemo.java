@@ -1,7 +1,7 @@
 package pei.java.jse.lab.xml;
 
 import java.io.File;
-
+import static pei.java.jse.lab.xml.XmlUtils.*;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.Attributes;
@@ -30,9 +30,6 @@ public class SaxDemo {
 @Slf4j
 class MySaxHandler extends DefaultHandler {
 
-    static final String PLANT_ELEMENT = "PLANT";
-    static final String COMMON_ELEMENT = "COMMON";
-
     boolean the3rdPlantFlag = false;
     boolean commonFlag = false;
     int counter = 0;
@@ -40,12 +37,12 @@ class MySaxHandler extends DefaultHandler {
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         switch (qName) {
-        case PLANT_ELEMENT:
+        case PLANT_TAG_NAME:
             if (++counter == 3) {
                 the3rdPlantFlag = true;
             }
             break;
-        case COMMON_ELEMENT:
+        case COMMON_TAG_NAME:
             commonFlag = true;
         default:
             break;
@@ -55,12 +52,12 @@ class MySaxHandler extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         switch (qName) {
-        case PLANT_ELEMENT:
+        case PLANT_TAG_NAME:
             if (the3rdPlantFlag) {
                 the3rdPlantFlag = false;
             }
             break;
-        case COMMON_ELEMENT:
+        case COMMON_TAG_NAME:
             commonFlag = false;
         default:
             break;

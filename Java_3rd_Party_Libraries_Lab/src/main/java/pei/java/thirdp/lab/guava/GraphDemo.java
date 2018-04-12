@@ -11,6 +11,7 @@ import com.google.common.graph.Network;
 import com.google.common.graph.NetworkBuilder;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -82,32 +83,22 @@ public class GraphDemo {
 
 }
 
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter @Setter 
+@NoArgsConstructor @AllArgsConstructor
 class DirectConnection {
     int hours;
     int cost;
-
-    public DirectConnection(int hours) {
-        this.hours = hours;
-    }
 }
 
 @NoArgsConstructor
 class CarRide extends DirectConnection {
-    public CarRide(int hours) {
-        super(hours);
-    }
+	
+	public CarRide(int hours) {
+		super.setHours(hours);
+	}
 }
 
-@NoArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 class Flight extends DirectConnection {
     String flightNumber;
-
-    public Flight(int hours) {
-        super(hours);
-    }
-
-    public Flight(String flightNumber) {
-        this.flightNumber = flightNumber;
-    }
 }

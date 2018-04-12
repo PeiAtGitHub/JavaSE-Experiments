@@ -20,21 +20,18 @@ public class ReflectionTests {
     
     public int testField = 1;
     
-    
     @Test
     public void intanceofclass() {
         /*
          * LinkedHashMap is a sub class of HashMap
          */
-        HashMap<?, ?> aHashMap = new HashMap<>();
         LinkedHashMap<?, ?> aLinkedHashMap = new LinkedHashMap<>();
-        //
         assertThat(aLinkedHashMap, instanceOf(HashMap.class));
         assertThat(aLinkedHashMap, instanceOf(LinkedHashMap.class));
         assertThat(aLinkedHashMap.getClass().getName(), is("java.util.LinkedHashMap"));
-        assertThat(aHashMap.getClass().getName(), is("java.util.HashMap"));
 
-        System.out.println("intanceofclass() Finished.");
+        assertThat(new HashMap<>().getClass().getName(), is("java.util.HashMap"));
+
     }
     
     @Test

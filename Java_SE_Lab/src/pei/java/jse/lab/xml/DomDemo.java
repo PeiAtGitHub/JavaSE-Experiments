@@ -1,7 +1,7 @@
 package pei.java.jse.lab.xml;
 
 import java.io.File;
-
+import static pei.java.jse.lab.xml.XmlUtils.*;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
@@ -24,9 +24,9 @@ public class DomDemo {
                 .parse(new File(Utils.inputXmlFile));
         Element root = document.getDocumentElement();
         root.normalize();
-        Element the3rdPlant = (Element)root.getElementsByTagName("PLANT").item(2);
+        Element the3rdPlant = (Element)root.getElementsByTagName(PLANT_TAG_NAME).item(2);
         log.info("The 3rd plant common name: {}", 
-                the3rdPlant.getElementsByTagName("COMMON").item(0).getTextContent());
+                the3rdPlant.getElementsByTagName(COMMON_TAG_NAME).item(0).getTextContent());
     }
     
 }

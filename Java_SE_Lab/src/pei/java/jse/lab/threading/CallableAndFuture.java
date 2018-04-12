@@ -38,7 +38,7 @@ public class CallableAndFuture {
         future = Executors.newCachedThreadPool().submit(theTask);
         try {
             future.get(1, TimeUnit.SECONDS);
-            fail(SHOULD_THROW_EXCEPTION);
+            fail(SHOULDv_THROWN_EXCEPTION);
         } catch (Exception e) {
             assertThat(e, instanceOf(TimeoutException.class));
         }

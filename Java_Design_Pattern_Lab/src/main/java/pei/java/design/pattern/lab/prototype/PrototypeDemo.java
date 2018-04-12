@@ -1,5 +1,9 @@
 package pei.java.design.pattern.lab.prototype;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 
  * 
@@ -22,21 +26,9 @@ public class PrototypeDemo {
     }
 }
 
-//
+@AllArgsConstructor @Setter @Getter
 class PrototypeImpl extends Prototype {
     int x;
-
-    public PrototypeImpl(int x) {
-        this.x = x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getX() {
-        return x;
-    }
 
     public void printX() {
         System.out.println("Value: " + x);

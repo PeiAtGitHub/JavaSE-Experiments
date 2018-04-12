@@ -5,6 +5,8 @@ import java.util.TimerTask;
 
 import org.junit.Test;
 
+import pei.java.jse.lab.utils.Utils;
+
 /**
  * 
  * @author pei
@@ -21,11 +23,7 @@ public class TestTimer {
             Timer timer2 = new Timer();             
             timer2.schedule(new Task("T2"), 0, 3000);
             
-            try {
-                Thread.sleep(15000); // 15s
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            Utils.threadSleep(15000);
             
             timer1.cancel();
             timer2.cancel();
@@ -41,7 +39,6 @@ class Task extends TimerTask {// TimerTask implemented Runnable
 
     Task(String tasktName) {
         this.taskName = tasktName;
-        runCounter = 0;
     }
 
     public void run() {

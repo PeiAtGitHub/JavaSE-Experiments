@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 
+import lombok.AllArgsConstructor;
 import pei.java.jse.lab.utils.Utils;
 
 /**
@@ -58,26 +59,17 @@ public class ExecutorAndThreadPooling {
 
 
 /*
- * Other classes
+ * 
  */
-
+@AllArgsConstructor
 class TheTask implements Runnable {
     private String message;
     private int iterations;
     
-    public TheTask(String s, int n) {
-        message = s; 
-        iterations = n;
-    }
-    
     public void run() {
         for (int i=0; i < iterations; i++) {
             Utils.printWithThreadName(message);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) { 
-                e.printStackTrace();
-            }
+            Utils.threadSleep(1000);
         }
     }
 }

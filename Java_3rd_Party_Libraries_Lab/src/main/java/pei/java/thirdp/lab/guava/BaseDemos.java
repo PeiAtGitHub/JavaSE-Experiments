@@ -34,13 +34,11 @@ public class BaseDemos {
         
         assertThat(Strings.padEnd("HELLO", 8, '$'), is("HELLO$$$"));
         assertThat(Strings.repeat("HELLO", 3), is("HELLOHELLOHELLO"));
-        
-        
     }
     
     @Test
     public void testMiscs() throws Exception{
-        assertThat(MoreObjects.firstNonNull(null, "default_value"), is("default_value"));
+        assertThat(MoreObjects.firstNonNull(null, DEFAULT_STR), is(DEFAULT_STR));
     }
     
     @Test

@@ -6,7 +6,7 @@ package pei.java.design.pattern.lab.visitor;
  *
  */
 public interface Visitee {
-    
-        public void accept(Visitor v);
+
+	public void accept(Visitor v);
 
 }

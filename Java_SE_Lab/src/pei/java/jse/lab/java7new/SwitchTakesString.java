@@ -17,18 +17,18 @@ public class SwitchTakesString {
         /*
          * Since Java 7 the good old 'switch' takes a string
          */
-        String name = TOM;
-        String msg = MOUSE;
+        String name = FIRST_NAME;
+        String msg = "";
         
         switch (name) {
-        case TOM:
-            msg = CAT;
+        case FIRST_NAME:
+            msg = FIRST_NAME;
             break;
         default:
             break;
         }
 
-        assertThat(msg, is(CAT));
+        assertThat(msg, is(FIRST_NAME));
     }
     
 }

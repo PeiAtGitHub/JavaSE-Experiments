@@ -17,7 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.junit.Test;
 
-import pei.java.thirdp.lab.utils.Utils;
+import static pei.java.thirdp.lab.utils.Utils.*;
 
 /**
  * 
@@ -57,13 +57,13 @@ public class Lang3Tests {
     
     @Test
     public void testValidate() {
-        assertThat(Utils.catchException(()->Validate.exclusiveBetween(100, 200, new Random().nextInt(100)))
+        assertThat(catchException(()->Validate.exclusiveBetween(100, 200, new Random().nextInt(100)))
                 ,instanceOf(IllegalArgumentException.class));
         
-        assertThat(Utils.catchException(()->Validate.notBlank("   "))
+        assertThat(catchException(()->Validate.notBlank("   "))
                 ,instanceOf(IllegalArgumentException.class));
 
-        assertThat(Utils.catchException(()->Validate.validState(false))
+        assertThat(catchException(()->Validate.validState(false))
                 ,instanceOf(IllegalStateException.class));
     }
 
@@ -88,15 +88,15 @@ public class Lang3Tests {
         assertTrue(StringUtils.isBlank(""));
         assertTrue(StringUtils.isBlank("   "));
         
-        assertTrue(StringUtils.defaultString(null, "").isEmpty());
-        assertThat(StringUtils.defaultString("ABC", ""), is("ABC"));
+        assertThat(StringUtils.defaultString(null, DEFAULT_STR), is(DEFAULT_STR));
+        assertThat(StringUtils.defaultString(STR, DEFAULT_STR), is(STR));
 
-        assertTrue(StringUtils.defaultIfBlank(null, "").isEmpty());
-        assertTrue(StringUtils.defaultIfBlank("       ", "").isEmpty());
-        assertThat(StringUtils.defaultIfBlank("ABC", ""), is("ABC"));
-        assertTrue(StringUtils.defaultIfEmpty(null, "").isEmpty());
-        assertThat(StringUtils.defaultIfEmpty("       ", ""), is("       "));
-        assertThat(StringUtils.defaultIfEmpty("ABC", ""), is("ABC"));
+        assertThat(StringUtils.defaultIfBlank(null, DEFAULT_STR), is(DEFAULT_STR));
+        assertThat(StringUtils.defaultIfBlank("       ", DEFAULT_STR), is(DEFAULT_STR));
+        assertThat(StringUtils.defaultIfBlank(STR, DEFAULT_STR), is(STR));
+        assertThat(StringUtils.defaultIfEmpty(null, DEFAULT_STR), is(DEFAULT_STR));
+        assertThat(StringUtils.defaultIfEmpty("       ", DEFAULT_STR), is("       "));
+        assertThat(StringUtils.defaultIfEmpty(STR, DEFAULT_STR), is(STR));
 
         // truncate, sub string, split
         assertNull(StringUtils.truncate(null, Math.abs(new Random().nextInt())));
@@ -104,7 +104,7 @@ public class Lang3Tests {
         assertThat(StringUtils.truncate("123456789", 8), is("12345678"));
         assertThat(StringUtils.truncate("123456789", 10), is("123456789"));
 
-        assertThat(Utils.catchException(()->StringUtils.truncate("123456789", -1)),
+        assertThat(catchException(()->StringUtils.truncate("123456789", -1)),
                         instanceOf(IllegalArgumentException.class));
         
         assertThat(StringUtils.left("abcdef", 2), is("ab"));

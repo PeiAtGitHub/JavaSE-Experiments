@@ -2,6 +2,8 @@ package pei.java.jse.lab.language;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -50,15 +52,15 @@ public class StringAndCharTests {
         String s1 = "abc";
         String s2 = "abc";
 
-        assertTrue(s1.equals(s2));
-        assertTrue(s1 == s2); // literal defined same-content strings are actually one object internally
+        assertEquals(s1,  s2);
+        assertSame(s1, s2); // literal defined same-content strings are actually one object internally
 
-        // but this is different:
+        //
         s1 = new String("abc");
         s2 = new String("abc");
 
-        assertTrue(s1.equals(s2));
-        assertTrue(s1 != s2);
+        assertEquals(s1, s2);
+        assertNotSame(s1, s2);
     }
 
     @Test
@@ -127,10 +129,8 @@ public class StringAndCharTests {
 
         Pattern regexPattern = Pattern.compile(regex);
         Matcher matcher = regexPattern.matcher("abc-xxxxx-abbbc-ac");// the string under search
-        boolean found;
         // 1st
-        found = matcher.find();
-        assertTrue(found);
+        assertTrue(matcher.find());
         switch (regex) {
         case greedy:
             assertTrue(matcher.group().equals("abc-xxxxx-abbbc-ac"));
@@ -146,7 +146,7 @@ public class StringAndCharTests {
             break;
         }
         // 2nd
-        found = matcher.find();
+        boolean found = matcher.find();
         switch (regex) {
         case greedy:
             assertFalse(found);
@@ -160,8 +160,7 @@ public class StringAndCharTests {
             break;
         }
         // 3rd
-        found = matcher.find();
-        assertFalse(found);
+        assertFalse(matcher.find());
     }
 
     @Test

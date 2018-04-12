@@ -38,6 +38,7 @@ public class SystemAndRuntime {
                 , FileUtils.byteCountToDisplaySize(rt.freeMemory())
                 , bytesToReadable(rt.freeMemory()));
         log.info("Available Processors: {}", rt.availableProcessors());
+        //
         rt.gc();
         log.info("Free Memory AFTER called gc(): {} or {}"
                 , FileUtils.byteCountToDisplaySize(rt.freeMemory())

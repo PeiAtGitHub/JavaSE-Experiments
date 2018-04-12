@@ -11,7 +11,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import pei.java.jse.lab.utils.Utils;
+import static pei.java.jse.lab.utils.Utils.*;
 
 /**
  * 
@@ -21,6 +21,11 @@ import pei.java.jse.lab.utils.Utils;
 public class CollectionTests {
     
 
+	@Test
+	public void testIterators() throws Exception {
+		assertNotSame(TEST_LIST_123.iterator(), TEST_LIST_123.iterator());
+	}
+	
     @Test
     public void someCollectionsUtils() {
         List<Integer> aList = Arrays.asList(5,2,1,4,3);
@@ -36,7 +41,7 @@ public class CollectionTests {
         
         // unmodifiable view
         List<Integer> unmodifiableList = Collections.unmodifiableList(aList);
-        assertThat(Utils.catchException(()->unmodifiableList.set(0, 1))  
+        assertThat(catchException(()->unmodifiableList.set(0, 1))  
                         ,instanceOf(UnsupportedOperationException.class));
         
         /*
@@ -46,7 +51,7 @@ public class CollectionTests {
          */
         assertSame(Collections.<String> emptyList(), Collections.<String> emptyList()); 
         
-        assertThat(Utils.catchException(()->Collections.<String> emptyList().add("abc")),
+        assertThat(catchException(()->Collections.<String> emptyList().add(STR)),
                 instanceOf(UnsupportedOperationException.class));
 
     }
@@ -71,42 +76,39 @@ public class CollectionTests {
     
     @Test
     public void constructCollection() {
-        List<String> originalList = Arrays.asList("aaa", "bbb", "ccc");
-        ArrayList<String> newList = new ArrayList<>(originalList);
+        ArrayList<Integer> newList = new ArrayList<>(TEST_LIST_123);
         
-        assertNotSame(originalList, newList); 
-        assertThat(originalList, is(newList)); // object.equals()
-        assertEquals(originalList, newList); // object.equals()
+        assertNotSame(TEST_LIST_123, newList); 
+        assertThat(TEST_LIST_123, is(newList)); // object.equals()
+        assertEquals(TEST_LIST_123, newList); // object.equals()
         
         // they don't share the common base
         newList.remove(2);
-        assertNotEquals(originalList, newList);
+        assertNotEquals(TEST_LIST_123, newList);
     }
 
     @Test
     public void listFeatures() {
         ArrayList<String> emptyList = new ArrayList<String>(8); // with initial capacity
-        assertThat(Utils.catchException(()->emptyList.get(0)),
+        assertThat(catchException(()->emptyList.get(0)),
                 instanceOf(IndexOutOfBoundsException.class));
     }
     
     @Test
     public void mapFeatures() {
-        Map<String, String> theMap = new HashMap<>();
-        theMap.put("A", "X");
-        theMap.put("B", "Y");
-        theMap.put("C", "Z");
+        Map<String, Integer> theMap = new HashMap<>(TEST_MAP_123);
         
-        assertThat(theMap.toString(), is("{A=X, B=Y, C=Z}"));
+        assertThat(theMap.toString() // the order is not guaranteed
+        		, allOf(containsString("S1=1"), containsString("S2=2"), containsString("S3=3")));
         
         // non-existing key 
-        assertNull(theMap.get("F"));
-        assertNull(theMap.remove("F"));
+        assertNull(theMap.get("XXX"));
+        assertNull(theMap.remove("XXX"));
         // map.remove() returns the Value 
-        assertThat(theMap.remove("A"), is("X"));
+        assertThat(theMap.remove(S1), is(1));
         // set.remove() returns boolean
-        assertFalse(theMap.keySet().remove("A")); 
-        assertTrue(theMap.keySet().remove("B")); 
+        assertFalse(theMap.keySet().remove(S1)); 
+        assertTrue(theMap.keySet().remove(S2)); 
         assertThat(theMap.size(), is(1));
     }
 

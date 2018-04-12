@@ -26,7 +26,7 @@ public class ObjectsUtils {
 
     @Test
     public void toStringDemo(){
-    	assertThat(Objects.toString(TOM), is(TOM));
+    	assertThat(Objects.toString(STR), is(STR));
     	assertThat(Objects.toString(null), is("null"));
     }
 

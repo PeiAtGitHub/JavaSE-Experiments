@@ -13,6 +13,10 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import pei.java.jse.lab.utils.Utils;
+
 /**
  * 
  * @author pei
@@ -69,11 +73,7 @@ public class ExplicitSync {
         Thread t1 = new Thread(()->{
                 synchronized (resource1) {
                     printWithThreadName("Locked resource1");
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        //
-                    }
+                    threadSleep(1000);
                     printWithThreadName("Blocked till get resource2 lock.");
                     synchronized (resource2) {
                         printWithThreadName("Should never get resource2 lock.");
@@ -85,11 +85,7 @@ public class ExplicitSync {
         Thread t2 = new Thread(()->{
             synchronized (resource2) {
                 printWithThreadName("Locked resource2");
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    //
-                }
+                threadSleep(1000);
                 printWithThreadName("Blocked till get resource1 lock.");
                 synchronized (resource1) {
                     printWithThreadName("Should never get resource1 lock.");
@@ -117,13 +113,9 @@ public class ExplicitSync {
 /*
  * 
  */
-
+@AllArgsConstructor
 class Incrementor implements Runnable {
     private Counter counter;
-    
-    public Incrementor(Counter counter) {
-        this.counter = counter;
-    }
     
     public void run() {
         for (int i = 0; i < 100; i++) {
@@ -132,13 +124,10 @@ class Incrementor implements Runnable {
     }
 }
 
+@AllArgsConstructor
 class Decrementor implements Runnable {
     private Counter counter;
     
-    public Decrementor(Counter counter) {
-        this.counter = counter;
-    }
-
     public void run() {
         for (int i = 0; i < 100; i++) {
             counter.decrement();
@@ -148,6 +137,7 @@ class Decrementor implements Runnable {
 
 //
 class Counter {
+	@Getter
     private int count;
     private Lock lock = new ReentrantLock();
     Random r = new Random();
@@ -164,11 +154,9 @@ class Counter {
     public void increment() {
         try {
             lock.lock();// thread acquires the lock
-            try {
-                Thread.sleep(r.nextInt(500));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            
+            Utils.threadSleep(r.nextInt(500));
+
             count++;
             printWithThreadName(String.valueOf(count));
         } finally {
@@ -179,11 +167,7 @@ class Counter {
     public void decrement() {
         try {
             lock.lock();
-            try {
-                Thread.sleep(r.nextInt(500));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            threadSleep(r.nextInt(500));
             count--;
             printWithThreadName(String.valueOf(count));
         } finally {
@@ -191,7 +175,4 @@ class Counter {
         }
     }
 
-    public int getCount() {
-        return count;
-    }
 }

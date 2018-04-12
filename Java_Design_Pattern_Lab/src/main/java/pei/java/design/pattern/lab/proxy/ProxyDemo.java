@@ -1,5 +1,7 @@
 package pei.java.design.pattern.lab.proxy;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -10,11 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 public class ProxyDemo {
     
     public static void main(String[] args) {
-        Image img1 = new RealImage("Photo1"); 
-        Image img2 = new ImageProxy("Photo2");
-        // so far image2 is not loaded
-        img1.displayImage();
-        img2.displayImage();
+        RealImage.builder().filename("Photo1").build().displayImage();
+        ImageProxy.builder().filename("Photo2").build().displayImage();
     }
 }
 
@@ -23,14 +22,9 @@ interface Image {
     void displayImage();
 }
 //
-@Slf4j
+@Slf4j @AllArgsConstructor @Builder
 class RealImage implements Image {
     private String filename;
- 
-    public RealImage(String filename) { 
-        this.filename = filename;
-        log.info("Loading {}", this.filename);
-    }
  
     public void displayImage() { 
         log.info("Displaying {}", this.filename); 
@@ -40,13 +34,10 @@ class RealImage implements Image {
 /*
  * The proxy does not load the image until it needs to be displayed.
  */
+@AllArgsConstructor @Builder
 class ImageProxy implements Image {
     private String filename;
     private RealImage image;
- 
-    public ImageProxy(String filename) { 
-        this.filename = filename; 
-    }
  
     public void displayImage() {
         if(image == null) {

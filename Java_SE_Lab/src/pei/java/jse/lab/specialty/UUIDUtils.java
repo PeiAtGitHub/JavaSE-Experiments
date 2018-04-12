@@ -17,8 +17,7 @@ public class UUIDUtils {
     public void testUUID() {
         UUID uuid4 = UUID.randomUUID();
         assertEquals(4, uuid4.version());
-        assertTrue(uuid4.toString()
-                .matches("\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}")); 
+        assertTrue(uuid4.toString().matches("\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}")); 
     }
 
 }

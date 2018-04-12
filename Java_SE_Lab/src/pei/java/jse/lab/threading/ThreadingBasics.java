@@ -1,11 +1,12 @@
 package pei.java.jse.lab.threading;
 
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static pei.java.jse.lab.utils.Utils.threadSleep;
 import static pei.java.jse.lab.utils.Utils.printWithThreadName;
 
 import org.junit.Test;
+
 
 /**
  * 
@@ -109,18 +110,14 @@ public class ThreadingBasics {
 
 //
 class ASimpleThread extends Thread {
-    public void run() {
-        printWithThreadName("ASimpleThread.run() starts!");
-        try {
-            for (int i = 1; i <= 3; i++) {
-                printWithThreadName(":)");
-                Thread.sleep(1000);
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        printWithThreadName("ASimpleThread.run() ends!");
-    }
+	public void run() {
+		printWithThreadName("ASimpleThread.run() starts!");
+		for (int i = 1; i <= 3; i++) {
+			printWithThreadName(":)");
+			threadSleep(1000);
+		}
+		printWithThreadName("ASimpleThread.run() ends!");
+	}
 }
 
 //
@@ -130,11 +127,7 @@ class WaitForNotify implements Runnable {
         synchronized (this) {
             printWithThreadName("4. Got lock of " + this);
             notify(); // notified but not releasing lock so the waiting thread cannot resume
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            threadSleep(1000);
             printWithThreadName("5. Gonna release lock of " + this);
         }
     }

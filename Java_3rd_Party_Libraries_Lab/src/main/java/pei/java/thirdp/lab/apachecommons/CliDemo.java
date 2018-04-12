@@ -1,8 +1,12 @@
 package pei.java.thirdp.lab.apachecommons;
 
 
+import static org.apache.commons.lang3.StringUtils.SPACE;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
@@ -13,7 +17,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.UnrecognizedOptionException;
-import static org.apache.commons.lang3.StringUtils.*;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -22,9 +26,16 @@ import org.junit.Test;
  * @author pei
  *
  */
-public class CliTests {
+public class CliDemo {
 	
 	private static Options options = null;
+	
+	private DefaultParser defaultParser = null;
+	
+	@Before
+	public void onceBeforeMethod() {
+		defaultParser = new DefaultParser();
+	}
 	
 	@BeforeClass
 	public static void onceBeforeClass() {
@@ -56,7 +67,7 @@ public class CliTests {
 
 	@Test
 	public void testAllOptions() throws Exception {
-		CommandLine cmd = new DefaultParser().parse(options, 
+		CommandLine cmd = defaultParser.parse(options, 
 				commandlineToArray("-a A0 -b A1 A2 -fA3 A4 -t A5 A6 -T A7 A8 -h --required A9"));
 		//
 		assertTrue(cmd.hasOption("a"));
@@ -102,23 +113,23 @@ public class CliTests {
 	
 	@Test(expected = UnrecognizedOptionException.class)
 	public void testWrongOptions() throws ParseException {
-		new DefaultParser().parse(options, commandlineToArray("-A -t hahaha -T HAHAHA -h --required"));
+		defaultParser.parse(options, commandlineToArray("-A -t hahaha -T HAHAHA -h --required"));
 	}
 	
 
 	@Test(expected = MissingOptionException.class)
 	public void testMissingRequiredOptions() throws ParseException {
-		new DefaultParser().parse(options, commandlineToArray("-a -h"));
+		defaultParser.parse(options, commandlineToArray("-a -h"));
 	}
 
 	
 	@Test(expected = MissingArgumentException.class)
 	public void testMissingRequiredOptionArgs() throws ParseException {
-//		new DefaultParser().parse(options, commandlineToArray("-t -r"));
+//		defaultParser.parse(options, commandlineToArray("-t -r"));
 		
-//		new DefaultParser().parse(options, commandlineToArray("-f A1 -r"));
+//		defaultParser.parse(options, commandlineToArray("-f A1 -r"));
 		
-		new DefaultParser().parse(options, commandlineToArray("-T -r"));
+		defaultParser.parse(options, commandlineToArray("-T -r"));
 
 	}
 	

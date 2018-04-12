@@ -8,7 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static pei.java.thirdp.lab.utils.Utils.APACHE_COMMONS_IO_MAIN_PAGE;
+import static pei.java.thirdp.lab.utils.Utils.*;
 
 import java.io.File;
 import java.net.URL;
@@ -96,9 +96,9 @@ public class IoFileUtilsTests {
         		, FileUtils.readFileToString(file11, Charset.defaultCharset())
                 , containsString("Commons IO 2.6 is the latest version"));
         // create a new file under dir1
-        FileUtils.writeStringToFile(fileWrite, "HELLO", Charset.defaultCharset(), true);
-        FileUtils.writeStringToFile(fileWrite, "WORLD", Charset.defaultCharset(), true);
-        assertThat(FileUtils.readLines(fileWrite, Charset.defaultCharset()).toString(), is("[HELLOWORLD]"));
+        FileUtils.writeStringToFile(fileWrite, S1, Charset.defaultCharset(), true);
+        FileUtils.writeStringToFile(fileWrite, S2, Charset.defaultCharset(), true);
+        assertThat(FileUtils.readLines(fileWrite, Charset.defaultCharset()).toString(), is("[S1S2]"));
 
         // clean, delete dir
         assertTrue(dir1.exists());

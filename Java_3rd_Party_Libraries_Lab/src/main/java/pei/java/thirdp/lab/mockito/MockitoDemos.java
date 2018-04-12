@@ -12,6 +12,8 @@ import org.mockito.ArgumentCaptor;
 
 import com.google.common.collect.Lists;
 
+import pei.java.thirdp.lab.utils.Person;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
@@ -116,8 +118,8 @@ public class MockitoDemos {
       public void regiesterCustomers() {
           List<Customer> customers = Lists.newArrayList(
                   new Customer(FIRST_NAME, LAST_NAME),
-                  new Customer(TOM, CAT),
-                  new Customer(JERRY, MOUSE));
+                  new Customer(S1, S2),
+                  new Customer(S1, S2));
           
           doAnswer(invocation -> {
               Customer customer = invocation.getArgument(0);

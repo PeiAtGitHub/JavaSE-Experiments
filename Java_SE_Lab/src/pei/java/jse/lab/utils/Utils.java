@@ -1,8 +1,17 @@
 package pei.java.jse.lab.utils;
 
 import java.text.DecimalFormat;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
+
+import lombok.experimental.UtilityClass;
 
 /**
  * 
@@ -11,23 +20,29 @@ import org.apache.commons.io.FileUtils;
  * @author pei
  *
  */
+@UtilityClass
 public class Utils {
     // Some commonly used strings
+    
+    // Some commonly used strings
+	
+	public final static String STR = "STR";
+	public final static String DEFAULT_STR = "DEFAULT_STR";
+	
     public final static String FIRST_NAME = "FirstName";
     public final static String LAST_NAME = "LastName";
     
-    public final static String ABC = "abc";
-    public final static String DEF = "def";
-    public final static String GHI = "ghi";
-    public final static String TOM = "TOM";
-    public final static String DORAEMON = "DORAEMON";
-    public final static String CAT = "CAT";
-    public final static String JERRY = "JERRY";
-    public final static String MICKEY = "MICKEY";
-    public final static String MOUSE = "MOUSE";
-
-    public final static String SHOULD_THROW_EXCEPTION = "Should'v thrown exception.";
-
+    public final static String SHOULDv_THROWN_EXCEPTION = "Should'v thrown exception.";
+    
+    public final static String S1 = "S1";
+    public final static String S2 = "S2";
+    public final static String S3 = "S3";
+    
+    //
+    public final static List<Integer> TEST_LIST_123 = ImmutableList.of(1, 2, 3);
+    public final static Set<Integer> TEST_SET_123 = ImmutableSet.of(1, 2, 3);
+    public final static Map<String, Integer> TEST_MAP_123 = ImmutableMap.of(S1, 1, S2, 2, S3, 3);
+    
     // some resources
     public final static String wikipediaUrl = "https://www.wikipedia.org/";
     public final static String wikipediaDomain = "www.wikipedia.org";
@@ -86,5 +101,20 @@ public class Utils {
         }
     }
 
+    /**
+     * Thread.sleep(millis), 
+     * Swallow the Exception (just e.printStackTrace())
+     * 
+     * @param millis
+     */
+    public static void threadSleep(long millis) {
+    	
+    	try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+    	
+    }
 
 }

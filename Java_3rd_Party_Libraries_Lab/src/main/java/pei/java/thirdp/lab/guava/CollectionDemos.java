@@ -1,7 +1,20 @@
 package pei.java.thirdp.lab.guava;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertThat;
+import static pei.java.thirdp.lab.utils.SolarPlanet.EARTH;
+import static pei.java.thirdp.lab.utils.SolarPlanet.JUPITER;
+import static pei.java.thirdp.lab.utils.SolarPlanet.MARS;
+import static pei.java.thirdp.lab.utils.SolarPlanet.MERCURY;
+import static pei.java.thirdp.lab.utils.SolarPlanet.NEPTUNE;
+import static pei.java.thirdp.lab.utils.SolarPlanet.SATURN;
+import static pei.java.thirdp.lab.utils.SolarPlanet.URANUS;
+import static pei.java.thirdp.lab.utils.SolarPlanet.VENUS;
 import static pei.java.thirdp.lab.utils.Utils.*;
 
 import java.util.ArrayList;
@@ -11,9 +24,31 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
-import com.google.common.collect.*;
-
-import static pei.java.thirdp.lab.utils.SolarPlanet.*;
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.HashBiMap;
+import com.google.common.collect.HashMultiset;
+import com.google.common.collect.ImmutableBiMap;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.ImmutableMultiset;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSortedMap;
+import com.google.common.collect.ImmutableSortedSet;
+import com.google.common.collect.ImmutableTable;
+import com.google.common.collect.Iterators;
+import com.google.common.collect.ListMultimap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.MultimapBuilder;
+import com.google.common.collect.Multiset;
+import com.google.common.collect.PeekingIterator;
+import com.google.common.collect.Range;
+import com.google.common.collect.RangeSet;
+import com.google.common.collect.SetMultimap;
+import com.google.common.collect.Sets;
+import com.google.common.collect.Table;
+import com.google.common.collect.TreeRangeSet;
 
 import pei.java.thirdp.lab.utils.Person;
 import pei.java.thirdp.lab.utils.SolarPlanet;
@@ -48,10 +83,10 @@ public class CollectionDemos {
         assertThat(Sets.filter(set1, x->x<5).toString(), is("[1, 2, 3]"));
         assertThat(Sets.filter(set2, x->x<5).toString(), is("[1, 2]"));
 
-        assertThat(Sets.combinations(set1, 2).size(), is(3));
+        assertThat(Sets.combinations(set1, 2), hasSize(3));
         //
         EnumSet<SolarPlanet> otherPlanets = Sets.complementOf(EnumSet.of(EARTH));
-        assertThat(otherPlanets.size(), is(7));
+        assertThat(otherPlanets, hasSize(7));
         assertThat(otherPlanets, not(hasItem(EARTH)));
         assertThat(otherPlanets, hasItems(MARS, SATURN, VENUS, NEPTUNE, JUPITER, URANUS, MERCURY));
 
@@ -68,24 +103,25 @@ public class CollectionDemos {
 
         assertThat(Maps.newHashMap().size(), is(0));
         assertThat(Maps.newEnumMap(SolarPlanet.class).size(), is(0));
-        assertThat(Maps.asMap(Sets.newHashSet(1, 2, 3), x->x*10).toString(), 
+        assertThat(Maps.asMap(TEST_SET_123, x->x*10).toString(), 
                 is("{1=10, 2=20, 3=30}"));
 
         //
-        ImmutableMap<String, Integer> nameMap = ImmutableMap.of(TOM, 1, JERRY, 2);
-        assertThat(nameMap.keySet().iterator().next(), is(TOM));
-        assertThat(ImmutableSortedMap.copyOf(nameMap).keySet().iterator().next(), is(JERRY));
+        ImmutableMap<String, Integer> immuMap = ImmutableMap.of(S1, 1, S2, 2);
+        assertThat(immuMap.keySet().iterator().next(), is(S1));
+        assertThat(ImmutableSortedMap.copyOf(immuMap).keySet().iterator().next(), is(S1));
     }
 
 
     @Test
     public void demoOfImmutable() throws Exception {// What is "immutable"?
-        ImmutableList<Person> persons = ImmutableList.of(new Person(TOM));
+        ImmutableList<Person> persons 
+        = ImmutableList.of(Person.builder().firstName(FIRST_NAME).build());
         
-        assertThat(catchException(() -> persons.add(new Person(JERRY))),
+        assertThat(catchException(() -> persons.add(new Person())),
                 instanceOf(UnsupportedOperationException.class));
         
-        assertThat(catchException(() -> persons.set(0, new Person(JERRY))), 
+        assertThat(catchException(() -> persons.set(0, new Person())), 
                 instanceOf(UnsupportedOperationException.class));
         
         assertThat(catchException(() -> persons.remove(0)), 
@@ -94,23 +130,20 @@ public class CollectionDemos {
         assertThat(catchException(() -> persons.clear()), 
                 instanceOf(UnsupportedOperationException.class));
         
-        persons.get(0).setFirstName(JERRY);
-        assertThat(persons.get(0).getFirstName(), is(JERRY));
+        persons.get(0).setFirstName(STR);
+        assertThat(persons.get(0).getFirstName(), is(STR));
     }
 
     @Test
     public void testMultiSet() throws Exception {
-        Multiset<Integer> multiSet = HashMultiset.create();
-        multiSet.add(1);
-        multiSet.add(2);
-        multiSet.add(6);
-        assertThat(multiSet.size(), is(3));
+        Multiset<Integer> multiSet = HashMultiset.create(Sets.newHashSet(1, 2, 6));
+        assertThat(multiSet, hasSize(3));
         assertThat(multiSet.count(6), is(1));
         multiSet.setCount(2, 3);
         multiSet.setCount(6, 2);
-        assertThat(multiSet.size(), is(6));
+        assertThat(multiSet, hasSize(6));
         assertThat(multiSet.count(6), is(2));
-        assertThat(multiSet.elementSet().size(), is(3));
+        assertThat(multiSet.elementSet(), hasSize(3));
         assertThat(multiSet.entrySet().iterator().next().getElement(), is(1));
         assertThat(multiSet.entrySet().iterator().next().getCount(), is(1));
 
@@ -122,58 +155,58 @@ public class CollectionDemos {
     public void testMultimap() throws Exception {
         ListMultimap<String, Integer> listMultimap =
                 MultimapBuilder.treeKeys().arrayListValues().build();
-        listMultimap.put(ABC, 1);
-        listMultimap.put(ABC, 1);
-        listMultimap.put(ABC, 1);
-        listMultimap.put(DEF, 2);
-        listMultimap.put(DEF, 2);
-        listMultimap.put(DEF, 2);
-        listMultimap.put(GHI, 3);
-        listMultimap.put(GHI, 3);
-        listMultimap.put(GHI, 3);
+        listMultimap.put(S1, 1);
+        listMultimap.put(S1, 1);
+        listMultimap.put(S1, 1);
+        listMultimap.put(S2, 2);
+        listMultimap.put(S2, 2);
+        listMultimap.put(S2, 2);
+        listMultimap.put(S3, 3);
+        listMultimap.put(S3, 3);
+        listMultimap.put(S3, 3);
         assertThat(listMultimap.size(), is(9));
         assertThat(listMultimap.asMap().size(), is(3));
-        assertThat(listMultimap.get(ABC).toString(), is("[1, 1, 1]"));
-        assertThat(listMultimap.asMap().get(ABC).toString(), is("[1, 1, 1]"));
+        assertThat(listMultimap.get(S1).toString(), is("[1, 1, 1]"));
+        assertThat(listMultimap.asMap().get(S1).toString(), is("[1, 1, 1]"));
         
         // 
         SetMultimap<String, Integer> setMultimap =
                 MultimapBuilder.hashKeys().hashSetValues().build();
-        setMultimap.putAll(ABC, Sets.newHashSet(1, 1, 1));
-        setMultimap.putAll(DEF, Sets.newHashSet(2, 2, 2));
-        setMultimap.putAll(GHI, Sets.newHashSet(3, 3, 3));
+        setMultimap.putAll(S1, Sets.newHashSet(1, 1, 1));
+        setMultimap.putAll(S2, Sets.newHashSet(2, 2, 2));
+        setMultimap.putAll(S3, Sets.newHashSet(3, 3, 3));
         assertThat(setMultimap.size(), is(3));
-        assertThat(setMultimap.get(ABC).toString(), is("[1]"));
+        assertThat(setMultimap.get(S1).toString(), is("[1]"));
         assertThat(setMultimap.asMap().size(), is(3));
-        assertThat(setMultimap.asMap().get(ABC).toString(), is("[1]"));
+        assertThat(setMultimap.asMap().get(S1).toString(), is("[1]"));
         setMultimap.clear();
-        setMultimap.putAll(ABC, Sets.newHashSet(1, 2, 3));
-        setMultimap.putAll(DEF, Sets.newHashSet(4, 5, 6));
-        setMultimap.putAll(GHI, Sets.newHashSet(7, 8, 9));
+        setMultimap.putAll(S1, Sets.newHashSet(1, 2, 3));
+        setMultimap.putAll(S2, Sets.newHashSet(4, 5, 6));
+        setMultimap.putAll(S3, Sets.newHashSet(7, 8, 9));
         assertThat(setMultimap.size(), is(9));
-        assertThat(setMultimap.get(ABC).toString(), is("[1, 2, 3]"));
+        assertThat(setMultimap.get(S1).toString(), is("[1, 2, 3]"));
         assertThat(setMultimap.asMap().size(), is(3));
-        assertThat(setMultimap.asMap().get(ABC).toString(), is("[1, 2, 3]"));
+        assertThat(setMultimap.asMap().get(S1).toString(), is("[1, 2, 3]"));
         
         //
-        assertThat(ImmutableMultimap.of(TOM, 1, JERRY, 2, TOM, 3).get(TOM).size(), is(2));
+        assertThat(ImmutableMultimap.of(S1, 1, S2, 2, S1, 3).get(S1), hasSize(2));
     }
     
     @Test
     public void testBimap() throws Exception {
-        HashBiMap<Integer, String> biMap = HashBiMap.<Integer, String>create();
-        biMap.put(1, TOM);
-        biMap.put(2, JERRY);
-        assertThat(biMap.get(1), is(TOM));
-        assertThat(biMap.inverse().get(TOM), is(1));
-        assertThat(catchException(()->biMap.put(3, TOM))
+        HashBiMap<String, Integer> biMap = HashBiMap.<String, Integer>create(TEST_MAP_123);
+        assertThat(biMap.get(S1), is(1));
+        assertThat(biMap.inverse().get(1), is(S1));
+        
+        assertThat(catchException(()->biMap.put(" ", 1))
                 , instanceOf(IllegalArgumentException.class));
-        biMap.forcePut(3, TOM);
-        assertThat(biMap.get(3), is(TOM));
-        assertThat(biMap.keySet(), not(hasItem(1)));
+        
+        biMap.forcePut(" ", 1);
+        assertThat(biMap.get(" "), is(1));
+        assertThat(biMap.keySet(), not(hasItem(S1)));
         
         //
-        assertThat(catchException(() -> ImmutableBiMap.of(TOM, 1, TOM, 2)),
+        assertThat(catchException(() -> ImmutableBiMap.of(S1, 1, S2, 1)),
                 instanceOf(IllegalArgumentException.class));
     }
     
@@ -203,21 +236,20 @@ public class CollectionDemos {
     
     @Test
     public void testPeekingIterator() throws Exception {
-        Iterator<String> it = Lists.newArrayList(TOM, JERRY, MICKEY).iterator();
-        assertThat(it.next(), is(TOM));
-        assertThat(it.next(), is(JERRY));
-        assertThat(it.next(), is(MICKEY));
+        Iterator<Integer> it = TEST_LIST_123.iterator();
+        assertThat(it.next(), is(1));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(3));
         assertThat(it.hasNext(), is(false));
         
         // Peek: to glance quickly.
-        PeekingIterator<String> peekIt = 
-                Iterators.peekingIterator(Lists.newArrayList(TOM, JERRY, MICKEY).iterator());
-        assertThat(peekIt.peek(), is(TOM));
-        assertThat(peekIt.peek(), is(TOM));
-        assertThat(peekIt.next(), is(TOM));
-        assertThat(peekIt.next(), is(JERRY));
-        assertThat(peekIt.peek(), is(MICKEY));
-        assertThat(peekIt.next(), is(MICKEY));
+        PeekingIterator<Integer> peekIt = Iterators.peekingIterator(TEST_LIST_123.iterator());
+        assertThat(peekIt.peek(), is(1));
+        assertThat(peekIt.peek(), is(1));
+        assertThat(peekIt.next(), is(1));
+        assertThat(peekIt.next(), is(2));
+        assertThat(peekIt.peek(), is(3));
+        assertThat(peekIt.next(), is(3));
         assertThat(peekIt.hasNext(), is(false));
         /*
          * Note:
