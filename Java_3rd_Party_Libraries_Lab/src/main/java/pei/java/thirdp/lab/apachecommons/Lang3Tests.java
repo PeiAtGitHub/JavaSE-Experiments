@@ -115,22 +115,21 @@ public class Lang3Tests {
         assertThat(StringUtils.substringBetween(",abcdef,", ","), is("abcdef"));
         assertThat(StringUtils.substringBetween("...<tag>abcdef</tag>...", "<tag>", "</tag>"), is("abcdef"));
 
-        String[] strs = StringUtils.substringsBetween("[a][b][c]", "[", "]");
-        assertThat(Arrays.asList(strs).toString(), is("[a, b, c]"));
-
-        strs = StringUtils.split("abc  def");
-        assertThat(Arrays.asList(strs).toString(), is("[abc, def]"));
-
-        strs = StringUtils.split("a..b.c", '.');
-        assertThat(Arrays.asList(strs).toString(), is("[a, b, c]"));
-
-        strs = StringUtils.splitByCharacterType("ab   de fg");
-        assertThat(Arrays.asList(strs).toString(), is("[ab,    , de,  , fg]"));
-        strs = StringUtils.splitByCharacterType("foo200BarDrink");
-        assertThat(Arrays.asList(strs).toString(), is("[foo, 200, B, ar, D, rink]"));
-        strs = StringUtils.splitByCharacterTypeCamelCase("foo200BarDrink");
-        assertThat(Arrays.asList(strs).toString(), is("[foo, 200, Bar, Drink]"));
-        assertThat( StringUtils.getDigits("(541) 754-3010"), is("5417543010"));
+        assertThat(getReadableArrayString(StringUtils.substringsBetween("[a][b][c]", "[", "]"))
+        		, is("[a, b, c]"));
+        
+        assertThat(getReadableArrayString(StringUtils.split("abc  def"))
+        		, is("[abc, def]"));
+        assertThat(getReadableArrayString(StringUtils.split("a..b.c", '.'))
+        		, is("[a, b, c]"));
+        assertThat(getReadableArrayString(StringUtils.splitByCharacterType("ab   de fg"))
+        		, is("[ab,    , de,  , fg]"));
+        assertThat(getReadableArrayString(StringUtils.splitByCharacterType("foo200BarDrink"))
+        		, is("[foo, 200, B, ar, D, rink]"));
+        assertThat(getReadableArrayString(StringUtils.splitByCharacterTypeCamelCase("foo200BarDrink"))
+        		, is("[foo, 200, Bar, Drink]"));
+        
+        assertThat(StringUtils.getDigits("(541) 754-3010"), is("5417543010"));
 
         // trim, strip, remove
         assertNull(StringUtils.trim(null));
