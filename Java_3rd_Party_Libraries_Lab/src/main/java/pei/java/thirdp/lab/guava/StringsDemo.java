@@ -7,6 +7,7 @@ import static pei.java.thirdp.lab.utils.Utils.*;
 
 import org.junit.Test;
 
+import com.google.common.base.CaseFormat;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
@@ -17,7 +18,8 @@ import com.google.common.base.Splitter;
  *
  */
 public class StringsDemo {
-
+	
+	
 	/*
 	 * "joiner instances are always immutable. 
 	 *  The joiner configuration methods will always return a new Joiner, 
@@ -117,5 +119,22 @@ public class StringsDemo {
 				, is("Please-eat-this-cake-!"));
 		
 	} 
+	
+	@Test
+	public void caseFormatDemo() throws Exception {
+		
+		assertThat(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, "pleaseEatThisCake!")
+				, is("please-eat-this-cake!")); 
+		
+		assertThat(CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, "PleaseEatThisCake!")
+				, is("PLEASE_EAT_THIS_CAKE!"));
+
+		// when origin format does not match, it cannot convert properly
+		assertThat(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, "Please eat this cake!")
+				, is("please eat this cake!"));
+		assertThat(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, "Please eat this cake!")
+				, is("please eat this cake!"));
+		
+	}
 	
 }
