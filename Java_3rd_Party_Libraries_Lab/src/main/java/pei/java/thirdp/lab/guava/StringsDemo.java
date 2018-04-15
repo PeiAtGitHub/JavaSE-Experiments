@@ -2,15 +2,12 @@ package pei.java.thirdp.lab.guava;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static pei.java.thirdp.lab.utils.Utils.S1;
-import static pei.java.thirdp.lab.utils.Utils.S2;
-import static pei.java.thirdp.lab.utils.Utils.STR;
-import static pei.java.thirdp.lab.utils.Utils.TEST_LIST_123;
-import static pei.java.thirdp.lab.utils.Utils.TEST_MAP_123;
+import static pei.java.thirdp.lab.utils.Utils.*;
 
 import org.junit.Test;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
 
 /**
  * 
@@ -24,6 +21,11 @@ public class StringsDemo {
 	 *  The joiner configuration methods will always return a new Joiner, 
 	 *  which you must use to get the desired semantics. 
 	 *  This makes any Joiner thread safe, and usable as a static final constant."
+	 *  (This is different from the Builder pattern, with config method is effective on itself, and
+	 *   always returns the same builder instance)
+	 *  For Example:
+	 *  Joiner j = Joiner.on(',');
+     *  j.skipNulls(); // has NO EFFECT on j, but returns another Joiner instance
 	 */
 	@Test
 	public void joinerDemo() throws Exception {
@@ -49,5 +51,44 @@ public class StringsDemo {
 	}
 	
 	
-
+	/*
+	 * "Splitter instances are immutable. 
+	 *  Invoking a configuration method has no effect on the receiving instance; 
+	 *  you must store and use the new splitter instance it returns instead."
+	 *  
+	 *  For Example: 
+	 *  each config method in the following chain returns a distinct instance of Splitter
+	 *  Splitter.on(',').trimResults().omitEmptyStrings().split("foo,bar,,   qux");
+	 *  Namely: 
+	 *  Splitter spl = Splitter.on(...);
+ 	 *  spl.trimResults(...); // has NO EFFECT on spl, but returns another Splitter instance 
+	 *  
+	 */
+	@Test
+	public void splitterDemo() throws Exception {
+		
+		Iterable<String> iterable = 
+				Splitter.on(',').trimResults().omitEmptyStrings().split("foo,bar,,   qux");
+		
+		for(String s : iterable) {
+			System.out.println(s);
+		}
+		
+		System.out.println("============= Fixed length splitting:");
+		
+		for(String s : Splitter.fixedLength(3).split(HELLO_WORLD)) {
+			System.out.println(s);
+		}
+		
+		System.out.println(Splitter.fixedLength(3).splitToList(HELLO_WORLD));
+		
+		//MapSplitter
+		assertThat(Splitter.fixedLength(3).withKeyValueSeparator(";").split("a;xb;yc;z").toString()
+				, is("{a=x, b=y, c=z}"));
+		
+		assertThat(Splitter.on(',').withKeyValueSeparator(";").split("a;x,b;y,c;z").toString()
+				, is("{a=x, b=y, c=z}"));
+		
+	}
+	
 }

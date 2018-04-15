@@ -1,6 +1,7 @@
 package pei.java.thirdp.lab.utils;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,6 +26,7 @@ public class Utils {
     // Some commonly used strings
 	public final static String STR = "STR";
 	public final static String DEFAULT_STR = "DEFAULT_STR";
+	public final static String HELLO_WORLD = "HELLO WORLD";
 	
     public final static String FIRST_NAME = "FirstName";
     public final static String LAST_NAME = "LastName";
@@ -114,5 +116,12 @@ public class Utils {
     	
     }
 
+    /**
+     * Return the human readable string which represents an array
+     * @param arr
+     */
+    public static <T> String getReadableArrayString(T[] arr) {
+    	return Arrays.asList(arr).toString();
+    }
 }
 
