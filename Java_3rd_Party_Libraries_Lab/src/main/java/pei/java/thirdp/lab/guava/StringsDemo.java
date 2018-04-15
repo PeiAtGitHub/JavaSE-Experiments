@@ -1,8 +1,7 @@
 package pei.java.thirdp.lab.guava;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.*;
 import static pei.java.thirdp.lab.utils.Utils.*;
 
 import org.junit.Test;
@@ -11,6 +10,7 @@ import com.google.common.base.CaseFormat;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 
 /**
  * 
@@ -19,7 +19,31 @@ import com.google.common.base.Splitter;
  */
 public class StringsDemo {
 	
-	
+
+	@Test
+	public void stringsDemo() throws Exception {
+		
+		assertThat(Strings.commonPrefix("Please eat this cake!", "Please take this cake!"), is("Please "));
+		assertThat(Strings.commonSuffix("Please eat this cake!", "Please take this cake!"), is(" this cake!"));
+		
+		assertThat(Strings.emptyToNull(STR), is(STR));
+		assertThat(Strings.emptyToNull(""), nullValue());
+		
+		assertThat(Strings.nullToEmpty(STR), is(STR));
+		assertThat(Strings.nullToEmpty(null), is(""));
+
+		assertThat(Strings.isNullOrEmpty(null), is(true));
+		assertThat(Strings.isNullOrEmpty(""), is(true));
+		assertThat(Strings.isNullOrEmpty(STR), is(false));
+		assertThat(Strings.isNullOrEmpty(" "), is(false));
+		
+		assertThat(Strings.padEnd("Please eat this cake!", 5, '!'), is("Please eat this cake!"));
+		assertThat(Strings.padEnd("Please eat this cake!", 30, '!'), is("Please eat this cake!!!!!!!!!!"));
+		
+		assertThat(Strings.repeat(STR, 3), is("STRSTRSTR"));
+		
+	}
+
 	/*
 	 * "joiner instances are always immutable. 
 	 *  The joiner configuration methods will always return a new Joiner, 
