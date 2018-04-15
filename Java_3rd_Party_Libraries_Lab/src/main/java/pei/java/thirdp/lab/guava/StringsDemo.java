@@ -2,10 +2,12 @@ package pei.java.thirdp.lab.guava;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.*;
 import static pei.java.thirdp.lab.utils.Utils.*;
 
 import org.junit.Test;
 
+import com.google.common.base.CharMatcher;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 
@@ -90,5 +92,30 @@ public class StringsDemo {
 				, is("{a=x, b=y, c=z}"));
 		
 	}
+	
+	
+	@Test
+	public void charMathcerDemo() throws Exception {
+		
+		assertThat(CharMatcher.anyOf("aec").countIn("Please eat this cake!"), is(8));
+		assertThat(CharMatcher.anyOf("aec").indexIn("Please eat this cake!"), is(2));
+		assertThat(CharMatcher.anyOf("aec").removeFrom("Please eat this cake!"), is("Pls t this k!"));
+		
+		assertThat(CharMatcher.inRange('a', 'f').removeFrom("Please eat this cake!"), is("Pls t this k!"));
+		assertThat(CharMatcher.inRange('0', '9').removeFrom("Please123 eat0 this555 cake!123")
+				, is("Please eat this cake!"));
+		assertThat(CharMatcher.inRange('0', '9').retainFrom("Please123 eat0 this555 cake!123")
+				, is("1230555123"));
+		assertThat(CharMatcher.inRange('a', 'f').negate()
+				.removeFrom("Please eat this cake!"), is("eaeeacae"));
+		assertThat(CharMatcher.inRange('a', 'f').matches('f'), is(true));
+		assertThat(CharMatcher.inRange('a', 'f').matches('F'), is(false));
+		
+		assertThat(CharMatcher.whitespace().trimFrom("			Please eat this cake!\n\r  ")
+				, is("Please eat this cake!"));
+		assertThat(CharMatcher.breakingWhitespace().collapseFrom("Please   eat			this \n cake !", '-')
+				, is("Please-eat-this-cake-!"));
+		
+	} 
 	
 }
