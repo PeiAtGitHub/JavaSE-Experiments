@@ -8,6 +8,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+import com.google.common.primitives.Doubles;
 import com.google.common.primitives.Ints;
 
 /**
@@ -55,6 +56,14 @@ public class PrimitivesDemo {
 		assertThat(Ints.tryParse("-1"), is(-1));
 		assertThat(Ints.tryParse("abc"), nullValue());
 		
+	}
+	
+	@Test
+	public void doubles() throws Exception {
+		
+		assertThat(Doubles.tryParse("3.1415926535"), is(3.1415926535));
+		assertThat(Doubles.tryParse("3.14.15926535"), nullValue());
+
 	}
 	
 }
