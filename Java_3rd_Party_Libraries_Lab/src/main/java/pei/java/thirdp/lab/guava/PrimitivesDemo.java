@@ -8,6 +8,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+import com.google.common.primitives.Booleans;
 import com.google.common.primitives.Doubles;
 import com.google.common.primitives.Ints;
 
@@ -55,6 +56,13 @@ public class PrimitivesDemo {
 		assertThat(Ints.tryParse("1"), is(1));
 		assertThat(Ints.tryParse("-1"), is(-1));
 		assertThat(Ints.tryParse("abc"), nullValue());
+
+		assertThat(Ints.checkedCast(100L), is(100));
+		assertThat(catchException(()->Ints.checkedCast(2147483648L)), instanceOf(IllegalArgumentException.class));
+		
+		assertThat(Ints.saturatedCast(100L), is(100));
+		assertThat(Ints.saturatedCast(2147483648L), is(2147483647));
+		assertThat(Ints.saturatedCast(2147483648L), is(Integer.MAX_VALUE));
 		
 	}
 	
@@ -66,4 +74,10 @@ public class PrimitivesDemo {
 
 	}
 	
+	@Test
+	public void booleans() throws Exception {
+		
+		assertThat(Booleans.countTrue(true, true, true, false, true, true), is(5));
+		
+	}
 }
