@@ -34,7 +34,7 @@ public class WikipediaTFPdownloader {
     public void testDownLoadTfp() throws Exception {
         
         try(WebClient webClient = new WebClient();) {
-            HtmlPage mainPage = webClient.getPage(WIKIPEDIA_MAIN_PAGE_URL);
+            HtmlPage mainPage = webClient.getPage(URL_WIKIPEDIA_MAIN_PAGE);
 
             // click the image element to open image details page
             HtmlElement tfpElement = mainPage.getHtmlElementById("mp-tfp").getElementsByTagName("img").get(0);

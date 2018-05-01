@@ -22,10 +22,8 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public class Utils {
-    // Some commonly used strings
     
     // Some commonly used strings
-	
 	public final static String STR = "STR";
 	public final static String DEFAULT_STR = "DEFAULT_STR";
 	

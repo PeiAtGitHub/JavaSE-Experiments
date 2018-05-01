@@ -56,7 +56,7 @@ public class IoFileUtilsTests {
         FileUtils.deleteDirectory(dir1);
         assertTrue(dir1.mkdir());
         assertThat(dir1.listFiles().length, is(0));
-        FileUtils.copyURLToFile(new URL(APACHE_COMMONS_IO_MAIN_PAGE), file11);
+        FileUtils.copyURLToFile(new URL(URL_APACHE_COMMONS_IO_MAIN), file11);
         Thread.sleep(1000);
         FileUtils.copyFile(file11, file12, false);
         assertTrue(FileUtils.isFileNewer(file12, file11));

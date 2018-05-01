@@ -27,7 +27,6 @@ public class InternetDomainNameDemo {
 		assertTrue(InternetDomainName.isValid("someone.wordpress.com"));
 		
 		//
-		assertTrue(InternetDomainName.isValid("en.wikipedia.org"));
 		assertTrue(InternetDomainName.isValid("wikipedia.org"));
 		assertTrue(InternetDomainName.isValid("org"));
 		
