@@ -53,6 +53,9 @@ public class CollectionTests {
         
         assertThat(catchException(()->Collections.<String> emptyList().add(STR)),
                 instanceOf(UnsupportedOperationException.class));
+        
+        assertThat(Collections.singletonList(STR).toString(), is("[STR]"));
+        assertThat(Collections.singletonMap("ABC", "XYZ").toString(), is("{ABC=XYZ}"));
 
     }
     
