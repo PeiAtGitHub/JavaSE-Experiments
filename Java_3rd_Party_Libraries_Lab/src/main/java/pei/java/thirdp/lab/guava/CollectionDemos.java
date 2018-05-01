@@ -6,7 +6,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static pei.java.thirdp.lab.utils.SolarPlanet.EARTH;
 import static pei.java.thirdp.lab.utils.SolarPlanet.JUPITER;
 import static pei.java.thirdp.lab.utils.SolarPlanet.MARS;
@@ -36,6 +36,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.ImmutableSortedSet;
 import com.google.common.collect.ImmutableTable;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Lists;
@@ -269,4 +270,21 @@ public class CollectionDemos {
         rangeSet.remove(Range.open(5, 10)); // this removal will split range
         assertThat(rangeSet.toString(), is("[[1..5], [10..10], [11..20)]"));
     }
+    
+    @Test
+	public void iterablesDemo() throws Exception {
+    	
+		Iterables.filter(
+			ImmutableList.of(new NullPointerException(), new IllegalArgumentException(), new IllegalStateException())
+			, NullPointerException.class)
+		.forEach(e->assertThat(e, instanceOf(NullPointerException.class)));
+		
+		assertThat(Iterables.filter(TEST_LIST_123, Range.closed(-10, 2)).toString(), is("[1, 2]"));
+		
+		assertThat(Iterables.find(TEST_LIST_123, Range.closed(-10, 2)), is(1));
+		
+		assertThat(Iterables.frequency(TEST_LIST_123, 1), is(1));
+		assertThat(Iterables.frequency(ImmutableList.of(1, 1, 1), 1), is(3));
+		
+	}
 }
