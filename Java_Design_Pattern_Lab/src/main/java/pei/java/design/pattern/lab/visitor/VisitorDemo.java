@@ -91,9 +91,7 @@ class Cashier implements Visitor {
 
     public void visit(ShoppingCart cart) {
         totalCost = 0;
-        for (SuperMarketItem item : cart.getItems()) {
-            item.accept(this);
-        }
+        cart.getItems().forEach(item->item.accept(this));
         cart.setTotalCost(totalCost);
         totalCost = 0;
     }
@@ -111,9 +109,7 @@ class Security implements Visitor {
     
     public void visit(ShoppingCart cart) {
         passed = true;
-        for (SuperMarketItem item : cart.getItems()) {
-            item.accept(this);
-        }
+        cart.getItems().forEach(item -> item.accept(this));
         cart.setSecurityPassed(passed);
         passed = true;
     }

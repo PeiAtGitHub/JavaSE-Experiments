@@ -52,12 +52,9 @@ public class Numbers {
 
     @Test
     public void numberOverFlow() {
-        log.info("Integer.MAX_VALUE is {}, which is appx {}", Integer.MAX_VALUE
-                ,numberToReadableString(Integer.MAX_VALUE));
-        log.info("Long.MAX_VALUE is {}, which is appx {}", Long.MAX_VALUE 
-                ,numberToReadableString(Long.MAX_VALUE));
-        log.info("Float.MAX_VALUE is {}, which is appx {}", Float.MAX_VALUE
-                ,numberToReadableString(Float.MAX_VALUE));
+        log.info("Integer.MAX_VALUE is {}, appx {}", Integer.MAX_VALUE, numberToReadableString(Integer.MAX_VALUE));
+        log.info("Long.MAX_VALUE is {}, appx {}", Long.MAX_VALUE, numberToReadableString(Long.MAX_VALUE));
+        log.info("Float.MAX_VALUE is {}, appx {}", Float.MAX_VALUE, numberToReadableString(Float.MAX_VALUE));
         log.info("Double.MAX_VALUE is {}, which has no better representation.", Double.MAX_VALUE);
 
         log.info("Demo of number overflow:");
@@ -73,17 +70,12 @@ public class Numbers {
     
     @Test
     public void randoms() {
-        Random r = new Random();
-        for (int i = 0; i < 5; i++) {
-            // random integer [0,100), same convention: ending value is exclusive
-            System.out.println(r.nextInt(100)); 
-        }
-        for (int i = 0; i < 5; i++) {
-            System.out.println(r.nextBoolean());// convenient for the 2-options-case 
-        }
-        for (int i = 0; i < 5; i++) {
-            System.out.println(r.nextGaussian()); 
-        }
+
+    	Random r = new Random();
+        repeatRun(5, ()->System.out.println(r.nextInt(100))); // random integer [0,100)
+        repeatRun(5, ()->System.out.println(r.nextGaussian()));
+        repeatRun(5, ()->System.out.println(r.nextBoolean())); 
+        
     }
     
     @Test

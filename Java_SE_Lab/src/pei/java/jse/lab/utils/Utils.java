@@ -4,9 +4,12 @@ import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
+import java.util.stream.IntStream;
 
 import org.apache.commons.io.FileUtils;
 
+import com.google.common.collect.ContiguousSet;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -69,6 +72,16 @@ public class Utils {
         } catch (Exception e) {
             return e;
         }
+    }
+    
+    public static void repeatRun(int times, NonArgFunction function) {
+    	IntStream.range(0, times).forEach(i->function.doSth());
+//    	OR similarly:
+//    	ContiguousSet.closed(1, times).forEach(i->function.doSth());
+    }
+    
+    public static void repeatRun(int times, Consumer<Integer> c) {
+    	IntStream.range(0, times).forEach(i->c.accept(i));
     }
     
     /**

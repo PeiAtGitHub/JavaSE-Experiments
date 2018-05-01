@@ -118,9 +118,7 @@ class Incrementor implements Runnable {
     private Counter counter;
     
     public void run() {
-        for (int i = 0; i < 100; i++) {
-            counter.increment();
-        }
+        repeatRun(100, ()->counter.increment());
     }
 }
 
@@ -129,9 +127,7 @@ class Decrementor implements Runnable {
     private Counter counter;
     
     public void run() {
-        for (int i = 0; i < 100; i++) {
-            counter.decrement();
-        }
+    	repeatRun(100, ()->counter.decrement());
     }
 }
 

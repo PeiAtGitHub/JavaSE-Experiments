@@ -74,9 +74,7 @@ public class GraphDemo {
 
     static Set<US_CITY> getTwoHopNeighbors(Network<US_CITY, DirectConnection> network, US_CITY city) {
         Set<US_CITY> twoHopNeighbors = new HashSet<>();
-        for (US_CITY neighbor : network.adjacentNodes(city)) {
-            twoHopNeighbors.addAll(network.adjacentNodes(neighbor));
-        }
+        network.adjacentNodes(city).forEach(neighbor -> twoHopNeighbors.addAll(network.adjacentNodes(neighbor)));
         twoHopNeighbors.remove(city);
         return twoHopNeighbors;
     }

@@ -79,9 +79,7 @@ public class IoFileUtilsTests {
         }
         assertThat(count, is(2));
         assertThat(txtFiles, hasSize(2));
-        for (File file : txtFiles) {
-            assertThat(file.getName(), endsWith(".txt"));
-        }
+        txtFiles.forEach(file->assertThat(file.getName(), endsWith(".txt")));
 
         FileUtils.moveDirectoryToDirectory(dir2, dir1, false);
         // after move: dir1/dir2/dir1

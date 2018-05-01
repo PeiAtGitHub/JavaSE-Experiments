@@ -18,11 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 public class SystemAndRuntime {
     
     @Test
-    public void system() {
-        // demo of system properties
-        for (Entry<Object, Object> prop : System.getProperties().entrySet()){
-            log.info(prop.toString());
-        }
+    public void systemPropsDemo() {
+        System.getProperties().entrySet().forEach(prop -> log.info(prop.toString()));
     }
 
     @Test

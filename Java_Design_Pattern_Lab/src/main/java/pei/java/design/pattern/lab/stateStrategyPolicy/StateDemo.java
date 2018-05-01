@@ -3,6 +3,7 @@ package pei.java.design.pattern.lab.stateStrategyPolicy;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import static org.apache.commons.lang3.StringUtils.*;
+import static pei.java.design.pattern.lab.utils.Utils.*;
 
 /**
  * 
@@ -12,10 +13,10 @@ import static org.apache.commons.lang3.StringUtils.*;
 public class StateDemo {
 
     public static void main(String[] args) {
+    	
         TextWriter wrt = new TextWriter();
-        for (int i = 0; i < 12; i++) {// x12
-            wrt.write("Today is my good day.");
-        } 
+        repeatRun(12, ()->wrt.write("Today is my good day."));
+        
     }
 
 }
