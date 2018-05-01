@@ -1,10 +1,11 @@
 package pei.java.jse.lab.language;
 
 import static org.hamcrest.Matchers.*;
+import static pei.java.jse.lab.utils.Utils.*;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
 
-import java.text.DecimalFormat;
 import java.util.Random;
 
 import org.junit.Test;
@@ -35,15 +36,28 @@ public class Numbers {
         assertThat(Math.toDegrees(Math.PI), is(180d));
 
     }
+    
+    @Test
+	public void someNumberUtils() throws Exception {
+		
+    	assertThat(Integer.compare(1, 1), is(0));
+    	assertThat(Integer.max(1, 2), is(2));
+    	assertThat(Integer.parseInt("1"), is(1));
+    	assertThat(Integer.valueOf("1"), is(1));
+
+    	assertThat(Double.compare(1, 1), is(0));
+    	assertThat(Double.max(22d/7d, Math.PI), is(22d/7d));
+    	
+	}
 
     @Test
     public void numberOverFlow() {
         log.info("Integer.MAX_VALUE is {}, which is appx {}", Integer.MAX_VALUE
-                ,convertNumberToReadableString(Integer.MAX_VALUE));
+                ,numberToReadableString(Integer.MAX_VALUE));
         log.info("Long.MAX_VALUE is {}, which is appx {}", Long.MAX_VALUE 
-                ,convertNumberToReadableString(Long.MAX_VALUE));
+                ,numberToReadableString(Long.MAX_VALUE));
         log.info("Float.MAX_VALUE is {}, which is appx {}", Float.MAX_VALUE
-                ,convertNumberToReadableString(Float.MAX_VALUE));
+                ,numberToReadableString(Float.MAX_VALUE));
         log.info("Double.MAX_VALUE is {}, which has no better representation.", Double.MAX_VALUE);
 
         log.info("Demo of number overflow:");
@@ -93,32 +107,6 @@ public class Numbers {
         System.out.println("100.000000025 * 100.000000025 is: "+(100.000000025 * 100.000000025)); // 10000.000005000002
     }
 
-    /*
-     * Utils
-     */
-    private static String convertNumberToReadableString(double num) {
-        String result = "";
-        double numAbs = Math.abs(num);
-        long K = 1000;
-        long MN = 1000000;
-        long BN = 1000000000;
-
-        DecimalFormat df = new DecimalFormat("#.#");
-
-        if (numAbs >= BN) {
-            result = df.format(numAbs / BN).toString() + " Bn";
-        } else if (numAbs >= MN) {
-            result = df.format(numAbs / MN).toString() + " Mn";
-        } else if (numAbs >= K) {
-            result = df.format(numAbs / K).toString() + " K";
-        } else {
-            result = String.valueOf(numAbs);
-        }
-        if (num < 0) {
-            result = "-" + result;
-        }
-        return result;
-    }
 
 
 }

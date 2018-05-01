@@ -98,6 +98,31 @@ public class Utils {
             return df.format(numOfBytes) + " Bytes";
         }
     }
+    
+    public static String numberToReadableString(double num) {
+        String result = "";
+        double numAbs = Math.abs(num);
+        long K = 1000;
+        long MN = 1000000;
+        long BN = 1000000000;
+
+        DecimalFormat df = new DecimalFormat("#.#");
+
+        if (numAbs >= BN) {
+            result = df.format(numAbs / BN).toString() + " Bn";
+        } else if (numAbs >= MN) {
+            result = df.format(numAbs / MN).toString() + " Mn";
+        } else if (numAbs >= K) {
+            result = df.format(numAbs / K).toString() + " K";
+        } else {
+            result = String.valueOf(numAbs);
+        }
+        if (num < 0) {
+            result = "-" + result;
+        }
+        return result;
+    }
+
 
     /**
      * Thread.sleep(millis), 
