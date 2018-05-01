@@ -95,18 +95,10 @@ public class StringsDemo {
 	@Test
 	public void splitterDemo() throws Exception {
 		
-		Iterable<String> iterable = 
-				Splitter.on(',').trimResults().omitEmptyStrings().split("foo,bar,,   qux");
-		
-		for(String s : iterable) {
-			System.out.println(s);
-		}
+		Splitter.on(',').trimResults().omitEmptyStrings().split("foo,bar,,   qux").forEach(s->System.out.println(s));
 		
 		System.out.println("============= Fixed length splitting:");
-		
-		for(String s : Splitter.fixedLength(3).split(HELLO_WORLD)) {
-			System.out.println(s);
-		}
+		Splitter.fixedLength(3).split(HELLO_WORLD).forEach(s->System.out.println(s));
 		
 		System.out.println(Splitter.fixedLength(3).splitToList(HELLO_WORLD));
 		
