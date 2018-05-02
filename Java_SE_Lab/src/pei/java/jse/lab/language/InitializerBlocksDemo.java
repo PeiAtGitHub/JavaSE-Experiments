@@ -1,5 +1,9 @@
 package pei.java.jse.lab.language;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 /**
  * 
  * @author pei
@@ -7,17 +11,19 @@ package pei.java.jse.lab.language;
  */
 public class InitializerBlocksDemo {
 	
-	public static void main(String[] args) {
-		
+	@Test
+	public void initBlocksDemo() throws Exception {
+
 		System.out.println("==================");
 		new IBDemo();
-		
+
 		System.out.println("==================");
 		new IBDemo(1);
-		
+
 		System.out.println("==================");
 		new IBDemo(1, 1);
-	
+
+
 	}
 }
 

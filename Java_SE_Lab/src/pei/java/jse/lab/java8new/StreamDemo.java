@@ -5,6 +5,7 @@ import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+import static pei.java.jse.lab.utils.Utils.*;
 
 /**
  * 
@@ -21,15 +22,15 @@ public class StreamDemo {
 
         // Random stream
         System.out.print("Print 3 random integers:");
-        new Random().ints(3, 0, 100).forEach(i -> System.out.print(i + ";"));
+        new Random().ints(3, 0, 100).forEach(i -> System.out.print(i + SEMICOLON));
         System.out.println();
         // limit
         System.out.print("Print another 3 random integers:");
-        new Random().ints(0, 100).limit(3).forEach(i -> System.out.print(i + ";"));
+        new Random().ints(0, 100).limit(3).forEach(i -> System.out.print(i + SEMICOLON));
         System.out.println();
         // sort
         System.out.print("Print yet another 3 random integers, sorted:");
-        new Random().ints(3, 0, 100).sorted().forEach(i -> System.out.print(i + ";"));
+        new Random().ints(3, 0, 100).sorted().forEach(i -> System.out.print(i + SEMICOLON));
         System.out.println();
 
         // map

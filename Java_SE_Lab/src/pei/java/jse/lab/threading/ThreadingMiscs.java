@@ -15,8 +15,8 @@ public class ThreadingMiscs {
     public void threadStackTraces() {
         
         Thread.getAllStackTraces().entrySet()
-        .forEach(entry->System.out.format("Thread: %s; StackTraces: %s%n"
-        		, entry.getKey(), Arrays.toString(entry.getValue())));
+        	.forEach(entry->System.out.format("Thread: %s; StackTraces: %s%n"
+        			, entry.getKey(), Arrays.toString(entry.getValue())));
 
     }
 

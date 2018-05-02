@@ -68,7 +68,6 @@ public class TestEMailsWithDumbster {
 				"mail.smtp.port", port,
 				"mail.transport.protocol", protocol));
 
-		//
 		Message msg = new MimeMessage(Session.getInstance(props, null));
 		msg.setFrom(new InternetAddress(FROM));
 		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(TO, false));
@@ -76,7 +75,7 @@ public class TestEMailsWithDumbster {
 		msg.setSubject(SUBJECT);
 		msg.setText(BODY);
 		msg.setSentDate(new Date());
-		//
+
 		Transport.send(msg);
 		System.out.format("Message sent to host %s, port %s, protocol %s%n"
 				,host, port, protocol);

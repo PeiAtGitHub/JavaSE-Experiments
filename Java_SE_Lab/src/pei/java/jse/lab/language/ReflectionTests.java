@@ -1,7 +1,6 @@
 package pei.java.jse.lab.language;
 
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.*;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,8 +16,6 @@ import org.junit.Test;
  *
  */
 public class ReflectionTests {
-    
-    public int testField = 1;
     
     @Test
     public void intanceofclass() {

@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import static pei.java.thirdp.lab.DB.DbUtils.*;
+import static pei.java.thirdp.lab.utils.Utils.*;
 
 /**
  * 
@@ -60,22 +61,18 @@ public class HibernateDemo {
     		// list customer 
     		customers = listCustomers(factory);
     		System.out.println("Printing customers in DB again:");
-    		for (Customer customer : customers) {
-    			System.out.println(customer.toString());
-    		}
+    		customers.forEach(customer -> System.out.println(customer.toString()));
     	}
 
     }
     
     public static SessionFactory getSessionFactory(String res) {
-    	SessionFactory factory;
     	try {
-    		factory = new Configuration().configure(res).buildSessionFactory();
+    		return new Configuration().configure(res).buildSessionFactory();
     	} catch (Throwable e) {
     		System.err.println("Failed to create sessionFactory object." + e);
     		throw new ExceptionInInitializerError(e);
     	}
-    	return factory;
     }
 
 
@@ -136,9 +133,7 @@ public class HibernateDemo {
     }
 
     private static void rollBackTx(Transaction tx) {
-        if (tx != null) {
-            tx.rollback();
-        }
+    	ifNotNull(tx, () -> tx.rollback());
     }
     
 }

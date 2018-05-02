@@ -47,9 +47,7 @@ public class WikipediaTFPdownloader {
             //
             String fileName = imgUrl.getPath().substring(imgUrl.getPath().lastIndexOf('/') + 1);
             File file = new File(tfpDownloadDir + File.separator + fileName);
-            if(file.exists()) {
-                file.delete();
-            }
+            file.delete();
             assertFalse(file.exists());
             FileUtils.copyURLToFile(imgUrl, file);
             assertTrue(file.exists());

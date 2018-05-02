@@ -54,13 +54,11 @@ public class RangeDemo {
 
 		assertThat(rangeST.encloses(Range.singleton("Str")), is(true));
 		
-		//
 		Range<Integer> range1To100 = Range.closed(1, 100); // [1, 100]
 		
 		assertThat(range1To100.containsAll(TEST_LIST_123), is(true));
 		assertThat(range1To100.contains(RandomUtils.nextInt(1, 101)), is(true));
 		
-		//
 		assertThat(Range.openClosed(1, 1).isEmpty(), is(true));
 		assertThat(Range.closedOpen(1, 1).isEmpty(), is(true));
 		
@@ -86,7 +84,6 @@ public class RangeDemo {
 		assertThat(intSet, is(ContiguousSet.closed(1, 100)));
 		assertThat(intSet.size(), is(100));
 		
-		//
 		MyStringsDiscreteDomain1 msdd1 = new MyStringsDiscreteDomain1();
 		assertThat(msdd1.distance("S1", "S100"), is(99L));
 		assertThat(ContiguousSet.create(Range.closedOpen("S1", "S100"), msdd1).size(), is(99));

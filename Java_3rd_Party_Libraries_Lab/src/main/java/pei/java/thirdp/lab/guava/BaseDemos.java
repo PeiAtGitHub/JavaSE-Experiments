@@ -14,8 +14,6 @@ import com.google.common.base.Strings;
 
 import pei.java.thirdp.lab.utils.Person;
 
-
-
 /**
  * 
  * @author pei
@@ -23,7 +21,6 @@ import pei.java.thirdp.lab.utils.Person;
  */
 public class BaseDemos {
 
-    
     @Test
     public void testStrings() throws Exception {
         assertTrue(Strings.isNullOrEmpty(null));

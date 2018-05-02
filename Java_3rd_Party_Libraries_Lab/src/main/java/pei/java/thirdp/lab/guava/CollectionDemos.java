@@ -107,7 +107,6 @@ public class CollectionDemos {
         assertThat(Maps.asMap(TEST_SET_123, x->x*10).toString(), 
                 is("{1=10, 2=20, 3=30}"));
 
-        //
         ImmutableMap<String, Integer> immuMap = ImmutableMap.of(S1, 1, S2, 2);
         assertThat(immuMap.keySet().iterator().next(), is(S1));
         assertThat(ImmutableSortedMap.copyOf(immuMap).keySet().iterator().next(), is(S1));
@@ -148,7 +147,6 @@ public class CollectionDemos {
         assertThat(multiSet.entrySet().iterator().next().getElement(), is(1));
         assertThat(multiSet.entrySet().iterator().next().getCount(), is(1));
 
-        //
         assertThat(ImmutableMultiset.of(1, 2, 2, 2, 6, 6).count(6), is(2));
     }
     
@@ -170,7 +168,6 @@ public class CollectionDemos {
         assertThat(listMultimap.get(S1).toString(), is("[1, 1, 1]"));
         assertThat(listMultimap.asMap().get(S1).toString(), is("[1, 1, 1]"));
         
-        // 
         SetMultimap<String, Integer> setMultimap =
                 MultimapBuilder.hashKeys().hashSetValues().build();
         setMultimap.putAll(S1, Sets.newHashSet(1, 1, 1));
@@ -189,7 +186,6 @@ public class CollectionDemos {
         assertThat(setMultimap.asMap().size(), is(3));
         assertThat(setMultimap.asMap().get(S1).toString(), is("[1, 2, 3]"));
         
-        //
         assertThat(ImmutableMultimap.of(S1, 1, S2, 2, S1, 3).get(S1), hasSize(2));
     }
     
@@ -206,7 +202,6 @@ public class CollectionDemos {
         assertThat(biMap.get(" "), is(1));
         assertThat(biMap.keySet(), not(hasItem(S1)));
         
-        //
         assertThat(catchException(() -> ImmutableBiMap.of(S1, 1, S2, 1)),
                 instanceOf(IllegalArgumentException.class));
     }
@@ -222,7 +217,6 @@ public class CollectionDemos {
         assertThat(sales.row(1).size(), is(2));
         assertThat(sales.cellSet().size(), is(5));
 
-        //
         ImmutableTable<Integer, String, String> customersTable = ImmutableTable.<Integer, String, String>builder()
                 .put(1, "Name", "Person One")
                 .put(1, "City", "City One")
@@ -261,7 +255,6 @@ public class CollectionDemos {
         
     @Test
     public void testMiscs() throws Exception {
-        // RangeSet
         RangeSet<Integer> rangeSet = TreeRangeSet.create();
         rangeSet.add(Range.closed(1, 10)); 
         rangeSet.add(Range.closedOpen(11, 15)); 

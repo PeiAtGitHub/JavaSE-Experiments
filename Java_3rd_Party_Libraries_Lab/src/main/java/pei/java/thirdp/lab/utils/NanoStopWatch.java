@@ -16,40 +16,40 @@ public class NanoStopWatch {
     
     private static long begin;
     
-    //
-    
     public static void begin() {
         begin = System.nanoTime();
         running = true;
     }
         
     public static long stopAndGetElapsedMillis() {
-
-        long elapsed = System.nanoTime() - begin;
-        
-        if (running) {
-            running = false;
-            log.info("Elapsed nanos since last begin is {}.", elapsed);
-            return TimeUnit.NANOSECONDS.toMillis(elapsed);
-        }else{
-            log.info("NanoStopWatch was NOT running! Returning ZERO!");
-            return 0;
-        }
-        
+    	return stopAndGetElapsed(TimeUnit.MILLISECONDS);
     }
     
     public static long stopAndGetElapsedNanos() {
+    	return stopAndGetElapsed(TimeUnit.NANOSECONDS);
+    }
+    
+    
+    private static long stopAndGetElapsed(TimeUnit tu) {
         
         long elapsed = System.nanoTime() - begin;
         
         if (running) {
             running = false;
             log.info("Elapsed nanos since last begin is {}.", elapsed);
-            return elapsed;
+            switch (tu) {
+			case MILLISECONDS:
+				return TimeUnit.NANOSECONDS.toMillis(elapsed);
+			case NANOSECONDS:
+				return elapsed;
+			default:
+				throw new RuntimeException("Unsupported TimeUnit: " + tu.name());
+			}
         }else{
-            log.info("NanoStopWatch was NOT running! Returning ZERO!");
+            log.info("NanoStopWatch was NOT running! Returning 0!");
             return 0;
         }
+    
     }
     
 }

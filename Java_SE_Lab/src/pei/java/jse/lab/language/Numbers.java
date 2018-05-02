@@ -79,8 +79,7 @@ public class Numbers {
     }
     
     @Test
-    public void operator(){
-        // Mod
+    public void modOperator(){
         assertEquals(0, 0 % 255);
         assertEquals(180, 180 % 255);
         assertEquals(0, 255 % 255);

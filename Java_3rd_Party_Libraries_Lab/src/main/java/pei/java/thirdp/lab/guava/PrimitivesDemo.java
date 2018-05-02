@@ -4,8 +4,6 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static pei.java.thirdp.lab.utils.Utils.*;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 
 import com.google.common.primitives.Booleans;
@@ -41,7 +39,7 @@ public class PrimitivesDemo {
 		assertThat(Ints.ensureCapacity(TEST_INT_ARRAY_123, 3, 1), is(TEST_INT_ARRAY_123));
 		assertThat(Ints.ensureCapacity(TEST_INT_ARRAY_123, 2, 1), is(TEST_INT_ARRAY_123));
 		
-		assertThat(Ints.join(";", TEST_INT_ARRAY_123), is("1;2;3"));
+		assertThat(Ints.join(SEMICOLON, TEST_INT_ARRAY_123), is("1;2;3"));
 
 		assertThat(Ints.max(TEST_INT_ARRAY_123), is(3));
 		assertThat(Ints.min(TEST_INT_ARRAY_123), is(1));
@@ -55,7 +53,7 @@ public class PrimitivesDemo {
 		
 		assertThat(Ints.tryParse("1"), is(1));
 		assertThat(Ints.tryParse("-1"), is(-1));
-		assertThat(Ints.tryParse("abc"), nullValue());
+		assertThat(Ints.tryParse(STR), nullValue());
 
 		assertThat(Ints.checkedCast(100L), is(100));
 		assertThat(catchException(()->Ints.checkedCast(2147483648L)), instanceOf(IllegalArgumentException.class));

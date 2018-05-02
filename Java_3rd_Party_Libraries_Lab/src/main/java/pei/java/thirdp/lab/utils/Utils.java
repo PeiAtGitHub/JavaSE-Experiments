@@ -39,18 +39,18 @@ public class Utils {
     public final static String S2 = "S2";
     public final static String S3 = "S3";
     
+    public final static String COMMA = ",";
+    public final static String SEMICOLON = ";";
     //
     public final static int[] TEST_INT_ARRAY_123 = new int[] {1, 2, 3};
     public final static List<Integer> TEST_LIST_123 = ImmutableList.of(1, 2, 3);
     public final static Set<Integer> TEST_SET_123 = ImmutableSet.of(1, 2, 3);
     public final static Map<String, Integer> TEST_MAP_123 = ImmutableMap.of(S1, 1, S2, 2, S3, 3);
     
-    
     // URLs
     public static final String URL_APACHE_COMMONS_IO_MAIN = "https://commons.apache.org/proper/commons-io/index.html";
     public static final String URL_WIKIPEDIA_MAIN_PAGE= "https://en.wikipedia.org/wiki/Main_Page";
     public static final String URL_GOOGLE = "https://www.google.com";
-
     
     //
     public static Exception catchException(NonArgFunction function) {
@@ -137,5 +137,20 @@ public class Utils {
     public static void repeatRun(int times, Consumer<Integer> c) {
     	IntStream.range(0, times).forEach(i->c.accept(i));
     }
+    
+    public static void ifNotNull(Object obj, NonArgFunction fnc) {
+    	if(obj != null) {
+    		fnc.doSth();	
+    	}
+    }
+    
+    public static int sum(int... numbers) {
+        int sum = 0;
+        for (int num : numbers) {
+            sum = sum + num;
+        }
+        return sum;
+    }
+    
 }
 

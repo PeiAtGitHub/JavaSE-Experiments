@@ -1,9 +1,7 @@
 package pei.java.jse.lab.threading;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static pei.java.jse.lab.utils.Utils.threadSleep;
-import static pei.java.jse.lab.utils.Utils.printWithThreadName;
+import static pei.java.jse.lab.utils.Utils.*;
 
 import org.junit.Test;
 
@@ -17,18 +15,18 @@ public class ThreadingBasics {
 
     @Test
     public void directExtending() {
-        ASimpleThread aSimpleThr = new ASimpleThread();
+        final ASimpleThread aSimpleThr = new ASimpleThread();
         // u can call run() directly but it is NOT in a separate thread
         aSimpleThr.run();
         // calling start() runs in a separate thread.
         aSimpleThr.start();
 
         printWithThreadName("Main gonna wait.");
-        try {
-            aSimpleThr.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+		try {
+			aSimpleThr.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
         printWithThreadName("Main gonna end.");
     }
 
@@ -80,24 +78,17 @@ public class ThreadingBasics {
         });
         thr.start();
         
-        if(thr.isAlive()) {
-            thr.interrupt();
-            assertTrue(thr.isInterrupted());
-        }else {
-            fail("The thread is not alive.");
-        }
+        assertTrue(thr.isAlive());
+        thr.interrupt();
+        assertTrue(thr.isInterrupted());
         thr.join();
     }
 
-    /*
-     * 
-     */
     //
     class MessageLooper implements Runnable {
         public void run() {
-            String message[] = { "M1", "M2", "M3", "M4", "M5", "M6" };
             try {
-                for (String msg : message) {
+                for (String msg : new String[] { "M1", "M2", "M3", "M4", "M5", "M6" }) {
                     Thread.sleep(5000); // 5s
                     printWithThreadName(msg);
                 }
@@ -112,10 +103,10 @@ public class ThreadingBasics {
 class ASimpleThread extends Thread {
 	public void run() {
 		printWithThreadName("ASimpleThread.run() starts!");
-		for (int i = 1; i <= 3; i++) {
+		repeatRun(3, ()-> {
 			printWithThreadName(":)");
 			threadSleep(1000);
-		}
+		});
 		printWithThreadName("ASimpleThread.run() ends!");
 	}
 }

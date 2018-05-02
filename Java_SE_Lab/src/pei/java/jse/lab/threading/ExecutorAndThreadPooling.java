@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Test;
 
 import lombok.AllArgsConstructor;
-import pei.java.jse.lab.utils.Utils;
+import static pei.java.jse.lab.utils.Utils.*;
 
 /**
  * 
@@ -43,11 +43,11 @@ public class ExecutorAndThreadPooling {
         = Executors.newScheduledThreadPool(1);
         
         ScheduledFuture<?> beepingTask = scheduledThrPool
-                .scheduleAtFixedRate(()->Utils.printWithThreadName("Beep")
+                .scheduleAtFixedRate(()->printWithThreadName("Beep")
                         , 3, 3, TimeUnit.SECONDS);
                 
         scheduledThrPool.schedule(()->{
-            Utils.printWithThreadName("Gonna cancel beeping.");
+            printWithThreadName("Gonna cancel beeping.");
             beepingTask.cancel(true);
         }, 16, TimeUnit.SECONDS);
         
@@ -68,8 +68,8 @@ class TheTask implements Runnable {
     
     public void run() {
         for (int i=0; i < iterations; i++) {
-            Utils.printWithThreadName(message);
-            Utils.threadSleep(1000);
+            printWithThreadName(message);
+            threadSleep(1000);
         }
     }
 }

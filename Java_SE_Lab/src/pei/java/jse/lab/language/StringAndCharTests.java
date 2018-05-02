@@ -6,17 +6,15 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.hamcrest.CoreMatchers.*;
 
-import java.io.NotActiveException;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.junit.Test;
 
-import pei.java.jse.lab.utils.Utils;
+import static pei.java.jse.lab.utils.Utils.*;
 
 /**
  * 
@@ -25,7 +23,10 @@ import pei.java.jse.lab.utils.Utils;
  */
 public class StringAndCharTests {
 
-    @Test
+    private static final String REGEX_RELUCTANT = "a.+?c";
+	private static final String REGEX_GREEDY = "a.+c";
+
+	@Test
     public void testIndexing() {
         /*
          * The convention of indexing is: begin index is inclusive, end index is
@@ -33,17 +34,17 @@ public class StringAndCharTests {
          */
         String str = "1,1;2,2;3,3;";
 
-        assertEquals(3, str.indexOf(";"));
-        assertEquals(3, str.indexOf(";", 3)); // begin index inclusive
-        assertEquals(7, str.indexOf(";", 4));
+        assertEquals(3, str.indexOf(SEMICOLON));
+        assertEquals(3, str.indexOf(SEMICOLON, 3)); // begin index inclusive
+        assertEquals(7, str.indexOf(SEMICOLON, 4));
         assertEquals(-1, str.indexOf("abc"));
 
         assertThat(str.substring(0, 2), is("1,"));
         assertThat(str.substring(0), is(str));
-        assertThat(str.substring(str.length() - 1), is(";"));
+        assertThat(str.substring(str.length() - 1), is(SEMICOLON));
         assertTrue(str.substring(str.length()).isEmpty()); // this behavior, i think, makes no sense
 
-        assertThat(Utils.catchException(()->str.substring(str.length() + 1)),
+        assertThat(catchException(()->str.substring(str.length() + 1)),
                 instanceOf(IndexOutOfBoundsException.class));
     }
 
@@ -64,12 +65,10 @@ public class StringAndCharTests {
     }
 
     @Test
-    public void testSplit() {
-        String str = "abcde";
-        String[] splitted = str.split("$"); // when the string does not contain the splitter
-        // the entire string itself is the only resulted element
+    public void testNoSpliter() {
+        String[] splitted = STR.split("$"); 
         assertEquals(1, splitted.length);
-        assertThat(splitted[0], is(str));
+        assertThat(splitted[0], is(STR));
     }
 
     @Test
@@ -97,7 +96,7 @@ public class StringAndCharTests {
         assertEquals(15, first.length());
         assertEquals(12, second.length());
         assertEquals(12, third.length());
-        // below demo uses print() instead of println();
+         
         System.out.print(first);
         System.out.print(second);
         System.out.print(third);
@@ -117,14 +116,7 @@ public class StringAndCharTests {
      */
     @Test
     public void searchMatches() {
-        final String greedy = "a.+c";
-        final String reluctant = "a.+?c";
-        String regex;
-        if (new Random().nextBoolean()) {
-            regex = greedy;
-        } else {
-            regex = reluctant;
-        }
+        String regex = new Random().nextBoolean() ? REGEX_GREEDY : REGEX_RELUCTANT;
         System.out.println("Regex: " + regex);
 
         Pattern regexPattern = Pattern.compile(regex);
@@ -132,12 +124,12 @@ public class StringAndCharTests {
         // 1st
         assertTrue(matcher.find());
         switch (regex) {
-        case greedy:
+        case REGEX_GREEDY:
             assertTrue(matcher.group().equals("abc-xxxxx-abbbc-ac"));
             assertThat(matcher.start(), is(0));
             assertThat(matcher.end(), is(18));
             break;
-        case reluctant:
+        case REGEX_RELUCTANT:
             assertThat(matcher.group(), is("abc"));
             assertThat(matcher.start(), is(0));
             assertThat(matcher.end(), is(3));
@@ -148,10 +140,10 @@ public class StringAndCharTests {
         // 2nd
         boolean found = matcher.find();
         switch (regex) {
-        case greedy:
+        case REGEX_GREEDY:
             assertFalse(found);
             break;
-        case reluctant:
+        case REGEX_RELUCTANT:
             assertThat(matcher.group(), is("abbbc"));
             assertEquals(10, matcher.start());
             assertEquals(15, matcher.end());
@@ -165,12 +157,7 @@ public class StringAndCharTests {
 
     @Test
     public void testMatches() {
-        String regex;
-        if (new Random().nextBoolean()) {
-            regex = "a.+c"; // greedy
-        } else {
-            regex = "a.+?c"; // reluctant
-        }
+        String regex = new Random().nextBoolean()? REGEX_GREEDY : REGEX_RELUCTANT; 
         System.out.println("Regex: " + regex);
         assertTrue("abc-xxxxx-abbbc-ac".matches(regex));
     }
@@ -179,69 +166,30 @@ public class StringAndCharTests {
     public void testExtraction() { // search matches
         Matcher matcher = Pattern.compile("First Name:(.*?); Last Name:")
                 .matcher("First Name: Three; Last Name: Zhang");
-        if (matcher.find()) {
-            assertThat(matcher.group(1).trim(), is("Three"));
-        } else {
-            fail("Should have a match...");
-        }
+        assertTrue(matcher.find());
+        assertThat(matcher.group(1).trim(), is("Three"));
     }
 
     @Test
     public void testTheSelfMadeUtil() {
         final String theStr = "111,aaa,bbb,,ccc";
-        String delimiter = ",";
         
-        assertThat(getSubString(theStr, delimiter, 2, 3), is("bbb"));
-        assertThat(getSubString(theStr, delimiter, 2, 4), is("bbb,"));
-        assertThat(getSubString(theStr, delimiter, 3, 4), is(""));
-        assertThat(getSubString(theStr, delimiter, 0, 2), is("111,aaa"));
-        assertThat(getSubString(theStr, delimiter, 0, 100), is(""));
+        assertThat(getSubString(theStr, COMMA, 2, 3), is("bbb"));
+        assertThat(getSubString(theStr, COMMA, 2, 4), is("bbb,"));
+        assertThat(getSubString(theStr, COMMA, 3, 4), is(""));
+        assertThat(getSubString(theStr, COMMA, 0, 2), is("111,aaa"));
+        assertThat(getSubString(theStr, COMMA, 0, 100), is(""));
         // unusual edge cases
-        assertThat(getSubString(theStr, delimiter, 1, 1), is(""));
-        assertThat(getSubString(theStr, delimiter, 100, 100), is(""));
-        assertThat(getSubString(theStr, delimiter, 2, 1), is(""));
-        assertThat(getSubString(theStr, delimiter, 2, -1), is(""));
-        assertThat(getSubString(theStr, delimiter, -2, -1), is(""));
-        assertThat(getSubString(theStr, delimiter, -2, -2), is(""));
-        assertThat(getSubString(theStr, delimiter, -1, -2), is(""));
-        assertThat(getSubString(theStr, delimiter, -1, 2), is("111,aaa"));
-        assertThat(getSubString(theStr, delimiter, -2, 2), is("111,aaa"));
-        assertThat(getSubString(theStr, delimiter, -2, 100), is(""));
-    }
-
-    /*
-     * a self-made Util
-     */
-
-    /**
-     * String.split() consumption on memory and cpu is high, and inconvenient in
-     * some cases.
-     *
-     * This method is simpler for getting the sub string between the n1th and the
-     * n2th delimiter 
-     * E.g. 
-     * getSubString("111,aaa,bbb,,ccc", ",", 2, 3) returns "bbb"
-     * getSubString("111,aaa,bbb,,ccc", ",", 0, 2) returns "111,aaa"
-     * getSubString("111,aaa,bbb,,ccc", ",", 3, 4) returns ""
-     * 
-     */
-    private static String getSubString(String str, String delimiter, int n1, int n2) {
-        if (n2 <= n1) {
-            return "";
-        }
-        try {
-            int idx1 = -1;
-            int pointer = -1;
-            for (int i = 1; i <= n2; i++) {
-                pointer = str.indexOf(delimiter, pointer + 1);
-                if (i == n1) {
-                    idx1 = pointer;
-                }
-            }
-            return str.substring(idx1 + 1, pointer);
-        } catch (IndexOutOfBoundsException e) {
-            return "";
-        }
+        assertThat(getSubString(theStr, COMMA, 1, 1), is(""));
+        assertThat(getSubString(theStr, COMMA, 100, 100), is(""));
+        assertThat(getSubString(theStr, COMMA, 2, 1), is(""));
+        assertThat(getSubString(theStr, COMMA, 2, -1), is(""));
+        assertThat(getSubString(theStr, COMMA, -2, -1), is(""));
+        assertThat(getSubString(theStr, COMMA, -2, -2), is(""));
+        assertThat(getSubString(theStr, COMMA, -1, -2), is(""));
+        assertThat(getSubString(theStr, COMMA, -1, 2), is("111,aaa"));
+        assertThat(getSubString(theStr, COMMA, -2, 2), is("111,aaa"));
+        assertThat(getSubString(theStr, COMMA, -2, 100), is(""));
     }
 
 }

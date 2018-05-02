@@ -26,15 +26,12 @@ public class InternetDomainNameDemo {
 		assertTrue(InternetDomainName.isValid("commons.apache.org"));
 		assertTrue(InternetDomainName.isValid("someone.wordpress.com"));
 		
-		//
 		assertTrue(InternetDomainName.isValid("wikipedia.org"));
 		assertTrue(InternetDomainName.isValid("org"));
 		
-		//
 		assertFalse(InternetDomainName.isValid("https://www.wikipedia.org"));
 		assertFalse(InternetDomainName.isValid("en.wikipedia.org/wiki/Main_Page"));
 		
-		//
 		Exception e = catchException(()->InternetDomainName.from("https://www.wikipedia.org"));
 		assertThat(e, instanceOf(IllegalArgumentException.class));
 		assertThat(e.getMessage(), containsString("Not a valid domain name"));
@@ -59,7 +56,6 @@ public class InternetDomainNameDemo {
 
 		assertThat(d1.child(STR).toString(), is("str.www.google.com"));
 		
-		//
 		final InternetDomainName d2 = InternetDomainName.from("www.google.co.uk");
 		
 		assertThat(d2.hasPublicSuffix(), is(true));
@@ -75,7 +71,6 @@ public class InternetDomainNameDemo {
 
 		assertThat(d2.child(STR).toString(), is("str.www.google.co.uk"));
 
-		//
 		final InternetDomainName d3 = InternetDomainName.from("en.wikipedia.org");
 		
 		assertThat(d3.hasPublicSuffix(), is(true));
@@ -91,7 +86,6 @@ public class InternetDomainNameDemo {
 		
 		assertThat(d3.child(STR).toString(), is("str.en.wikipedia.org"));
 
-		//
 		final InternetDomainName d4 = InternetDomainName.from("wikipedia.org");
 		
 		assertThat(d4.hasPublicSuffix(), is(true));
@@ -107,7 +101,6 @@ public class InternetDomainNameDemo {
 		
 		assertThat(d4.child(STR).toString(), is("str.wikipedia.org"));
 
-		//
 		final InternetDomainName d5 = InternetDomainName.from("org");
 		
 		assertThat(d5.hasPublicSuffix(), is(true));

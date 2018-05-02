@@ -103,10 +103,10 @@ public class StringsDemo {
 		System.out.println(Splitter.fixedLength(3).splitToList(HELLO_WORLD));
 		
 		//MapSplitter
-		assertThat(Splitter.fixedLength(3).withKeyValueSeparator(";").split("a;xb;yc;z").toString()
+		assertThat(Splitter.fixedLength(3).withKeyValueSeparator(SEMICOLON).split("a;xb;yc;z").toString()
 				, is("{a=x, b=y, c=z}"));
 		
-		assertThat(Splitter.on(',').withKeyValueSeparator(";").split("a;x,b;y,c;z").toString()
+		assertThat(Splitter.on(',').withKeyValueSeparator(SEMICOLON).split("a;x,b;y,c;z").toString()
 				, is("{a=x, b=y, c=z}"));
 		
 	}

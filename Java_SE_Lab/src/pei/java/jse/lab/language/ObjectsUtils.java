@@ -7,8 +7,6 @@ import java.util.Objects;
 
 import org.junit.Test;
 
-import pei.java.jse.lab.utils.Utils;
-
 /**
  * 
  * @author Pei
@@ -19,7 +17,7 @@ public class ObjectsUtils {
     @Test
     public void testNullnessChecking(){
         // Null checking made one liner.
-        Exception e = Utils.catchException(()->Objects.requireNonNull(null, "Sth is null!"));
+        Exception e = catchException(()->Objects.requireNonNull(null, "Sth is null!"));
         assertThat(e, instanceOf(NullPointerException.class));
         assertThat(e.getMessage(), is("Sth is null!"));
     }

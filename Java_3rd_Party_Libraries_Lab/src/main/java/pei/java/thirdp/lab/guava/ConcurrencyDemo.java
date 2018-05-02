@@ -60,7 +60,6 @@ class CallableImpl<String> implements Callable<String> {
         }else {
             throw new Exception("Callable Task Fail!");
         }
-        
     }
 
 }

@@ -11,7 +11,7 @@ import org.apache.commons.math3.util.ArithmeticUtils;
 import org.junit.Test;
 
 import lombok.extern.slf4j.Slf4j;
-import pei.java.thirdp.lab.utils.Utils;
+import static pei.java.thirdp.lab.utils.Utils.*;
 
 /**
  * 
@@ -38,9 +38,9 @@ public class Math3Miscs {
     @Test
     public void arithmeticTest() throws Exception {
         // overflows
-        assertThat(Utils.catchException(()->ArithmeticUtils.addAndCheck(Integer.MAX_VALUE, 1)),
+        assertThat(catchException(()->ArithmeticUtils.addAndCheck(Integer.MAX_VALUE, 1)),
                 instanceOf(MathArithmeticException.class));
-        assertThat(Utils.catchException(()->ArithmeticUtils.subAndCheck(Integer.MIN_VALUE, 1)),
+        assertThat(catchException(()->ArithmeticUtils.subAndCheck(Integer.MIN_VALUE, 1)),
                 instanceOf(MathArithmeticException.class));
         
     }

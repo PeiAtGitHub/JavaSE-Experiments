@@ -114,14 +114,13 @@ public class ServiceDemo {
 			}
 		}, MoreExecutors.directExecutor());
 
-		//
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			public void run() {
 				printlnWithThreadName("Running shutdown hook.");
 				manager.stopAsync().awaitStopped();
 			}
 		});
-		//
+		
 		manager.startAsync();
 	}
 	

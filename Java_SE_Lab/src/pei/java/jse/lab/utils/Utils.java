@@ -9,7 +9,6 @@ import java.util.stream.IntStream;
 
 import org.apache.commons.io.FileUtils;
 
-import com.google.common.collect.ContiguousSet;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -38,6 +37,9 @@ public class Utils {
     public final static String S1 = "S1";
     public final static String S2 = "S2";
     public final static String S3 = "S3";
+
+    public final static String COMMA = ",";
+    public final static String SEMICOLON = ";";
     
     //
     public final static List<Integer> TEST_LIST_123 = ImmutableList.of(1, 2, 3);
@@ -76,8 +78,6 @@ public class Utils {
     
     public static void repeatRun(int times, NonArgFunction function) {
     	IntStream.range(0, times).forEach(i->function.doSth());
-//    	OR similarly:
-//    	ContiguousSet.closed(1, times).forEach(i->function.doSth());
     }
     
     public static void repeatRun(int times, Consumer<Integer> c) {
@@ -144,13 +144,58 @@ public class Utils {
      * @param millis
      */
     public static void threadSleep(long millis) {
-    	
     	try {
 			Thread.sleep(millis);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
     	
+    }
+    
+    /**
+     * String.split() consumption on memory and cpu is high, and inconvenient in
+     * some cases.
+     *
+     * This method is simpler for getting the sub string between the n1th and the
+     * n2th delimiter 
+     * E.g. 
+     * getSubString("111,aaa,bbb,,ccc", ",", 2, 3) returns "bbb"
+     * getSubString("111,aaa,bbb,,ccc", ",", 0, 2) returns "111,aaa"
+     * getSubString("111,aaa,bbb,,ccc", ",", 3, 4) returns ""
+     * 
+     */
+    public static String getSubString(String str, String delimiter, int n1, int n2) {
+        if (n2 <= n1) {
+            return "";
+        }
+        try {
+            int idx1 = -1;
+            int pointer = -1;
+            for (int i = 1; i <= n2; i++) {
+                pointer = str.indexOf(delimiter, pointer + 1);
+                if (i == n1) {
+                    idx1 = pointer;
+                }
+            }
+            return str.substring(idx1 + 1, pointer);
+        } catch (IndexOutOfBoundsException e) {
+            return "";
+        }
+    }
+    
+    public static void ifNotNullRun(Object obj, NonArgFunction fnc) {
+    	if(obj != null) {
+    		fnc.doSth();	
+    	}
+    }
+
+
+    public static int sum(int... numbers) {
+        int sum = 0;
+        for (int num : numbers) {
+            sum = sum + num;
+        }
+        return sum;
     }
 
 }

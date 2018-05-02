@@ -34,7 +34,6 @@ public class DbUtils {
     
     public static final String sqlSelectFrom(String column, String table) {
         return String.format("select %s from %s", column, table);
-        
     }
 
     public static final String sqlDropTable(String table) {

@@ -151,7 +151,7 @@ class Counter {
         try {
             lock.lock();// thread acquires the lock
             
-            Utils.threadSleep(r.nextInt(500));
+            threadSleep(r.nextInt(500));
 
             count++;
             printWithThreadName(String.valueOf(count));
