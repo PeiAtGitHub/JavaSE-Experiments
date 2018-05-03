@@ -1,5 +1,9 @@
 package pei.java.design.pattern.lab.singleton;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 /**
  * eager initialization
  * 
@@ -8,13 +12,17 @@ package pei.java.design.pattern.lab.singleton;
  */
 public class SingletonEager {
 
-    private static SingletonEager instance = new SingletonEager();
+    private static SingletonEager instance = new SingletonEager();// no stackOverflowError problem.
 
-    private SingletonEager() {// private constructor, for internal use only
+    private SingletonEager() {
     }
 
     public static SingletonEager getInstance() {
         return instance;
     }
+    
+    public static void main(String[] args) {
+    	assertSame(getInstance(), getInstance());
+	}
 
 }

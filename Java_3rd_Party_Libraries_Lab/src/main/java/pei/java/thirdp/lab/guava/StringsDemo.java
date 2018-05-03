@@ -64,17 +64,13 @@ public class StringsDemo {
 		assertThat(joiner1.join(S1, null, S2), is("S1; S2"));
 		assertThat(joiner2.join(S1, null, S2), is("S1; ; S2"));
 
-		assertThat(joiner1.appendTo(new StringBuilder(STR), TEST_LIST_123).toString(),
-				is("STR1; 2; 3"));
-		assertThat(joiner1.appendTo(new StringBuilder(STR), S1, S2).toString(),
-				is("STRS1; S2"));
+		assertThat(joiner1.appendTo(new StringBuilder(STR), TEST_LIST_123).toString(), is("STR1; 2; 3"));
+		assertThat(joiner1.appendTo(new StringBuilder(STR), S1, S2).toString(), is("STRS1; S2"));
 		
 		//MapJoiner
 		Joiner.MapJoiner mapJoiner = joiner2.withKeyValueSeparator("$");
-		assertThat(mapJoiner.join(TEST_MAP_123).toString(),
-				is("S1$1; S2$2; S3$3"));
-		assertThat(mapJoiner.appendTo(new StringBuilder(STR), TEST_MAP_123).toString(),
-				is("STRS1$1; S2$2; S3$3"));
+		assertThat(mapJoiner.join(TEST_MAP_123).toString(), is("S1$1; S2$2; S3$3"));
+		assertThat(mapJoiner.appendTo(new StringBuilder(STR), TEST_MAP_123).toString(), is("STRS1$1; S2$2; S3$3"));
 		
 	}
 	
@@ -122,10 +118,8 @@ public class StringsDemo {
 		assertThat(CharMatcher.inRange('a', 'f').removeFrom("Please eat this cake!"), is("Pls t this k!"));
 		assertThat(CharMatcher.inRange('0', '9').removeFrom("Please123 eat0 this555 cake!123")
 				, is("Please eat this cake!"));
-		assertThat(CharMatcher.inRange('0', '9').retainFrom("Please123 eat0 this555 cake!123")
-				, is("1230555123"));
-		assertThat(CharMatcher.inRange('a', 'f').negate()
-				.removeFrom("Please eat this cake!"), is("eaeeacae"));
+		assertThat(CharMatcher.inRange('0', '9').retainFrom("Please123 eat0 this555 cake!123"), is("1230555123"));
+		assertThat(CharMatcher.inRange('a', 'f').negate().removeFrom("Please eat this cake!"), is("eaeeacae"));
 		assertThat(CharMatcher.inRange('a', 'f').matches('f'), is(true));
 		assertThat(CharMatcher.inRange('a', 'f').matches('F'), is(false));
 		
@@ -133,7 +127,7 @@ public class StringsDemo {
 				, is("Please eat this cake!"));
 		assertThat(CharMatcher.breakingWhitespace().collapseFrom("Please   eat			this \n cake !", '-')
 				, is("Please-eat-this-cake-!"));
-		
+
 	} 
 	
 	@Test

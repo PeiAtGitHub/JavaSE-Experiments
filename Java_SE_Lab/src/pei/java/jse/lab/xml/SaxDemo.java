@@ -20,8 +20,7 @@ public class SaxDemo {
 
     public static void main(String[] args) throws Exception {
         // log the common name of the 3rd plant
-        SAXParserFactory.newInstance().newSAXParser()
-        .parse(new File(Utils.inputXmlFile), new MySaxHandler());
+        SAXParserFactory.newInstance().newSAXParser().parse(new File(Utils.inputXmlFile), new MySaxHandler());
     }
 
 }

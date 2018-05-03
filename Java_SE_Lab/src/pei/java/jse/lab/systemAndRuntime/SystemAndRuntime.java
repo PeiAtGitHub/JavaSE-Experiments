@@ -25,7 +25,7 @@ public class SystemAndRuntime {
     @Test
     public void runtime() {
         Runtime rt = Runtime.getRuntime();
-        log.info("Max Memory: {} or {}"
+        log.info("Max Memory: {} or {}" 
                 , FileUtils.byteCountToDisplaySize(rt.maxMemory())
                 , bytesToReadable(rt.maxMemory()));
         log.info("Total Memory: {} or {}"

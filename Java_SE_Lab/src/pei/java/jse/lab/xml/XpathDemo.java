@@ -28,7 +28,7 @@ public class XpathDemo {
     	
         String xpath = "//PLANT/LIGHT[contains(., 'Sun')]";
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                .parse(new File(Utils.inputXmlFile));
+        		.parse(new File(Utils.inputXmlFile));
         NodeList lightNodes = (NodeList) XPathFactory.newInstance().newXPath()
                 .compile(xpath).evaluate(document, XPathConstants.NODESET);
 

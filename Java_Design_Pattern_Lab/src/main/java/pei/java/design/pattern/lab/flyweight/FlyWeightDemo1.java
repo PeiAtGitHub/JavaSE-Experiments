@@ -25,8 +25,7 @@ public class FlyWeightDemo1 {
             student.setName(names[i]);
             student.setId(ids[i]);
             student.setScore(scores[i]);
-            System.out.format("Name: %s; Standing: %s%n", student.getName(), 
-                    Math.round(student.getStanding()));
+            System.out.format("Name: %s; Standing: %s%n", student.getName(), Math.round(student.getStanding()));
         }
     }
 }

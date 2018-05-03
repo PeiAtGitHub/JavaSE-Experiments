@@ -1,6 +1,7 @@
 package pei.java.design.pattern.lab.composite;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -60,9 +61,7 @@ class Directory implements FsNode {
     
     public Directory(FsNode... nodes) {
         subFsNodes.clear();
-        for(FsNode node : nodes) {
-            subFsNodes.add(node);
-        }
+        subFsNodes.addAll(Arrays.asList(nodes));
     }
 
     public void add(FsNode node) {
@@ -75,9 +74,7 @@ class Directory implements FsNode {
 
     public long getSize() {
         size = 0;
-        for (FsNode node : subFsNodes) {// the calculation is recursive
-            size = size + node.getSize();
-        }
+        subFsNodes.forEach(node-> size = size + node.getSize()); // the calculation is recursive
         return size;
     }
 }

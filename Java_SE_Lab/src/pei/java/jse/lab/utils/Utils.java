@@ -149,9 +149,22 @@ public class Utils {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-    	
     }
     
+    public static void threadJoin(Thread thr) {
+    	try {
+			thr.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    public static Thread createAndStartThread(Runnable r) {
+    	 Thread t = new Thread(r);
+         t.start();
+         return t;
+    }
+
     
     /**
      * String.split() consumption on memory and cpu is high, and inconvenient in

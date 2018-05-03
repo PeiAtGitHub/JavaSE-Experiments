@@ -63,9 +63,7 @@ public class TestEMailsWithDumbster {
 	private void sendEmailByJavaMail(String protocol, String host, int port) throws AddressException, MessagingException {
 
 		Properties props = new Properties();
-		props.putAll(ImmutableMap.of(
-				"mail.smtp.host", host,
-				"mail.smtp.port", port,
+		props.putAll(ImmutableMap.of("mail.smtp.host", host, "mail.smtp.port", port, 
 				"mail.transport.protocol", protocol));
 
 		Message msg = new MimeMessage(Session.getInstance(props, null));
@@ -77,8 +75,7 @@ public class TestEMailsWithDumbster {
 		msg.setSentDate(new Date());
 
 		Transport.send(msg);
-		System.out.format("Message sent to host %s, port %s, protocol %s%n"
-				,host, port, protocol);
+		System.out.format("Message sent to host %s, port %s, protocol %s%n" ,host, port, protocol);
 
 	}
 
@@ -94,8 +91,7 @@ public class TestEMailsWithDumbster {
 		email.addCc(CC);
 		email.setMsg(BODY);
 		email.send();
-		System.out.format("Message sent to host %s, port %s, protocol smtp%n"
-				,host, port);
+		System.out.format("Message sent to host %s, port %s, protocol smtp%n", host, port);
 	}
 
 	private void dumbsterEmailAssertions(SimpleSmtpServer server) {

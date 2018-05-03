@@ -26,7 +26,7 @@ public class ReminderSender {
          if(invoiceStorage.hasOutstandingInvoice(customer)){
              emailSender.sendEmail(customer);
              eventRecorder.recordEvent(new Event(Type.REMINDER_SENT, 
-                     customer.getFullName(), customer.getId(), LocalDate.now()));
+            		 customer.getFullName(), customer.getId(), LocalDate.now()));
          }
     }
 }

@@ -31,10 +31,8 @@ public class ThreadLocalDemo {
 
             ThrLocalSetter t1 = new ThrLocalSetter(50, tlDemo);
             ThrLocalSetter t2 = new ThrLocalSetter(100, tlDemo);
-            Thread thr1 = new Thread(t1);
-            Thread thr2 = new Thread(t2);
-            thr1.start();
-            thr2.start();
+            Thread thr1 = createAndStartThread(t1);
+            Thread thr2 = createAndStartThread(t2);
             thr1.join();
             thr2.join();
             
@@ -58,7 +56,6 @@ class ThrLocalSetter implements Runnable {
 	int n;
 	ThreadLocalDemo tlt;
 
-    //
     public void run() {
         this.tlt.tlNumber.set(n);
         threadSleep(new Random().nextInt(3000)); // max 3s
@@ -66,7 +63,6 @@ class ThrLocalSetter implements Runnable {
         this.tlt.number = n;
     }
     
-    //
     public int getTlNumber() {
         return this.tlt.tlNumber.get().intValue();
     }

@@ -50,6 +50,4 @@ public class OtherMiscs {
         assertEquals(9, ((Integer) nashorn.eval("3*3")).intValue());
     }
 
-
-
 }

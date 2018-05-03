@@ -27,11 +27,10 @@ public class ConcurrencyDemo {
     @Test
     public void testListenableFuture() throws Exception {
         
-        ListeningExecutorService exeService = 
-                MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(2));
+        ListeningExecutorService exeService = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(2));
 
-        Futures.addCallback((ListenableFuture<String>) exeService.submit(new CallableImpl())
-                , new FutureCallbackImpl<String>(), exeService);
+        Futures.addCallback((ListenableFuture<String>) exeService
+        		.submit(new CallableImpl()), new FutureCallbackImpl<String>(), exeService);
         
         exeService.awaitTermination(2, TimeUnit.SECONDS);
     }

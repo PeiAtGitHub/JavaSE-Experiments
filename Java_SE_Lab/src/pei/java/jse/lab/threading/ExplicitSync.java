@@ -15,7 +15,6 @@ import org.junit.Test;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import pei.java.jse.lab.utils.Utils;
 
 /**
  * 
@@ -27,10 +26,8 @@ public class ExplicitSync {
     @Test
     public void testLock() throws InterruptedException {
         Counter counter = new Counter(0);
-        Thread t1 = new Thread(new Incrementor(counter));
-        Thread t2 = new Thread(new Decrementor(counter));
-        t1.start();
-        t2.start();
+        Thread t1 = createAndStartThread(new Incrementor(counter));
+        Thread t2 = createAndStartThread(new Decrementor(counter));
         t1.join();
         t2.join();
         // without the sync mechanism, the result should be a random number
@@ -70,7 +67,7 @@ public class ExplicitSync {
         final Object resource1 = new Object();
         final Object resource2 = new Object();
 
-        Thread t1 = new Thread(()->{
+        Thread t1 = createAndStartThread(()->{
                 synchronized (resource1) {
                     printWithThreadName("Locked resource1");
                     threadSleep(1000);
@@ -82,7 +79,7 @@ public class ExplicitSync {
                 printWithThreadName("Should never reach here.");
             });
         
-        Thread t2 = new Thread(()->{
+        Thread t2 = createAndStartThread(()->{
             synchronized (resource2) {
                 printWithThreadName("Locked resource2");
                 threadSleep(1000);
@@ -94,9 +91,6 @@ public class ExplicitSync {
             printWithThreadName("Should never reach here.");
         });
         
-        t1.start();
-        t2.start();
-
         t1.join();
         t2.join();
         

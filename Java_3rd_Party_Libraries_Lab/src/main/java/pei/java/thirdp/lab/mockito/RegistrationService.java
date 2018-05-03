@@ -27,11 +27,9 @@ public class RegistrationService {
             customer.setRegistrationDate(LocalDate.now());
             customerDao.saveCustomer(customer);
             eventRecorder.recordEvent(
-                    new Event(Type.REGISTRATION, customer.getFullName()
-                            , customer.getId(), LocalDate.now()));
+            		new Event(Type.REGISTRATION, customer.getFullName(), customer.getId(), LocalDate.now()));
             log.info("Registered customer {} with ID {} at {}",
-                    customer.getFullName(), customer.getId(), 
-                    customer.getRegistrationDate().toString());
+                    customer.getFullName(), customer.getId(), customer.getRegistrationDate().toString());
         }
         
     }

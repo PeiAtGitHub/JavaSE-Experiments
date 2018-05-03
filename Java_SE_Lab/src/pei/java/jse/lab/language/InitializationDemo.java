@@ -67,8 +67,7 @@ class InfiniteInitRecurseDemo {
 	public InfiniteInitRecurseDemo() {
 		
 		throw new RuntimeException("Never reach here."
-				+ "the member initialization 'recurses too deeply' which "
-				+ "causes java.lang.StackOverflowError");
+				+ "the member initialization 'recurses too deeply' which causes java.lang.StackOverflowError");
 		
 	}
 	

@@ -9,7 +9,6 @@ import static pei.java.thirdp.lab.utils.Utils.*;
 import org.junit.Test;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 
 import pei.java.thirdp.lab.utils.Person;

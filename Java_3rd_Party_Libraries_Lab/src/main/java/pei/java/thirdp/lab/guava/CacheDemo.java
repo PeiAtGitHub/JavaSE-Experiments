@@ -68,8 +68,7 @@ public class CacheDemo {
     @Test
     public void testUsingCallable() throws Exception {
         
-        Cache<Integer, Graph<US_CITY>> graphsCache 
-            = CacheBuilder.newBuilder().maximumSize(1000).recordStats().build(); 
+        Cache<Integer, Graph<US_CITY>> graphsCache = CacheBuilder.newBuilder().maximumSize(1000).recordStats().build(); 
         
         NanoStopWatch.begin();
         Graph<US_CITY> g1 = graphsCache.get(1, new CallableImpl());
@@ -129,8 +128,8 @@ public class CacheDemo {
     class RemovalListenerImpl implements RemovalListener<Integer, Graph<US_CITY>>{
         
         public void onRemoval(RemovalNotification<Integer, Graph<US_CITY>> notification) {
-            log.info("Got notification on removal of Key: {}, Value: {}."
-                    ,notification.getKey(), notification.getValue());
+            log.info("Got notification on removal of Key: {}, Value: {}.",
+            		notification.getKey(), notification.getValue());
         }
     }
     

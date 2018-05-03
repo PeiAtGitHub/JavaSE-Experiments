@@ -39,12 +39,10 @@ public class ExecutorAndThreadPooling {
     
     @Test
     public void scheduled() throws InterruptedException {
-        ScheduledExecutorService scheduledThrPool 
-        = Executors.newScheduledThreadPool(1);
+        ScheduledExecutorService scheduledThrPool = Executors.newScheduledThreadPool(1);
         
         ScheduledFuture<?> beepingTask = scheduledThrPool
-                .scheduleAtFixedRate(()->printWithThreadName("Beep")
-                        , 3, 3, TimeUnit.SECONDS);
+                .scheduleAtFixedRate(()->printWithThreadName("Beep"), 3, 3, TimeUnit.SECONDS);
                 
         scheduledThrPool.schedule(()->{
             printWithThreadName("Gonna cancel beeping.");
@@ -55,7 +53,6 @@ public class ExecutorAndThreadPooling {
         scheduledThrPool.shutdown();
     }
 }
-
 
 
 /*

@@ -22,11 +22,7 @@ public class ThreadingBasics {
         aSimpleThr.start();
 
         printWithThreadName("Main gonna wait.");
-		try {
-			aSimpleThr.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+        threadJoin(aSimpleThr);
         printWithThreadName("Main gonna end.");
     }
 
@@ -35,8 +31,7 @@ public class ThreadingBasics {
 
         printWithThreadName("Starting a separate thread");
         long startTime = System.currentTimeMillis();
-        Thread thr = new Thread(new MessageLooper());
-        thr.start();
+        Thread thr = createAndStartThread(new MessageLooper());
         printWithThreadName("Waiting for the separate thread to finish");
 
         while (thr.isAlive()) {
@@ -69,14 +64,13 @@ public class ThreadingBasics {
     
     @Test
     public void interruption() throws InterruptedException {
-        Thread thr = new Thread(()->{
+        Thread thr = createAndStartThread(()->{
             try {
                 Thread.sleep(10000);
             } catch (InterruptedException e) {
                 printWithThreadName("Interrupted!");
             }
         });
-        thr.start();
         
         assertTrue(thr.isAlive());
         thr.interrupt();

@@ -38,7 +38,7 @@ public class JtwigDemo {
 		JtwigModel model = JtwigModel.newModel();
 		model.with("var1", "Hello World");
 		model.with("var2", "Hello World Again");
-		//
+		
 		model.with("more", false);
 		assertThat(template.render(model), is("Hello World!"));
 		model.with("more", true);

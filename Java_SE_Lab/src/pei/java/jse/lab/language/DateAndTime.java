@@ -21,10 +21,9 @@ public class DateAndTime {
     
     @Test
     public void systemTime() {
-        long nanoTime1 = System.nanoTime();// only for measuring elapsed time 
+        long nanoTime1 = System.nanoTime(); 
         
-        assertEquals("Expected to fail if you run this test earlier than 2001.Sep.09"
-                + " or later than 2286.Nov.20, ",
+        assertEquals("Expected to fail if you run this test earlier than 2001.Sep.09 or later than 2286.Nov.20, ",
                 13, String.valueOf(System.currentTimeMillis()).length());
 
         assertTrue((System.nanoTime() - nanoTime1)  > 0);

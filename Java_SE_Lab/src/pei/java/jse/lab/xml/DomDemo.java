@@ -21,7 +21,7 @@ public class DomDemo {
     public static void main(String[] args) throws Exception {
 
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                .parse(new File(Utils.inputXmlFile));
+        		.parse(new File(Utils.inputXmlFile));
         Element root = document.getDocumentElement();
         root.normalize();
         Element the3rdPlant = (Element)root.getElementsByTagName(PLANT_TAG_NAME).item(2);

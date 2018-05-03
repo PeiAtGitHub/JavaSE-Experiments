@@ -93,8 +93,7 @@ public class CollectionDemos {
 
         ImmutableSet<SolarPlanet> planets = ImmutableSet.of(MARS, SATURN, EARTH);
         assertThat(planets.toString(), is("[MARS, SATURN, EARTH]"));
-        assertThat(ImmutableSortedSet.copyOf(planets).asList().toString(), 
-                is("[EARTH, MARS, SATURN]"));
+        assertThat(ImmutableSortedSet.copyOf(planets).asList().toString(), is("[EARTH, MARS, SATURN]"));
         
     }
     
@@ -113,20 +112,12 @@ public class CollectionDemos {
 
     @Test
     public void demoOfImmutable() throws Exception {// What is "immutable"?
-        ImmutableList<Person> persons 
-                = ImmutableList.of(Person.builder().firstName(FIRST_NAME).build());
+        ImmutableList<Person> persons = ImmutableList.of(Person.builder().firstName(FIRST_NAME).build());
         
-        assertThat(catchThrowable(() -> persons.add(new Person())),
-                instanceOf(UnsupportedOperationException.class));
-        
-        assertThat(catchThrowable(() -> persons.set(0, new Person())), 
-                instanceOf(UnsupportedOperationException.class));
-        
-        assertThat(catchThrowable(() -> persons.remove(0)), 
-                instanceOf(UnsupportedOperationException.class));
-        
-        assertThat(catchThrowable(() -> persons.clear()), 
-                instanceOf(UnsupportedOperationException.class));
+        assertThat(catchThrowable(() -> persons.add(new Person())),instanceOf(UnsupportedOperationException.class));
+        assertThat(catchThrowable(() -> persons.set(0, new Person())),instanceOf(UnsupportedOperationException.class));
+        assertThat(catchThrowable(() -> persons.remove(0)), instanceOf(UnsupportedOperationException.class));
+        assertThat(catchThrowable(() -> persons.clear()), instanceOf(UnsupportedOperationException.class));
         
         persons.get(0).setFirstName(STR);
         assertThat(persons.get(0).getFirstName(), is(STR));
@@ -150,8 +141,7 @@ public class CollectionDemos {
     
     @Test
     public void testMultimap() throws Exception {
-        ListMultimap<String, Integer> listMultimap =
-                MultimapBuilder.treeKeys().arrayListValues().build();
+        ListMultimap<String, Integer> listMultimap = MultimapBuilder.treeKeys().arrayListValues().build();
         listMultimap.put(S1, 1);
         listMultimap.put(S1, 1);
         listMultimap.put(S1, 1);
@@ -166,8 +156,7 @@ public class CollectionDemos {
         assertThat(listMultimap.get(S1).toString(), is("[1, 1, 1]"));
         assertThat(listMultimap.asMap().get(S1).toString(), is("[1, 1, 1]"));
         
-        SetMultimap<String, Integer> setMultimap =
-                MultimapBuilder.hashKeys().hashSetValues().build();
+        SetMultimap<String, Integer> setMultimap = MultimapBuilder.hashKeys().hashSetValues().build();
         setMultimap.putAll(S1, Sets.newHashSet(1, 1, 1));
         setMultimap.putAll(S2, Sets.newHashSet(2, 2, 2));
         setMultimap.putAll(S3, Sets.newHashSet(3, 3, 3));

@@ -57,12 +57,8 @@ public class Lang3Tests {
     public void testValidate() {
         assertThat(catchThrowable(()->Validate.exclusiveBetween(100, 200, new Random().nextInt(100)))
                 ,instanceOf(IllegalArgumentException.class));
-        
-        assertThat(catchThrowable(()->Validate.notBlank("   "))
-                ,instanceOf(IllegalArgumentException.class));
-
-        assertThat(catchThrowable(()->Validate.validState(false))
-                ,instanceOf(IllegalStateException.class));
+        assertThat(catchThrowable(()->Validate.notBlank("   ")), instanceOf(IllegalArgumentException.class));
+        assertThat(catchThrowable(()->Validate.validState(false)), instanceOf(IllegalStateException.class));
     }
 
     @Test
@@ -113,18 +109,13 @@ public class Lang3Tests {
         assertThat(StringUtils.substringBetween(",abcdef,", ","), is("abcdef"));
         assertThat(StringUtils.substringBetween("...<tag>abcdef</tag>...", "<tag>", "</tag>"), is("abcdef"));
 
-        assertThat(getReadableArrayString(StringUtils.substringsBetween("[a][b][c]", "[", "]"))
-        		, is("[a, b, c]"));
-        
-        assertThat(getReadableArrayString(StringUtils.split("abc  def"))
-        		, is("[abc, def]"));
-        assertThat(getReadableArrayString(StringUtils.split("a..b.c", '.'))
-        		, is("[a, b, c]"));
-        assertThat(getReadableArrayString(StringUtils.splitByCharacterType("ab   de fg"))
-        		, is("[ab,    , de,  , fg]"));
-        assertThat(getReadableArrayString(StringUtils.splitByCharacterType("foo200BarDrink"))
+        assertThat(Arrays.toString(StringUtils.substringsBetween("[a][b][c]", "[", "]")), is("[a, b, c]"));
+        assertThat(Arrays.toString(StringUtils.split("abc  def")), is("[abc, def]"));
+        assertThat(Arrays.toString(StringUtils.split("a..b.c", '.')), is("[a, b, c]"));
+        assertThat(Arrays.toString(StringUtils.splitByCharacterType("ab   de fg")), is("[ab,    , de,  , fg]"));
+        assertThat(Arrays.toString(StringUtils.splitByCharacterType("foo200BarDrink"))
         		, is("[foo, 200, B, ar, D, rink]"));
-        assertThat(getReadableArrayString(StringUtils.splitByCharacterTypeCamelCase("foo200BarDrink"))
+        assertThat(Arrays.toString(StringUtils.splitByCharacterTypeCamelCase("foo200BarDrink"))
         		, is("[foo, 200, Bar, Drink]"));
         
         assertThat(StringUtils.getDigits("(541) 754-3010"), is("5417543010"));
@@ -160,8 +151,7 @@ public class Lang3Tests {
         assertThat(StringUtils.replaceIgnoreCase("FoOFoofoo", "foo", "ABC"), is("ABCABCABC"));
         assertThat(StringUtils.replaceOnceIgnoreCase("FoOFoofoo", "foo", "ABC"), is("ABCFoofoo"));
         assertThat(StringUtils.replacePattern("ABCabc123", "[a-z]", "_"), is("ABC___123"));
-        assertThat(
-                StringUtils.replaceEach("abcde", new String[] { "ab", "d" }, new String[] { "d", "t" }), is("dcte"));
+        assertThat(StringUtils.replaceEach("abcde", new String[] {"ab", "d"}, new String[] {"d", "t"}), is("dcte"));
         assertThat(StringUtils.overlay("abcdef", "zzzz", 2, 4), is("abzzzzef"));
         assertThat(StringUtils.upperCase("aBc"), is("ABC"));
         assertThat(StringUtils.capitalize("hello"), is("Hello"));

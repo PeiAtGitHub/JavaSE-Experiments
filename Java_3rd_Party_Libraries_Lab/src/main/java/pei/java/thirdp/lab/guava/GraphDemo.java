@@ -32,7 +32,7 @@ public class GraphDemo {
     public void testNetwork() throws Exception {
 
         MutableNetwork<US_CITY, DirectConnection> usCities = NetworkBuilder.undirected()
-                .allowsParallelEdges(true).build();
+        		.allowsParallelEdges(true).build();
 
         usCities.addEdge(NEW_YORK, BALTIMORE, new CarRide());
         usCities.addEdge(NEW_YORK, LOS_ANGELES, new Flight());

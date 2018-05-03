@@ -44,8 +44,7 @@ public class StringAndCharTests {
         assertThat(str.substring(str.length() - 1), is(SEMICOLON));
         assertTrue(str.substring(str.length()).isEmpty()); // this behavior, i think, makes no sense
 
-        assertThat(catchThrowable(()->str.substring(str.length() + 1)),
-                instanceOf(IndexOutOfBoundsException.class));
+        assertThat(catchThrowable(()->str.substring(str.length() + 1)), instanceOf(IndexOutOfBoundsException.class));
     }
 
     @Test
@@ -165,31 +164,9 @@ public class StringAndCharTests {
     @Test
     public void testExtraction() { // search matches
         Matcher matcher = Pattern.compile("First Name:(.*?); Last Name:")
-                .matcher("First Name: Three; Last Name: Zhang");
+        		.matcher("First Name: Three; Last Name: Zhang");
         assertTrue(matcher.find());
         assertThat(matcher.group(1).trim(), is("Three"));
-    }
-
-    @Test
-    public void testTheSelfMadeUtil() {
-        final String theStr = "111,aaa,bbb,,ccc";
-        
-        assertThat(getSubString(theStr, COMMA, 2, 3), is("bbb"));
-        assertThat(getSubString(theStr, COMMA, 2, 4), is("bbb,"));
-        assertThat(getSubString(theStr, COMMA, 3, 4), is(""));
-        assertThat(getSubString(theStr, COMMA, 0, 2), is("111,aaa"));
-        assertThat(getSubString(theStr, COMMA, 0, 100), is(""));
-        // unusual edge cases
-        assertThat(getSubString(theStr, COMMA, 1, 1), is(""));
-        assertThat(getSubString(theStr, COMMA, 100, 100), is(""));
-        assertThat(getSubString(theStr, COMMA, 2, 1), is(""));
-        assertThat(getSubString(theStr, COMMA, 2, -1), is(""));
-        assertThat(getSubString(theStr, COMMA, -2, -1), is(""));
-        assertThat(getSubString(theStr, COMMA, -2, -2), is(""));
-        assertThat(getSubString(theStr, COMMA, -1, -2), is(""));
-        assertThat(getSubString(theStr, COMMA, -1, 2), is("111,aaa"));
-        assertThat(getSubString(theStr, COMMA, -2, 2), is("111,aaa"));
-        assertThat(getSubString(theStr, COMMA, -2, 100), is(""));
     }
 
 }

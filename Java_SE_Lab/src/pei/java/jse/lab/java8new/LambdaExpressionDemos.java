@@ -53,15 +53,13 @@ public class LambdaExpressionDemos {
         System.out.println(calculate(6, 6, (x, y) -> x*y));
         System.out.println(calculate(6, 6, (x, y) -> x/y));
         System.out.println("*************");
-        //
-        int[] someNums = {1,2,3,4,5};
-        int key =10;
-        process(someNums, key, (v, k)-> System.out.println(v*k));
-        //
+        
+        process(new int[] {1,2,3,4,5}, 10, (v, k)-> System.out.println(v*k));
+        
         System.out.println("Print all: ");
-        performConditionally(persons, p->System.out.println(p), p->true); // print all
+        performConditionally(persons, p->System.out.println(p), p->true); 
         System.out.println("Print younger than 30");
-        performConditionally(persons, p->System.out.println(p.getAge()), p->p.getAge()<30); // print age of the person younger than 30 
+        performConditionally(persons, p->System.out.println(p.getAge()), p->p.getAge()<30); 
     }
     
     static private void performConditionally(List<Person> persons, Consumer<Person> consumer, Predicate<Person> predicate ){
@@ -70,7 +68,6 @@ public class LambdaExpressionDemos {
                 consumer.accept(p);
             }
         }
-        
     }
     
     static private long calculate(long x, long y, BiFunction<Long, Long, Long> biFunc) {

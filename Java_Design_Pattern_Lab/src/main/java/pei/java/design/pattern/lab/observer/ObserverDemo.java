@@ -50,8 +50,7 @@ class TheObserver implements Observer {
     String name;
     
     public void update(Observable obj, Object arg) {
-        log.info("{} got sth({}) from {}", 
-                this.toString(), arg.toString(), obj.toString());
+        log.info("{} got sth({}) from {}", this.toString(), arg.toString(), obj.toString());
     }
     
 }

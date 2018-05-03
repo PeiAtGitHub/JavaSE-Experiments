@@ -51,8 +51,7 @@ public class JaxbDemo {
             log.info(the3rdPlant.getBOTANICAL());
             log.info(the3rdPlant.getLIGHT());
             log.info(the3rdPlant.getZONE());
-            log.info("{} {}",String.valueOf(the3rdPlant.getPRICE().getValue())
-                    , the3rdPlant.getPRICE().getCurrency());
+            log.info("{} {}",String.valueOf(the3rdPlant.getPRICE().getValue()), the3rdPlant.getPRICE().getCurrency());
             log.info(String.valueOf(the3rdPlant.getAVAILABILITY()));
     }
 }

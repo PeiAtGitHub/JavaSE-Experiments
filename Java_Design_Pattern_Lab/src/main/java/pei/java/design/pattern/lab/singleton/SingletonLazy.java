@@ -1,5 +1,7 @@
 package pei.java.design.pattern.lab.singleton;
 
+import static org.junit.Assert.assertSame;
+
 /**
  * lazy instantiation
  * @author pei
@@ -11,7 +13,7 @@ public class SingletonLazy {
     
     private static Object syncObj = new Object();
 
-    private SingletonLazy() {// private constructor, for internal use only
+    private SingletonLazy() {
     }
 
     public static SingletonLazy getInstance() {
@@ -22,5 +24,10 @@ public class SingletonLazy {
             return instance;
         }
     }
+    
+    public static void main(String[] args) {
+    	assertSame(getInstance(), getInstance());
+	}
+
 
 }

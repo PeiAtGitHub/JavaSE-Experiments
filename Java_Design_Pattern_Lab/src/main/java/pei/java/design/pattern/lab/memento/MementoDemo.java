@@ -1,6 +1,5 @@
 package pei.java.design.pattern.lab.memento;
 
-import static org.junit.Assert.assertTrue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 

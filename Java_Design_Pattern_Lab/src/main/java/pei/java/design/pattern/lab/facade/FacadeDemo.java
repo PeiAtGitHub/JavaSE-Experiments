@@ -75,7 +75,7 @@ class HardDrive {
         System.out.format("Reading %s bytes data from hard drive sector %s.%n", size, lba);
         byte[] hdData = new byte[size];
         new Random().nextBytes(hdData);
-        return  hdData;
+        return hdData;
     }
 }
 

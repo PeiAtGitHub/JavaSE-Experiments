@@ -23,7 +23,6 @@ public class NoBridgeDemo {
         new ToyotaStarterRC().turnOn();
     }
 
-    //
     static abstract class RC {
         public abstract void turnOn();
         public abstract void turnOff();
@@ -54,7 +53,6 @@ public class NoBridgeDemo {
         }
     }
 
-    //
     static class ToyotaAlarmRC extends AlarmRC {
         public void turnOn() {
             log.info("turn on toyota alarm");

@@ -17,11 +17,9 @@ public class BuilderDemo {
         Pizza pizza2 = new SpicyPizzaBuilder().build();
         
         log.info("{}: Size: {}; Dough: {}; Sause: {}; Top: {};", 
-                pizza1.getName(), pizza1.getSize(),
-                pizza1.getDough(),pizza1.getSauce(), pizza1.getTopping());
+                pizza1.getName(), pizza1.getSize(), pizza1.getDough(),pizza1.getSauce(), pizza1.getTopping());
         log.info("{}: Size: {}; Dough: {}; Sause: {}; Top: {};", 
-                pizza2.getName(), pizza2.getSize(),
-                pizza2.getDough(),pizza2.getSauce(), pizza2.getTopping());
+                pizza2.getName(), pizza2.getSize(), pizza2.getDough(),pizza2.getSauce(), pizza2.getTopping());
     }
 
 }

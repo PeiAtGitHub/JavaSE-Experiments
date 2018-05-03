@@ -41,8 +41,7 @@ public class CollectionTests {
         
         // unmodifiable view
         List<Integer> unmodifiableList = Collections.unmodifiableList(aList);
-        assertThat(catchThrowable(()->unmodifiableList.set(0, 1))  
-                        ,instanceOf(UnsupportedOperationException.class));
+        assertThat(catchThrowable(()->unmodifiableList.set(0, 1)), instanceOf(UnsupportedOperationException.class));
         
         /*
          *  empty list, always the same immutable & singleton instance.
@@ -93,16 +92,14 @@ public class CollectionTests {
     @Test
     public void listFeatures() {
         ArrayList<String> emptyList = new ArrayList<String>(8); // with initial capacity
-        assertThat(catchThrowable(()->emptyList.get(0)),
-                instanceOf(IndexOutOfBoundsException.class));
+        assertThat(catchThrowable(()->emptyList.get(0)), instanceOf(IndexOutOfBoundsException.class));
     }
     
     @Test
     public void mapFeatures() {
         Map<String, Integer> theMap = new HashMap<>(TEST_MAP_123);
         
-        assertThat(theMap.toString() // the order is not guaranteed
-        		, allOf(containsString("S1=1"), containsString("S2=2"), containsString("S3=3")));
+        assertThat(theMap.toString(), allOf(containsString("S1=1"), containsString("S2=2"), containsString("S3=3")));
         
         // non-existing key 
         assertNull(theMap.get("XXX"));

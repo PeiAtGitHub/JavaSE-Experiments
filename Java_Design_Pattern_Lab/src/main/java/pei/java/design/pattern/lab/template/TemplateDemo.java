@@ -17,11 +17,11 @@ abstract class RobotTemplate {
     // the template method
     public final void go() {
         start();
-        //
+        
         getParts();
         work();
         test();
-        //
+        
         stop();
     }
 

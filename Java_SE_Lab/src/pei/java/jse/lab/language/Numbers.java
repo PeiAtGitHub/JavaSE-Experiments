@@ -22,15 +22,15 @@ public class Numbers {
 
     @Test
     public void someMathUtils() {
-        //
+        
     	assertThat(Math.round(0.4), is(0l));
     	assertThat(Math.round(0.6), is(1l));
-        //
+        
         assertThat(Math.random(), allOf(greaterThanOrEqualTo(0d), lessThan(1d)));
-        //
+        
         assertThat(Math.max(1, 2), is(2));
         assertThat(Math.min(1, 2), is(1));
-        //
+        
         assertThat(Math.pow(2, 8), is(256d));
         assertThat(Math.sqrt(36), is(6d));
         assertThat(Math.toDegrees(Math.PI), is(180d));
@@ -97,7 +97,5 @@ public class Numbers {
         System.out.println("100.00000025 * 100.00000025 is: "+(100.00000025 * 100.00000025)); // 10000.00005
         System.out.println("100.000000025 * 100.000000025 is: "+(100.000000025 * 100.000000025)); // 10000.000005000002
     }
-
-
 
 }
