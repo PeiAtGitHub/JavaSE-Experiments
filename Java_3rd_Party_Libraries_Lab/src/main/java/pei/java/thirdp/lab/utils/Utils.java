@@ -130,8 +130,6 @@ public class Utils {
     
     public static void repeatRun(int times, NonArgFunction function) {
     	IntStream.range(0, times).forEach(i->function.doSth());
-//    	OR similarly:
-//    	ContiguousSet.closed(1, times).forEach(i->function.doSth());
     }
     
     public static void repeatRun(int times, Consumer<Integer> c) {

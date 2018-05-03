@@ -1,6 +1,5 @@
 package pei.java.jse.lab.language;
 
-import static pei.java.jse.lab.utils.Utils.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
@@ -48,14 +47,6 @@ public class MethodFeatures {
     }
     static private void manipulateObj(Person p) {
         p.setFirstName("BBB");
-    }
-
-    @Test
-    public void testVarArgs() {
-        assertEquals(0, sum());
-        assertEquals(1, sum(1));
-        assertEquals(3, sum(1,2));
-        assertEquals(6, sum(1,2,3));
     }
 
 }
