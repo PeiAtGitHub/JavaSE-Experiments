@@ -19,6 +19,8 @@ import java.util.Iterator;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
+import com.google.common.collect.Iterators;
+
 /**
  * 
  * @author pei
@@ -72,14 +74,10 @@ public class IoFileUtilsTests {
         // iterate dir
         Iterator<File> htmlFiles = FileUtils.iterateFiles(dir2, new String[] { "html" }, true);
         Collection<File> txtFiles = FileUtils.listFiles(dir2, new String[] { "txt" }, true);
-        int count = 0;
-        while (htmlFiles.hasNext()) {
-            assertThat(((File) htmlFiles.next()).getName(), endsWith(".html"));
-            count++;
-        }
-        assertThat(count, is(2));
+        assertThat(Iterators.size(htmlFiles), is(2));
+        htmlFiles.forEachRemaining(f->assertThat(f.getName(), endsWith(".html")));
         assertThat(txtFiles, hasSize(2));
-        txtFiles.forEach(file->assertThat(file.getName(), endsWith(".txt")));
+        txtFiles.forEach(f->assertThat(f.getName(), endsWith(".txt")));
 
         FileUtils.moveDirectoryToDirectory(dir2, dir1, false);
         // after move: dir1/dir2/dir1
