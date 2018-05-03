@@ -43,9 +43,9 @@ public class BaseDemos {
         Person person = new Person(FIRST_NAME, LAST_NAME, 50, Person.Gender.MALE);
         
         System.out.println(checkNotNull(person).toString());
+        assertThat(catchThrowable(()->checkNotNull(null).toString()), instanceOf(NullPointerException.class));
         
-        checkState(person.getAge()>30);
-        assertThat(catchThrowable(()->Preconditions.checkState(((Person) person).getAge()<30)),
-                instanceOf(IllegalStateException.class));
+        assertThat(catchThrowable(()->checkState(person.getAge()>30)), nullValue());
+        assertThat(catchThrowable(()->checkState(person.getAge()<30)), instanceOf(IllegalStateException.class));
     }
 }

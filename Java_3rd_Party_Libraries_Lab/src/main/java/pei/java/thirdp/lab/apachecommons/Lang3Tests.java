@@ -47,7 +47,6 @@ public class Lang3Tests {
 
         assertTrue(s4.matches("\\d{20}"));
 
-        //
         System.out.println(s1);
         System.out.println(s2);
         System.out.println(s3);

@@ -30,8 +30,7 @@ public class Math3Miscs {
 
         int n = new Random().nextInt(10000);// random number below 10K
         int np = Primes.nextPrime(n);
-        log.info("The first Prime number bigger or equal to {} is {}.",
-                n, np);
+        log.info("The first Prime number bigger or equal to {} is {}.", n, np);
         assertTrue(Primes.isPrime(np));
     }
     

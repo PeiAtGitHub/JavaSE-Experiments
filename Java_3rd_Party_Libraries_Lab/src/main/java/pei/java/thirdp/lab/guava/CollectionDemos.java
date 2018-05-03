@@ -85,13 +85,12 @@ public class CollectionDemos {
         assertThat(Sets.filter(set2, x->x<5).toString(), is("[1, 2]"));
 
         assertThat(Sets.combinations(set1, 2), hasSize(3));
-        //
+        
         EnumSet<SolarPlanet> otherPlanets = Sets.complementOf(EnumSet.of(EARTH));
         assertThat(otherPlanets, hasSize(7));
         assertThat(otherPlanets, not(hasItem(EARTH)));
         assertThat(otherPlanets, hasItems(MARS, SATURN, VENUS, NEPTUNE, JUPITER, URANUS, MERCURY));
 
-        //
         ImmutableSet<SolarPlanet> planets = ImmutableSet.of(MARS, SATURN, EARTH);
         assertThat(planets.toString(), is("[MARS, SATURN, EARTH]"));
         assertThat(ImmutableSortedSet.copyOf(planets).asList().toString(), 
@@ -104,8 +103,7 @@ public class CollectionDemos {
 
         assertThat(Maps.newHashMap().size(), is(0));
         assertThat(Maps.newEnumMap(SolarPlanet.class).size(), is(0));
-        assertThat(Maps.asMap(TEST_SET_123, x->x*10).toString(), 
-                is("{1=10, 2=20, 3=30}"));
+        assertThat(Maps.asMap(TEST_SET_123, x->x*10).toString(), is("{1=10, 2=20, 3=30}"));
 
         ImmutableMap<String, Integer> immuMap = ImmutableMap.of(S1, 1, S2, 2);
         assertThat(immuMap.keySet().iterator().next(), is(S1));
@@ -116,7 +114,7 @@ public class CollectionDemos {
     @Test
     public void demoOfImmutable() throws Exception {// What is "immutable"?
         ImmutableList<Person> persons 
-        = ImmutableList.of(Person.builder().firstName(FIRST_NAME).build());
+                = ImmutableList.of(Person.builder().firstName(FIRST_NAME).build());
         
         assertThat(catchThrowable(() -> persons.add(new Person())),
                 instanceOf(UnsupportedOperationException.class));
@@ -195,15 +193,13 @@ public class CollectionDemos {
         assertThat(biMap.get(S1), is(1));
         assertThat(biMap.inverse().get(1), is(S1));
         
-        assertThat(catchThrowable(()->biMap.put(" ", 1))
-                , instanceOf(IllegalArgumentException.class));
+        assertThat(catchThrowable(()->biMap.put(" ", 1)), instanceOf(IllegalArgumentException.class));
         
         biMap.forcePut(" ", 1);
         assertThat(biMap.get(" "), is(1));
         assertThat(biMap.keySet(), not(hasItem(S1)));
         
-        assertThat(catchThrowable(() -> ImmutableBiMap.of(S1, 1, S2, 1)),
-                instanceOf(IllegalArgumentException.class));
+        assertThat(catchThrowable(() -> ImmutableBiMap.of(S1, 1, S2, 1)), instanceOf(IllegalArgumentException.class));
     }
     
     @Test
