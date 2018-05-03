@@ -85,7 +85,7 @@ public class ServiceDemo {
 			s.addListener(new MyListener(), Executors.newSingleThreadExecutor());
 			s.startAsync().awaitRunning();
 			
-			Exception e = catchException(()->s.awaitTerminated());
+			Throwable e = catchThrowable(()->s.awaitTerminated());
 			assertThat(e, instanceOf(IllegalStateException.class));
 			printlnWithThreadName(e.getMessage());
 			

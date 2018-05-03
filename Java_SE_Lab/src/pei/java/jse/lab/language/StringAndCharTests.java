@@ -44,7 +44,7 @@ public class StringAndCharTests {
         assertThat(str.substring(str.length() - 1), is(SEMICOLON));
         assertTrue(str.substring(str.length()).isEmpty()); // this behavior, i think, makes no sense
 
-        assertThat(catchException(()->str.substring(str.length() + 1)),
+        assertThat(catchThrowable(()->str.substring(str.length() + 1)),
                 instanceOf(IndexOutOfBoundsException.class));
     }
 

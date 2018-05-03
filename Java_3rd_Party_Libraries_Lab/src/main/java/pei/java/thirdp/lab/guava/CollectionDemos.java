@@ -118,16 +118,16 @@ public class CollectionDemos {
         ImmutableList<Person> persons 
         = ImmutableList.of(Person.builder().firstName(FIRST_NAME).build());
         
-        assertThat(catchException(() -> persons.add(new Person())),
+        assertThat(catchThrowable(() -> persons.add(new Person())),
                 instanceOf(UnsupportedOperationException.class));
         
-        assertThat(catchException(() -> persons.set(0, new Person())), 
+        assertThat(catchThrowable(() -> persons.set(0, new Person())), 
                 instanceOf(UnsupportedOperationException.class));
         
-        assertThat(catchException(() -> persons.remove(0)), 
+        assertThat(catchThrowable(() -> persons.remove(0)), 
                 instanceOf(UnsupportedOperationException.class));
         
-        assertThat(catchException(() -> persons.clear()), 
+        assertThat(catchThrowable(() -> persons.clear()), 
                 instanceOf(UnsupportedOperationException.class));
         
         persons.get(0).setFirstName(STR);
@@ -195,14 +195,14 @@ public class CollectionDemos {
         assertThat(biMap.get(S1), is(1));
         assertThat(biMap.inverse().get(1), is(S1));
         
-        assertThat(catchException(()->biMap.put(" ", 1))
+        assertThat(catchThrowable(()->biMap.put(" ", 1))
                 , instanceOf(IllegalArgumentException.class));
         
         biMap.forcePut(" ", 1);
         assertThat(biMap.get(" "), is(1));
         assertThat(biMap.keySet(), not(hasItem(S1)));
         
-        assertThat(catchException(() -> ImmutableBiMap.of(S1, 1, S2, 1)),
+        assertThat(catchThrowable(() -> ImmutableBiMap.of(S1, 1, S2, 1)),
                 instanceOf(IllegalArgumentException.class));
     }
     

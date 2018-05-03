@@ -41,7 +41,7 @@ public class CollectionTests {
         
         // unmodifiable view
         List<Integer> unmodifiableList = Collections.unmodifiableList(aList);
-        assertThat(catchException(()->unmodifiableList.set(0, 1))  
+        assertThat(catchThrowable(()->unmodifiableList.set(0, 1))  
                         ,instanceOf(UnsupportedOperationException.class));
         
         /*
@@ -51,7 +51,7 @@ public class CollectionTests {
          */
         assertSame(Collections.<String> emptyList(), Collections.<String> emptyList()); 
         
-        assertThat(catchException(()->Collections.<String> emptyList().add(STR)),
+        assertThat(catchThrowable(()->Collections.<String> emptyList().add(STR)),
                 instanceOf(UnsupportedOperationException.class));
         
         assertThat(Collections.singletonList(STR).toString(), is("[STR]"));
@@ -93,7 +93,7 @@ public class CollectionTests {
     @Test
     public void listFeatures() {
         ArrayList<String> emptyList = new ArrayList<String>(8); // with initial capacity
-        assertThat(catchException(()->emptyList.get(0)),
+        assertThat(catchThrowable(()->emptyList.get(0)),
                 instanceOf(IndexOutOfBoundsException.class));
     }
     

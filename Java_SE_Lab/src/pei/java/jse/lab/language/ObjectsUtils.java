@@ -17,7 +17,7 @@ public class ObjectsUtils {
     @Test
     public void testNullnessChecking(){
         // Null checking made one liner.
-        Exception e = catchException(()->Objects.requireNonNull(null, "Sth is null!"));
+        Throwable e = catchThrowable(()->Objects.requireNonNull(null, "Sth is null!"));
         assertThat(e, instanceOf(NullPointerException.class));
         assertThat(e.getMessage(), is("Sth is null!"));
     }

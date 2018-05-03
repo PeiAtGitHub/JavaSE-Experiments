@@ -38,9 +38,9 @@ public class Math3Miscs {
     @Test
     public void arithmeticTest() throws Exception {
         // overflows
-        assertThat(catchException(()->ArithmeticUtils.addAndCheck(Integer.MAX_VALUE, 1)),
+        assertThat(catchThrowable(()->ArithmeticUtils.addAndCheck(Integer.MAX_VALUE, 1)),
                 instanceOf(MathArithmeticException.class));
-        assertThat(catchException(()->ArithmeticUtils.subAndCheck(Integer.MIN_VALUE, 1)),
+        assertThat(catchThrowable(()->ArithmeticUtils.subAndCheck(Integer.MIN_VALUE, 1)),
                 instanceOf(MathArithmeticException.class));
         
     }

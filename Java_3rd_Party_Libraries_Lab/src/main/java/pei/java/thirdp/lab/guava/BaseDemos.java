@@ -45,7 +45,7 @@ public class BaseDemos {
         System.out.println(checkNotNull(person).toString());
         
         checkState(person.getAge()>30);
-        assertThat(catchException(()->Preconditions.checkState(((Person) person).getAge()<30)),
+        assertThat(catchThrowable(()->Preconditions.checkState(((Person) person).getAge()<30)),
                 instanceOf(IllegalStateException.class));
     }
 }

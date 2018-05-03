@@ -53,12 +53,12 @@ public class Utils {
     public static final String URL_GOOGLE = "https://www.google.com";
     
     //
-    public static Exception catchException(NonArgFunction function) {
+    public static Throwable catchThrowable(NonArgFunction function) {
         try {
             function.doSth();
             return null;
-        } catch (Exception e) {
-            return e;
+        } catch (Throwable t) {
+            return t;
         }
     }
 

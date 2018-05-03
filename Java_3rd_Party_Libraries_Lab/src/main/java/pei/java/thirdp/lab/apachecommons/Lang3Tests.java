@@ -56,13 +56,13 @@ public class Lang3Tests {
     
     @Test
     public void testValidate() {
-        assertThat(catchException(()->Validate.exclusiveBetween(100, 200, new Random().nextInt(100)))
+        assertThat(catchThrowable(()->Validate.exclusiveBetween(100, 200, new Random().nextInt(100)))
                 ,instanceOf(IllegalArgumentException.class));
         
-        assertThat(catchException(()->Validate.notBlank("   "))
+        assertThat(catchThrowable(()->Validate.notBlank("   "))
                 ,instanceOf(IllegalArgumentException.class));
 
-        assertThat(catchException(()->Validate.validState(false))
+        assertThat(catchThrowable(()->Validate.validState(false))
                 ,instanceOf(IllegalStateException.class));
     }
 
@@ -103,7 +103,7 @@ public class Lang3Tests {
         assertThat(StringUtils.truncate("123456789", 8), is("12345678"));
         assertThat(StringUtils.truncate("123456789", 10), is("123456789"));
 
-        assertThat(catchException(()->StringUtils.truncate("123456789", -1)),
+        assertThat(catchThrowable(()->StringUtils.truncate("123456789", -1)),
                         instanceOf(IllegalArgumentException.class));
         
         assertThat(StringUtils.left("abcdef", 2), is("ab"));

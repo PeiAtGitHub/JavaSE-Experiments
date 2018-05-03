@@ -56,7 +56,7 @@ public class PrimitivesDemo {
 		assertThat(Ints.tryParse(STR), nullValue());
 
 		assertThat(Ints.checkedCast(100L), is(100));
-		assertThat(catchException(()->Ints.checkedCast(2147483648L)), instanceOf(IllegalArgumentException.class));
+		assertThat(catchThrowable(()->Ints.checkedCast(2147483648L)), instanceOf(IllegalArgumentException.class));
 		
 		assertThat(Ints.saturatedCast(100L), is(100));
 		assertThat(Ints.saturatedCast(2147483648L), is(2147483647));

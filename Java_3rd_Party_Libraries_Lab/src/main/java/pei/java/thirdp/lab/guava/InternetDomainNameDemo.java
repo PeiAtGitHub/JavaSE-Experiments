@@ -32,7 +32,7 @@ public class InternetDomainNameDemo {
 		assertFalse(InternetDomainName.isValid("https://www.wikipedia.org"));
 		assertFalse(InternetDomainName.isValid("en.wikipedia.org/wiki/Main_Page"));
 		
-		Exception e = catchException(()->InternetDomainName.from("https://www.wikipedia.org"));
+		Throwable e = catchThrowable(()->InternetDomainName.from("https://www.wikipedia.org"));
 		assertThat(e, instanceOf(IllegalArgumentException.class));
 		assertThat(e.getMessage(), containsString("Not a valid domain name"));
 
@@ -109,10 +109,10 @@ public class InternetDomainNameDemo {
 		assertThat(d5.isUnderPublicSuffix(), is(false));
 		
 		assertThat(d5.isTopPrivateDomain(), is(false));
-		assertThat(catchException(()->d5.topPrivateDomain()), instanceOf(IllegalStateException.class));
+		assertThat(catchThrowable(()->d5.topPrivateDomain()), instanceOf(IllegalStateException.class));
 		
 		assertThat(d5.hasParent(), is(false));
-		assertThat(catchException(()->d5.parent()), instanceOf(IllegalStateException.class));
+		assertThat(catchThrowable(()->d5.parent()), instanceOf(IllegalStateException.class));
 		
 		assertThat(d5.child(STR).toString(), is("str.org"));
 

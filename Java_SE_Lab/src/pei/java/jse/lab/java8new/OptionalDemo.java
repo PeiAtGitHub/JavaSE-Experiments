@@ -26,7 +26,7 @@ public class OptionalDemo {
     public void basics() {
         
         Optional<String> strOpt1 = Optional.of(str2);
-        assertThat(Utils.catchException(()->Optional.of(null)), 
+        assertThat(Utils.catchThrowable(()->Optional.of(null)), 
                 instanceOf(NullPointerException.class));
         
         Optional<Object> nullOpt = Optional.ofNullable(null);

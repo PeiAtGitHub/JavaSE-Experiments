@@ -62,8 +62,8 @@ public class RangeDemo {
 		assertThat(Range.openClosed(1, 1).isEmpty(), is(true));
 		assertThat(Range.closedOpen(1, 1).isEmpty(), is(true));
 		
-		assertThat(catchException(()->Range.open(1, 1)), instanceOf(IllegalArgumentException.class));
-		assertThat(catchException(()->Range.open(2, 1)), instanceOf(IllegalArgumentException.class));
+		assertThat(catchThrowable(()->Range.open(1, 1)), instanceOf(IllegalArgumentException.class));
+		assertThat(catchThrowable(()->Range.open(2, 1)), instanceOf(IllegalArgumentException.class));
 		
 	}
 	
@@ -88,8 +88,8 @@ public class RangeDemo {
 		assertThat(msdd1.distance("S1", "S100"), is(99L));
 		assertThat(ContiguousSet.create(Range.closedOpen("S1", "S100"), msdd1).size(), is(99));
 		
-		assertThat(catchException(()->msdd1.distance("Jerry", "Tom")), instanceOf(NumberFormatException.class));
-		assertThat(catchException(()->ContiguousSet.create(Range.closedOpen("Jerry", "Tom"), msdd1))
+		assertThat(catchThrowable(()->msdd1.distance("Jerry", "Tom")), instanceOf(NumberFormatException.class));
+		assertThat(catchThrowable(()->ContiguousSet.create(Range.closedOpen("Jerry", "Tom"), msdd1))
 				, instanceOf(NumberFormatException.class));
 		
 		MyStringsDiscreteDomain2 msdd2 = new MyStringsDiscreteDomain2();

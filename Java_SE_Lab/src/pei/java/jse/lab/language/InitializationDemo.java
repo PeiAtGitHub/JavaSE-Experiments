@@ -1,16 +1,23 @@
 package pei.java.jse.lab.language;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
+import static pei.java.jse.lab.utils.Utils.*;
 
 /**
  * 
  * @author pei
  *
  */
-public class InitializerBlocksDemo {
-	
+public class InitializationDemo {
+    
+    @Test
+	public void stackOverflow() {
+    	assertThat(catchThrowable(()->new InfiniteInitRecurseDemo()), instanceOf(StackOverflowError.class));
+	}
+    
 	@Test
 	public void initBlocksDemo() throws Exception {
 
@@ -23,13 +30,14 @@ public class InitializerBlocksDemo {
 		System.out.println("==================");
 		new IBDemo(1, 1);
 
-
 	}
+	
 }
 
 class IBDemo {
 	
-	static {
+	static 
+	{
 		System.out.println("Static Initializer Block, runs only once for class loading.");
 	}
 	
@@ -51,3 +59,18 @@ class IBDemo {
 	}
 	
 }
+
+class InfiniteInitRecurseDemo {
+
+	private InfiniteInitRecurseDemo iird = new InfiniteInitRecurseDemo(); 
+	
+	public InfiniteInitRecurseDemo() {
+		
+		throw new RuntimeException("Never reach here."
+				+ "the member initialization 'recurses too deeply' which "
+				+ "causes java.lang.StackOverflowError");
+		
+	}
+	
+}
+

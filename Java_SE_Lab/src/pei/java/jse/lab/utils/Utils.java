@@ -67,12 +67,12 @@ public class Utils {
         System.out.format("%s: %s%n", Thread.currentThread().getName(), message);
     }
     
-    public static Exception catchException(NonArgFunction function) {
+    public static Throwable catchThrowable(NonArgFunction function) {
         try {
             function.doSth();
             return null;
-        } catch (Exception e) {
-            return e;
+        } catch (Throwable t) {
+            return t;
         }
     }
     
