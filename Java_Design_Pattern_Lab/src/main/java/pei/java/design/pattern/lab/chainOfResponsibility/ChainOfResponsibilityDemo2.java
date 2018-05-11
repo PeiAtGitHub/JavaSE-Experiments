@@ -47,9 +47,7 @@ abstract class Logger {
     protected Logger next;
 
     public void message(String msg, int priority) {
-        if (priority >= mask) {
-            writeMessage(msg);
-        }
+        ifThen(priority >= mask, ()->writeMessage(msg));
         ifNotNull(next, ()->next.message(msg, priority));
     }
 
@@ -81,11 +79,7 @@ class StderrLogger extends Logger {
     }
     protected void writeMessage(String msg) {
         System.err.println("Sending to stderr: " + msg);
-        try {
-            Thread.sleep(200);// wait for err output
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        threadSleep(200);// wait for err output
     }
 }
 

@@ -3,6 +3,9 @@ package pei.java.thirdp.lab.mockito;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.github.peiatgithub.java.utils.Utils.*;
+
+
 /**
  * 
  * @author pei
@@ -29,7 +32,7 @@ public class CustomerDao {
      * @return
      */
     public Customer saveCustomer(Customer customer) {
-        if (customer == null) {
+    	if (customer == null) {
             throw new IllegalArgumentException();
         }
         entityManager.persist(customer); // implicitly assign id to customer

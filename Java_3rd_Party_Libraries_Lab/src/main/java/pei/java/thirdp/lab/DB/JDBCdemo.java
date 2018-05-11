@@ -6,6 +6,7 @@ import static pei.java.thirdp.lab.DB.DbUtils.SQL_CREATE_TABLE_CUSTOMERS;
 import static pei.java.thirdp.lab.DB.DbUtils.TABLE_CUSTOMERS;
 import static pei.java.thirdp.lab.DB.DbUtils.USERNAME;
 import static pei.java.thirdp.lab.DB.DbUtils.sqlSelectFrom;
+import static com.github.peiatgithub.java.utils.Utils.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -81,11 +82,9 @@ public class JDBCdemo {
         try {
             DriverManager.getConnection(JDBC_URL_SHUTDOWN_DERBY);
         } catch (SQLException ex) {
-            if ((ex.getErrorCode() == 50000) && (ex.getSQLState().equals("XJ015"))) {
-                System.out.println("Derby shut down normally.");
-            } else {
-                System.err.format("Derby did not shut down normally:%n%s", ex.getMessage());
-            }
+            ifElse((ex.getErrorCode() == 50000) && (ex.getSQLState().equals("XJ015")), 
+                ()->System.out.println("Derby shut down normally."),
+                ()->System.err.format("Derby did not shut down normally:%n%s", ex.getMessage()));
         }
     }
     

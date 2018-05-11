@@ -34,14 +34,10 @@ public class Lang3Tests {
         String s4 = RandomStringUtils.randomNumeric(20);
 
         assertThat(s1.length(), is(20));
-        if (s1.matches("\\w{20}")) {
-            System.out.println("When can this happen???!!!");
-        }
+        ifThen(s1.matches("\\w{20}"), ()->System.out.println("When can this happen???!!!"));
 
         assertTrue(s2.matches("\\w{20}"));
-        if (s2.matches("[a-zA-Z]{20}")) {
-            System.out.println("Not a single digit in the string!!!");
-        }
+        ifThen(s2.matches("[a-zA-Z]{20}"), ()->System.out.println("Not a single digit in the string!!!"));
 
         assertTrue(s3.matches("[a-zA-Z]{20}"));
         assertTrue(s3.matches("\\w{20}"));

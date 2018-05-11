@@ -1,6 +1,7 @@
 package pei.java.design.pattern.lab.factory;
 
 import java.util.Random;
+import static com.github.peiatgithub.java.utils.Utils.*;
 
 /**
  * 
@@ -13,7 +14,7 @@ public class AbstractFactoryDemo {
     }
 
     public static GUIFactory getGuiFactory() {
-        if (new Random().nextBoolean()) {
+        if(new Random().nextBoolean()) {
             return new WinFactory();
         } else {
             return new OSXFactory();

@@ -9,7 +9,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import lombok.extern.slf4j.Slf4j;
-import static pei.java.jse.lab.xml.XmlUtils.*;
+import static com.github.peiatgithub.java.utils.Utils.*;
 
 /**
  * 
@@ -37,9 +37,7 @@ class MySaxHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         switch (qName) {
         case PLANT_TAG_NAME:
-            if (++counter == 3) {
-                the3rdPlantFlag = true;
-            }
+        	ifThen(++counter == 3, ()->the3rdPlantFlag = true);
             break;
         case COMMON_TAG_NAME:
             commonFlag = true;
@@ -52,9 +50,7 @@ class MySaxHandler extends DefaultHandler {
     public void endElement(String uri, String localName, String qName) throws SAXException {
         switch (qName) {
         case PLANT_TAG_NAME:
-            if (the3rdPlantFlag) {
-                the3rdPlantFlag = false;
-            }
+            ifThen(the3rdPlantFlag, ()->the3rdPlantFlag = false);
             break;
         case COMMON_TAG_NAME:
             commonFlag = false;
@@ -65,8 +61,7 @@ class MySaxHandler extends DefaultHandler {
 
     @Override
     public void characters(char ch[], int start, int length) throws SAXException {
-        if (the3rdPlantFlag && commonFlag) {
-            log.info("The 3rd plant common name: {}", new String(ch, start, length));
-        }
+        ifThen(the3rdPlantFlag && commonFlag
+        		, ()->log.info("The 3rd plant common name: {}", new String(ch, start, length)));
     }
 }

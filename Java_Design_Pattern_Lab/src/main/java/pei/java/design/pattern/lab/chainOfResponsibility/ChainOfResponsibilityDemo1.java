@@ -2,6 +2,7 @@ package pei.java.design.pattern.lab.chainOfResponsibility;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import static com.github.peiatgithub.java.utils.Utils.*;
 
 /**
  * the request ENDs where is handled
@@ -34,11 +35,7 @@ class FrontEnd implements HelpInterface {
     HelpInterface successor;
 
     public void getHelp(int num) {
-        if (num == 1) {
-            System.out.println("This is the front end.");
-        } else {
-            successor.getHelp(num);
-        }
+    	ifElse(num == 1, ()->System.out.println("This is the front end."), ()->successor.getHelp(num));
     }
 }
 @AllArgsConstructor
@@ -47,11 +44,7 @@ class IntermediateLayer implements HelpInterface {
     HelpInterface successor;
 
     public void getHelp(int num) {
-        if (num == 2) {
-            System.out.println("This is the intermediate layer.");
-        } else {
-            successor.getHelp(num);
-        }
+    	ifElse(num == 2, ()->System.out.println("This is the intermediate layer."), ()->successor.getHelp(num));
     }
 }
 
