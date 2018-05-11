@@ -1,5 +1,6 @@
 package pei.java.design.pattern.lab.chainOfResponsibility;
 
+import static com.github.peiatgithub.java.utils.Utils.*;
 /**
  * the request does NOT END until end of chain
  * 
@@ -49,9 +50,7 @@ abstract class Logger {
         if (priority >= mask) {
             writeMessage(msg);
         }
-        if (next != null) { 
-            next.message(msg, priority);
-        }
+        ifNotNull(next, ()->next.message(msg, priority));
     }
 
     abstract protected void writeMessage(String msg);

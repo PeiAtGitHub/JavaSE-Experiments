@@ -9,6 +9,7 @@ import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import static com.github.peiatgithub.java.utils.Utils.*;
 
 /**
  * 
@@ -68,9 +69,7 @@ class CoffeeOrderFactory {
     private Map<String, CoffeeOrder> orders = new HashMap<String, CoffeeOrder>();
 
     public CoffeeOrder getCoffeeOrder(String flavor) {
-        if(!orders.containsKey(flavor)) {
-            orders.put(flavor, CoffeeOrder.builder().flavor(flavor).build());
-        }
+    	ifThen(!orders.containsKey(flavor), ()->orders.put(flavor, CoffeeOrder.builder().flavor(flavor).build()));
         return orders.get(flavor);
     }
     

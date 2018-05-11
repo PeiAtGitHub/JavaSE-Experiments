@@ -3,7 +3,8 @@ package pei.java.design.pattern.lab.stateStrategyPolicy;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import static org.apache.commons.lang3.StringUtils.*;
-import static pei.java.design.pattern.lab.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Utils.*;
+
 
 /**
  * 
