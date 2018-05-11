@@ -1,12 +1,13 @@
 package pei.java.thirdp.lab.mockito;
 
-import static pei.java.thirdp.lab.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Constants.*;
 
 import java.util.List;
 
 import static org.mockito.Mockito.*;
 import org.mockito.ArgumentMatchers;
-
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.*;
 import org.mockito.ArgumentCaptor;
 
@@ -134,4 +135,7 @@ public class MockitoDemos {
 		}
 	}
 
+	public static long getRandom16DigitNumber() {
+		return RandomUtils.nextLong(1_000_000_000_000_000L, 10_000_000_000_000_000L);
+	}
 }

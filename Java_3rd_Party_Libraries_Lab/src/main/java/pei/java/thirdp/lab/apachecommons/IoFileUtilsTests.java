@@ -8,7 +8,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static pei.java.thirdp.lab.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Constants.*;
 
 import java.io.File;
 import java.net.URL;
@@ -27,6 +28,8 @@ import com.google.common.collect.Iterators;
  *
  */
 public class IoFileUtilsTests {
+
+    public static final String URL_APACHE_COMMONS_IO_MAIN = "https://commons.apache.org/proper/commons-io/index.html";
 
     static File dir1 = new File("dir1");
     static File dir2 = new File("dir2");

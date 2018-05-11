@@ -19,7 +19,7 @@ import com.google.common.graph.Graph;
 import com.google.common.graph.GraphBuilder;
 
 import lombok.extern.slf4j.Slf4j;
-import pei.java.thirdp.lab.utils.NanoStopWatch;
+import com.github.peiatgithub.java.utils.NanoStopWatch;
 import pei.java.thirdp.lab.utils.US_CITY;
 
 /**
@@ -47,13 +47,13 @@ public class CacheDemo {
         
         NanoStopWatch.begin();
         Graph<US_CITY> g1 = graphsCache.get(1);
-        assertTrue(NanoStopWatch.stopAndGetElapsedMillis() <= 1);
+        assertTrue(NanoStopWatch.stopAndGetMillis() <= 1);
         
         assertSame(g1, graphsCache.get(1));
         //
         NanoStopWatch.begin();
         Graph<US_CITY> g2 = graphsCache.get(2);
-        assertTrue(NanoStopWatch.stopAndGetElapsedMillis() >= HEAVEY_COMPUTING_MILLIS );
+        assertTrue(NanoStopWatch.stopAndGetMillis() >= HEAVEY_COMPUTING_MILLIS );
         assertSame(g2, graphsCache.get(2));
         //
         assertNotSame(g2, g1);
@@ -72,11 +72,11 @@ public class CacheDemo {
         
         NanoStopWatch.begin();
         Graph<US_CITY> g1 = graphsCache.get(1, new CallableImpl());
-        assertTrue(NanoStopWatch.stopAndGetElapsedMillis() >= HEAVEY_COMPUTING_MILLIS );
+        assertTrue(NanoStopWatch.stopAndGetMillis() >= HEAVEY_COMPUTING_MILLIS );
 
         NanoStopWatch.begin();
         assertSame(g1, graphsCache.get(1, new CallableImpl()));
-        assertTrue(NanoStopWatch.stopAndGetElapsedMillis() <= 1);
+        assertTrue(NanoStopWatch.stopAndGetMillis() <= 1);
         
         CacheStats cacheStats = graphsCache.stats();
         assertThat(cacheStats.hitCount(), is(1L));

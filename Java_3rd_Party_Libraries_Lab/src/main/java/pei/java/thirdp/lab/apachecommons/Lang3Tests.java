@@ -16,7 +16,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.junit.Test;
 
-import static pei.java.thirdp.lab.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Constants.*;
 
 /**
  * 

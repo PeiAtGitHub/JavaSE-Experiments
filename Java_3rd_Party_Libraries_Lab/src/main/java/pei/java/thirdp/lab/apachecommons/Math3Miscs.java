@@ -11,7 +11,8 @@ import org.apache.commons.math3.util.ArithmeticUtils;
 import org.junit.Test;
 
 import lombok.extern.slf4j.Slf4j;
-import static pei.java.thirdp.lab.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Constants.*;
 
 /**
  * 

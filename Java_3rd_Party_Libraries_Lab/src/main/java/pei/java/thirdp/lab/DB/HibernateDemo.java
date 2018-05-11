@@ -10,7 +10,8 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import static pei.java.thirdp.lab.DB.DbUtils.*;
-import static pei.java.thirdp.lab.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Constants.*;
 
 /**
  * 

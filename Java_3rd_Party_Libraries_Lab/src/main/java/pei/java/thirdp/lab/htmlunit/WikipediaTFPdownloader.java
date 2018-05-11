@@ -1,7 +1,8 @@
 package pei.java.thirdp.lab.htmlunit;
 
 import static org.junit.Assert.*;
-import static pei.java.thirdp.lab.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Constants.*;
 
 import java.io.File;
 import java.net.URL;
@@ -25,6 +26,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class WikipediaTFPdownloader {
 
     final static String tfpDownloadDir = "downloads" + File.separator + "TFP";
+    
+    public static final String URL_WIKIPEDIA_MAIN_PAGE= "https://en.wikipedia.org/wiki/Main_Page";
 
     /**
      * I'v tried several ways. Opening the image's URL in a page and then download

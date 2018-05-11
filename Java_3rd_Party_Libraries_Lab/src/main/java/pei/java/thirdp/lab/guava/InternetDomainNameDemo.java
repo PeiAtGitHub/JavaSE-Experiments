@@ -7,7 +7,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.google.common.net.InternetDomainName;
-import static pei.java.thirdp.lab.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Constants.*;
 
 
 /**

@@ -15,7 +15,8 @@ import static pei.java.thirdp.lab.utils.SolarPlanet.NEPTUNE;
 import static pei.java.thirdp.lab.utils.SolarPlanet.SATURN;
 import static pei.java.thirdp.lab.utils.SolarPlanet.URANUS;
 import static pei.java.thirdp.lab.utils.SolarPlanet.VENUS;
-import static pei.java.thirdp.lab.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Constants.*;
 
 import java.util.ArrayList;
 import java.util.EnumSet;

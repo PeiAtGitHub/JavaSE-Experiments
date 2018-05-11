@@ -1,6 +1,7 @@
 package pei.java.thirdp.lab.guava;
 
-import static pei.java.thirdp.lab.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Constants.*;
 
 import java.util.Set;
 
