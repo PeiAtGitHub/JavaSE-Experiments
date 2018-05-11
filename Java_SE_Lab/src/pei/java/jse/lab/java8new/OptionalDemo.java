@@ -10,7 +10,9 @@ import java.util.function.Function;
 
 import org.junit.Test;
 
-import pei.java.jse.lab.utils.Utils;
+import static com.github.peiatgithub.java.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Constants.*;
+
 
 /**
  * 
@@ -26,7 +28,7 @@ public class OptionalDemo {
     public void basics() {
         
         Optional<String> strOpt1 = Optional.of(str2);
-        assertThat(Utils.catchThrowable(()->Optional.of(null)), instanceOf(NullPointerException.class));
+        assertThat(catchThrowable(()->Optional.of(null)), instanceOf(NullPointerException.class));
         
         Optional<Object> nullOpt = Optional.ofNullable(null);
         Optional<Object> emptyOpt = Optional.empty();

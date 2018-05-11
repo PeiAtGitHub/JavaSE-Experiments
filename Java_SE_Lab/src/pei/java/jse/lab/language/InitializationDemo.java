@@ -4,7 +4,8 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-import static pei.java.jse.lab.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Utils.*;
+
 
 /**
  * 

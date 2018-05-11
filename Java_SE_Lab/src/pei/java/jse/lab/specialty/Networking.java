@@ -12,7 +12,8 @@ import java.util.Arrays;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
-import pei.java.jse.lab.utils.Utils;
+import static com.github.peiatgithub.java.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Constants.*;
 
 /**
  * 
@@ -20,6 +21,10 @@ import pei.java.jse.lab.utils.Utils;
  *
  */
 public class Networking {
+	
+    public final static String DOMAIN_WIKIPEDIA = "www.wikipedia.org";
+    public final static String URL_ONLINE_XML = "https://www.w3schools.com/xml/note.xml";
+
     
     @Test
     public void hostAndPing() throws IOException {
@@ -30,7 +35,7 @@ public class Networking {
         System.out.println(localHost.getHostName());
         assertTrue(localHost.isReachable(1000));
         
-        InetAddress wikipediaAddress = InetAddress.getByName(Utils.wikipediaDomain);
+        InetAddress wikipediaAddress = InetAddress.getByName(DOMAIN_WIKIPEDIA);
         System.out.println(Arrays.toString(wikipediaAddress.getAddress()));
         System.out.println(wikipediaAddress.getHostAddress());
         System.out.println(wikipediaAddress.getHostName());
@@ -40,13 +45,13 @@ public class Networking {
     @Test
     public void testUrlConnection() throws Exception {
 
-        HttpURLConnection connection = (HttpURLConnection) new URL(Utils.anOnlineXmlFileUrl).openConnection(); 
+        HttpURLConnection connection = (HttpURLConnection) new URL(URL_ONLINE_XML).openConnection(); 
         connection.connect();
         System.out.println(IOUtils.toString(connection.getInputStream(), Charset.defaultCharset()));
         connection.disconnect();
         
         // an simpler way
-        System.out.println(IOUtils.toString(new URL(Utils.anOnlineXmlFileUrl), Charset.defaultCharset()));
+        System.out.println(IOUtils.toString(new URL(URL_ONLINE_XML), Charset.defaultCharset()));
     }
     
 }

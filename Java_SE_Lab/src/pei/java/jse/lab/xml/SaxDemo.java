@@ -9,7 +9,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import lombok.extern.slf4j.Slf4j;
-import pei.java.jse.lab.utils.Utils;
+import static pei.java.jse.lab.xml.XmlUtils.*;
 
 /**
  * 
@@ -20,7 +20,7 @@ public class SaxDemo {
 
     public static void main(String[] args) throws Exception {
         // log the common name of the 3rd plant
-        SAXParserFactory.newInstance().newSAXParser().parse(new File(Utils.inputXmlFile), new MySaxHandler());
+        SAXParserFactory.newInstance().newSAXParser().parse(new File(INPUT_XML), new MySaxHandler());
     }
 
 }

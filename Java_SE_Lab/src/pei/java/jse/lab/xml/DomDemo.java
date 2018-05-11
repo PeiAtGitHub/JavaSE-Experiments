@@ -8,7 +8,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import lombok.extern.slf4j.Slf4j;
-import pei.java.jse.lab.utils.Utils;
 
 /**
  * 
@@ -21,7 +20,7 @@ public class DomDemo {
     public static void main(String[] args) throws Exception {
 
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-        		.parse(new File(Utils.inputXmlFile));
+        		.parse(new File(INPUT_XML));
         Element root = document.getDocumentElement();
         root.normalize();
         Element the3rdPlant = (Element)root.getElementsByTagName(PLANT_TAG_NAME).item(2);

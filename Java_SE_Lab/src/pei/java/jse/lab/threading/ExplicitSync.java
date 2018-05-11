@@ -2,7 +2,8 @@ package pei.java.jse.lab.threading;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static pei.java.jse.lab.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Constants.*;
 
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
@@ -43,13 +44,13 @@ public class ExplicitSync {
         Random r = new Random();
         for (int i = 1; i <= numberOfThreads; i++) {
             new Thread(()-> {
-                printWithThreadName("Started.");
+                printlnWithThreadName("Started.");
                 try {
                     semp.acquire();// blocked until got a permit
-                    printWithThreadName("Got a permit.");
+                    printlnWithThreadName("Got a permit.");
                     Thread.sleep(r.nextInt(3000));
                     semp.release();
-                    printWithThreadName("Released a permit. Available permit: " + semp.availablePermits());
+                    printlnWithThreadName("Released a permit. Available permit: " + semp.availablePermits());
                     latch.countDown();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -57,7 +58,7 @@ public class ExplicitSync {
             }).start();
         }
         latch.await();
-        printWithThreadName("All threads finished. Available permits: " + semp.availablePermits());
+        printlnWithThreadName("All threads finished. Available permits: " + semp.availablePermits());
         assertEquals(numberOfPermits, semp.availablePermits());
     }
     
@@ -69,26 +70,26 @@ public class ExplicitSync {
 
         Thread t1 = createAndStartThread(()->{
                 synchronized (resource1) {
-                    printWithThreadName("Locked resource1");
+                    printlnWithThreadName("Locked resource1");
                     threadSleep(1000);
-                    printWithThreadName("Blocked till get resource2 lock.");
+                    printlnWithThreadName("Blocked till get resource2 lock.");
                     synchronized (resource2) {
-                        printWithThreadName("Should never get resource2 lock.");
+                        printlnWithThreadName("Should never get resource2 lock.");
                     }
                 }
-                printWithThreadName("Should never reach here.");
+                printlnWithThreadName("Should never reach here.");
             });
         
         Thread t2 = createAndStartThread(()->{
             synchronized (resource2) {
-                printWithThreadName("Locked resource2");
+                printlnWithThreadName("Locked resource2");
                 threadSleep(1000);
-                printWithThreadName("Blocked till get resource1 lock.");
+                printlnWithThreadName("Blocked till get resource1 lock.");
                 synchronized (resource1) {
-                    printWithThreadName("Should never get resource1 lock.");
+                    printlnWithThreadName("Should never get resource1 lock.");
                 }
             }
-            printWithThreadName("Should never reach here.");
+            printlnWithThreadName("Should never reach here.");
         });
         
         t1.join();
@@ -147,8 +148,7 @@ class Counter {
             
             threadSleep(r.nextInt(500));
 
-            count++;
-            printWithThreadName(String.valueOf(count));
+            printlnWithThreadName(String.valueOf(++count));
         } finally {
             lock.unlock();// thread release the lock
         }
@@ -158,8 +158,7 @@ class Counter {
         try {
             lock.lock();
             threadSleep(r.nextInt(500));
-            count--;
-            printWithThreadName(String.valueOf(count));
+            printlnWithThreadName(String.valueOf(--count));
         } finally {
             lock.unlock();
         }

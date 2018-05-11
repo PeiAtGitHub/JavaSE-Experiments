@@ -2,7 +2,8 @@ package pei.java.jse.lab.language;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static pei.java.jse.lab.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Constants.*;
 import java.util.Objects;
 
 import org.junit.Test;
@@ -25,7 +26,7 @@ public class ObjectsUtils {
     @Test
     public void toStringDemo(){
     	assertThat(Objects.toString(STR), is(STR));
-    	assertThat(Objects.toString(null), is("null"));
+    	assertThat(Objects.toString(null), is(NULL_TEXT));
     }
 
 }

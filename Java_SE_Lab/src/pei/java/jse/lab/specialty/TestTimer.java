@@ -5,7 +5,9 @@ import java.util.TimerTask;
 
 import org.junit.Test;
 
-import pei.java.jse.lab.utils.Utils;
+import lombok.RequiredArgsConstructor;
+
+import static com.github.peiatgithub.java.utils.Utils.*;
 
 /**
  * 
@@ -23,7 +25,7 @@ public class TestTimer {
             Timer timer2 = new Timer();             
             timer2.schedule(new Task("T2"), 0, 3000);
             
-            Utils.threadSleep(15000);
+            threadSleep(15000);
             
             timer1.cancel();
             timer2.cancel();
@@ -32,18 +34,14 @@ public class TestTimer {
 
 }
 
+@RequiredArgsConstructor
 class Task extends TimerTask {// TimerTask implemented Runnable
     
-    private String taskName;
+    private final String taskName;
     private int runCounter = 0;
 
-    Task(String tasktName) {
-        this.taskName = tasktName;
-    }
-
     public void run() {
-        runCounter++;
-        System.out.format("Task %s runs x%s%n", taskName, runCounter); 
+        System.out.format("Task %s runs x%s%n", taskName, ++runCounter); 
     }
 
 }

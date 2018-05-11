@@ -5,7 +5,8 @@ import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-import static pei.java.jse.lab.utils.Utils.*;
+
+import static com.github.peiatgithub.java.utils.Constants.*;
 
 /**
  * 

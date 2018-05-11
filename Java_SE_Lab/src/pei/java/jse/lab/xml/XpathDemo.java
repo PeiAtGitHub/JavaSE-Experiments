@@ -12,7 +12,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import lombok.extern.slf4j.Slf4j;
-import pei.java.jse.lab.utils.Utils;
 import static pei.java.jse.lab.xml.XmlUtils.*;
 
 /**
@@ -28,7 +27,7 @@ public class XpathDemo {
     	
         String xpath = "//PLANT/LIGHT[contains(., 'Sun')]";
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-        		.parse(new File(Utils.inputXmlFile));
+        		.parse(new File(INPUT_XML));
         NodeList lightNodes = (NodeList) XPathFactory.newInstance().newXPath()
                 .compile(xpath).evaluate(document, XPathConstants.NODESET);
 

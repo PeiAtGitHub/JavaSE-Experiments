@@ -14,7 +14,8 @@ import java.util.Properties;
 
 import org.junit.Test;
 
-import static pei.java.jse.lab.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Constants.*;
+
 
 /**
  * 
@@ -22,13 +23,17 @@ import static pei.java.jse.lab.utils.Utils.*;
  *
  */
 public class TestFilesIO {
-    
-    @Test
-    public void testPropertiesFile() throws IOException {
-        Properties props = new Properties();
-        // Properties has another constructor that takes a default Properties object
-        // which has default properties
-        // Demo for this feature is skipped here.
+
+	public static final String testPropertiesFile = "Files/TestProperties.properties";
+	public static final String fileToRead = "Files/TestReadFile.txt";
+	public static final String fileToWrite= "Files/TestWriteFile.txt";
+
+	@Test
+	public void testPropertiesFile() throws IOException {
+		Properties props = new Properties();
+		// Properties has another constructor that takes a default Properties object
+		// which has default properties
+		// Demo for this feature is skipped here.
         
         try(FileInputStream in = new FileInputStream(testPropertiesFile)){
         	props.load(in);

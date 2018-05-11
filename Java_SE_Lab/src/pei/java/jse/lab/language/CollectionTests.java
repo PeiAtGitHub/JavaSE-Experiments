@@ -11,7 +11,10 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import static pei.java.jse.lab.utils.Utils.*;
+
+import static com.github.peiatgithub.java.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Constants.*;
+
 
 /**
  * 

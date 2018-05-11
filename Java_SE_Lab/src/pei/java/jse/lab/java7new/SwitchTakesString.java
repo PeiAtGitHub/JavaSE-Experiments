@@ -2,7 +2,9 @@ package pei.java.jse.lab.java7new;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
-import static pei.java.jse.lab.utils.Utils.*;
+
+import static com.github.peiatgithub.java.utils.Constants.*;
+
 
 import org.junit.Test;
 

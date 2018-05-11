@@ -1,7 +1,7 @@
 package pei.java.jse.lab.systemAndRuntime;
 
 import static org.junit.Assert.*;
-import static pei.java.jse.lab.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Utils.*;
 import static org.hamcrest.CoreMatchers.*;
 
 import java.io.File;

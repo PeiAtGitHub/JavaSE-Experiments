@@ -1,6 +1,6 @@
 package pei.java.jse.lab.threading;
 
-import static pei.java.jse.lab.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Utils.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 

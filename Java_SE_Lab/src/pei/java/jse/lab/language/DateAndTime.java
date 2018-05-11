@@ -20,13 +20,11 @@ public class DateAndTime {
     public static final long THE_MAX_13_DIGIT_NUMBER = 9999999999999l;
     
     @Test
-    public void systemTime() {
-        long nanoTime1 = System.nanoTime(); 
+    public void systemTimeMillis() {
         
         assertEquals("Expected to fail if you run this test earlier than 2001.Sep.09 or later than 2286.Nov.20, ",
                 13, String.valueOf(System.currentTimeMillis()).length());
 
-        assertTrue((System.nanoTime() - nanoTime1)  > 0);
     }
 
     @Test

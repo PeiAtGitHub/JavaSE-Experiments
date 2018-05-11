@@ -10,8 +10,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import lombok.extern.slf4j.Slf4j;
-import pei.java.jse.lab.utils.Utils;
 import pei.java.jse.lab.xml.CATALOG.PLANT;
+import static pei.java.jse.lab.xml.XmlUtils.*;
 
 /**
  * 
@@ -43,7 +43,7 @@ public class JaxbDemo {
     
     public static void xmlToObj() throws JAXBException {
             Unmarshaller jaxbUnmarshaller = JAXBContext.newInstance(CATALOG.class).createUnmarshaller();
-            CATALOG catalog = (CATALOG) jaxbUnmarshaller.unmarshal(new File(Utils.inputXmlFile));
+            CATALOG catalog = (CATALOG) jaxbUnmarshaller.unmarshal(new File(INPUT_XML));
             PLANT the3rdPlant = catalog.getPLANT().get(2);
             log.info("Data about the 3rd plant:");
             log.info(String.valueOf(the3rdPlant.getId()));

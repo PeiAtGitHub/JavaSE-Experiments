@@ -1,10 +1,11 @@
 package pei.java.jse.lab.language;
 
 import static org.hamcrest.Matchers.*;
-import static pei.java.jse.lab.utils.Utils.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+
+import static com.github.peiatgithub.java.utils.Utils.*;
 
 import java.util.Random;
 
@@ -54,8 +55,9 @@ public class Numbers {
     public void numberOverFlow() {
         log.info("Integer.MAX_VALUE is {}, appx {}", Integer.MAX_VALUE, numberToReadableString(Integer.MAX_VALUE));
         log.info("Long.MAX_VALUE is {}, appx {}", Long.MAX_VALUE, numberToReadableString(Long.MAX_VALUE));
-        log.info("Float.MAX_VALUE is {}, appx {}", Float.MAX_VALUE, numberToReadableString(Float.MAX_VALUE));
-        log.info("Double.MAX_VALUE is {}, which has no better representation.", Double.MAX_VALUE);
+        log.info("Float.MAX_VALUE is {}, {} times bigger than Long.MAX_VALUE.", Float.MAX_VALUE
+        		, (Float.MAX_VALUE/Long.MAX_VALUE));
+        log.info("Double.MAX_VALUE is {}.", Double.MAX_VALUE);
 
         log.info("Demo of number overflow:");
         log.info("Integer.MAX_VALUE + 123 is: {}", (Integer.MAX_VALUE + 123));

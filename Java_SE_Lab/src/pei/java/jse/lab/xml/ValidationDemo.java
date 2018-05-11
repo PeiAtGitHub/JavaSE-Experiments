@@ -10,7 +10,7 @@ import javax.xml.validation.SchemaFactory;
 import org.w3c.dom.Document;
 
 import lombok.extern.slf4j.Slf4j;
-import pei.java.jse.lab.utils.Utils;
+import static pei.java.jse.lab.xml.XmlUtils.*;
 
 /**
  * 
@@ -23,12 +23,12 @@ public class ValidationDemo {
     public static void main(String[] args) throws Exception {
         
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                .parse(new File(Utils.inputXmlFile));
+                .parse(new File(INPUT_XML));
 
-        log.info("Validating {} against {}", Utils.inputXmlFile, Utils.inputXsdFile);
-        SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(new File(Utils.inputXsdFile))
+        log.info("Validating {} against {}", INPUT_XML, INPUT_XSD);
+        SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(new File(INPUT_XSD))
                 .newValidator().validate(new DOMSource(document));
-        log.info("Validate {} successfully against {}.", Utils.inputXmlFile, Utils.inputXsdFile);
+        log.info("Validate {} successfully against {}.", INPUT_XML, INPUT_XSD);
 
     }
 
