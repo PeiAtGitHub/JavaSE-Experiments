@@ -1,25 +1,12 @@
 package pei.java.thirdp.lab.apachecommons;
 
-
 import static org.apache.commons.lang3.StringUtils.SPACE;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.MissingArgumentException;
-import org.apache.commons.cli.MissingOptionException;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.UnrecognizedOptionException;
+import org.apache.commons.cli.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.assertj.core.api.Assertions.*;
 
 /**
  * 
@@ -69,41 +56,36 @@ public class CliDemo {
 	public void testAllOptions() throws Exception {
 		CommandLine cmd = defaultParser.parse(options, 
 				commandlineToArray("-a A0 -b A1 A2 -fA3 A4 -t A5 A6 -T A7 A8 -h --required A9"));
-		//
-		assertTrue(cmd.hasOption("a"));
-		assertNull(cmd.getOptionValue("a"));
+		
+		assertThat(cmd.hasOption("a"));
+		assertThat(cmd.getOptionValue("a")).isNull();
 
-		assertTrue(cmd.hasOption("b"));
-		assertThat(cmd.getOptionValue("b"),is("A1"));
-		assertThat(cmd.getOptionValues("b")[1],is("A2"));
-		assertThat(cmd.getOptionValues("b").length, is(2));
+		assertThat(cmd.hasOption("b"));
+		assertThat(cmd.getOptionValue("b")).isEqualTo("A1");
+		assertThat(cmd.getOptionValues("b")).hasSize(2).contains("A2", atIndex(1));
 
-		assertTrue(cmd.hasOption("f"));
-		assertThat(cmd.getOptionValue("f"),is("A3"));
-		assertThat(cmd.getOptionValues("f").length, is(1));
+		assertThat(cmd.hasOption("f"));
+		assertThat(cmd.getOptionValue("f")).isEqualTo("A3");
+		assertThat(cmd.getOptionValues("f")).hasSize(1);
 		
-		assertTrue(cmd.hasOption("t"));
-		assertThat(cmd.getOptionValue("t"),is("A5"));
-		assertThat(cmd.getOptionValues("t").length,is(1));
+		assertThat(cmd.hasOption("t"));
+		assertThat(cmd.getOptionValue("t")).isEqualTo("A5");
+		assertThat(cmd.getOptionValues("t")).hasSize(1);
 		
-		assertTrue(cmd.hasOption("T"));
-		assertThat(cmd.getOptionValues("T")[0],is("A7"));
-		assertThat(cmd.getOptionValues("T")[1],is("A8"));
-		assertThat(cmd.getOptionValues("T").length,is(2));
+		assertThat(cmd.hasOption("T"));
+		assertThat(cmd.getOptionValues("T")).hasSize(2).contains("A7", atIndex(0)).contains("A8", atIndex(1));
 		
-		assertTrue(cmd.hasOption("h"));
-		assertTrue(cmd.hasOption("help"));
-		assertFalse(cmd.hasOption("H")); 
-		assertThat(cmd.getOptionValue("h", "h default value"), is("h default value"));
+		assertThat(cmd.hasOption("h"));
+		assertThat(cmd.hasOption("help"));
+		assertThat(cmd.hasOption("H")).isFalse(); 
+		assertThat(cmd.getOptionValue("h", "h default value")).isEqualTo("h default value");
 				
-		assertTrue(cmd.hasOption("r"));
-		assertTrue(cmd.hasOption("required"));
-		assertNull(cmd.getOptionValue("r"));
+		assertThat(cmd.hasOption("r"));
+		assertThat(cmd.hasOption("required"));
+		assertThat(cmd.getOptionValue("r")).isNull();
 		
-		//
-		assertThat(cmd.getArgList().toString(), is("[A0, A4, A6, A9]"));
+		assertThat(cmd.getArgList()).containsExactly("A0", "A4", "A6", "A9");
 
-		//
 		HelpFormatter helpFormatter = new HelpFormatter();
 		helpFormatter.printHelp("ApacheCliDemo", options, true);
 		System.out.println();
@@ -111,25 +93,31 @@ public class CliDemo {
 	}
 	
 	
-	@Test(expected = UnrecognizedOptionException.class)
+	@Test
 	public void testWrongOptions() throws ParseException {
-		defaultParser.parse(options, commandlineToArray("-A -t hahaha -T HAHAHA -h --required"));
+		assertThatThrownBy(()->defaultParser.parse(options, commandlineToArray("-A -t hahaha -T HAHAHA -h --required")))
+				.isInstanceOf(UnrecognizedOptionException.class);
 	}
 	
 
-	@Test(expected = MissingOptionException.class)
+	@Test
 	public void testMissingRequiredOptions() throws ParseException {
-		defaultParser.parse(options, commandlineToArray("-a -h"));
+		assertThatThrownBy(()->defaultParser.parse(options, commandlineToArray("-a -h")))
+		.isInstanceOf(MissingOptionException.class);
 	}
 
 	
-	@Test(expected = MissingArgumentException.class)
+	@Test
 	public void testMissingRequiredOptionArgs() throws ParseException {
-//		defaultParser.parse(options, commandlineToArray("-t -r"));
 		
-//		defaultParser.parse(options, commandlineToArray("-f A1 -r"));
+		assertThatThrownBy(()->defaultParser.parse(options, commandlineToArray("-t -r")))
+		.isInstanceOf(MissingArgumentException.class);
 		
-		defaultParser.parse(options, commandlineToArray("-T -r"));
+		assertThatThrownBy(()->defaultParser.parse(options, commandlineToArray("-f A1 -r")))
+		.isInstanceOf(MissingArgumentException.class);
+		
+		assertThatThrownBy(()->defaultParser.parse(options, commandlineToArray("-T -r")))
+		.isInstanceOf(MissingArgumentException.class);
 
 	}
 	
