@@ -2,6 +2,8 @@ package pei.java.jse.lab.language;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
+import static org.assertj.core.api.Assertions.*;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -18,13 +20,11 @@ import org.junit.Test;
 public class ReflectionTests {
     
     @Test
-    public void intanceofclass() {
-        /*
-         * LinkedHashMap is a sub class of HashMap
-         */
+    public void intanceOfClass() {
+    	
         LinkedHashMap<?, ?> aLinkedHashMap = new LinkedHashMap<>();
-        assertThat(aLinkedHashMap, instanceOf(HashMap.class));
-        assertThat(aLinkedHashMap, instanceOf(LinkedHashMap.class));
+        assertThat(aLinkedHashMap).isInstanceOf(HashMap.class);
+        assertThat(aLinkedHashMap).isInstanceOf(LinkedHashMap.class);
         assertThat(aLinkedHashMap.getClass().getName(), is("java.util.LinkedHashMap"));
 
         assertThat(new HashMap<>().getClass().getName(), is("java.util.HashMap"));
@@ -36,18 +36,22 @@ public class ReflectionTests {
         
         Class<?> classObj = Class.forName("pei.java.jse.lab.language.ReflectionTests", 
                     false, Thread.currentThread().getContextClassLoader());
+        
+        assertThat(classObj.isInterface()).isFalse();
+        assertThat(classObj.isPrimitive()).isFalse();
+        assertThat(classObj.isArray()).isFalse();
+        
+        assertThat(classObj.getName(), is("pei.java.jse.lab.language.ReflectionTests"));
+        assertThat(classObj.getSuperclass().getName(), is("java.lang.Object"));
+        assertThat(classObj.getFields()).hasSize(0);
+        assertThat(classObj.getMethods()).hasSize(11);
+        assertThat(Arrays.toString(classObj.getConstructors())
+        		, is("[public pei.java.jse.lab.language.ReflectionTests()]"));
+        
+        assertThat(classObj.getClassLoader().toString()).startsWith("sun.misc.Launcher$AppClassLoader@");
+        assertThat(classObj.getClassLoader().getParent().toString()).startsWith("sun.misc.Launcher$ExtClassLoader@");
 
-        System.out.println("class name: " + classObj.getName());
-        System.out.println("Is interface: " + classObj.isInterface());
-        System.out.println("Is primitive type: " + classObj.isPrimitive());
-        System.out.println("Is array: " + classObj.isArray());
-        System.out.println("Super class :" + classObj.getSuperclass().getName());
-        System.out.println("Fields: " + Arrays.toString(classObj.getFields()));
-        System.out.println("Methods: " + Arrays.toString(classObj.getMethods()));
-        System.out.println("Constructors:  " + Arrays.toString(classObj.getConstructors()));
-        System.out.println("Class loader: " + classObj.getClassLoader());
-        System.out.println("Class loader: " + classObj.getClassLoader().getParent());
-
-        ((ReflectionTests) classObj.newInstance()).intanceofclass();
+        ((ReflectionTests) classObj.newInstance()).intanceOfClass();
+        
     }
 }

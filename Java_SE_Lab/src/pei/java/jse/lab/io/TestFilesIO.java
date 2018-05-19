@@ -2,6 +2,7 @@ package pei.java.jse.lab.io;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -42,21 +43,16 @@ public class TestFilesIO {
         assertThat(props.getProperty("p1"), is("abcdefg"));
         assertThat(props.getProperty("p2"), is("1234567890"));
         
-        assertTrue(props.getProperty("p3").isEmpty());
+        assertThat(props.getProperty("p3")).isEmpty();
         
-        assertNull(props.getProperty("NonExistentKey"));
+        assertThat(props.getProperty("NonExistentKey")).isNull();
         assertThat(props.getProperty("NonExistentKey", DEFAULT_STR), is(DEFAULT_STR));
     }
     
     @Test
     public void testFileReadLine() throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(fileToRead))){
-        	String oneLine;
-            while ((oneLine = br.readLine()) != null) {
-                System.out.println(oneLine);
-            }
-        }catch (Exception e) {
-            fail(e.getMessage());
+        	br.lines().forEach(oneLine -> System.out.println(oneLine));
         }
     }
     

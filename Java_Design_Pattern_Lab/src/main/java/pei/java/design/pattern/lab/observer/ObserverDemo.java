@@ -29,7 +29,6 @@ public class ObserverDemo {
 
 }
 
-//
 
 @ToString
 class TheSubject extends Observable {

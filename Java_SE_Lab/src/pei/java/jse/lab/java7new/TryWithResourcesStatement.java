@@ -1,6 +1,13 @@
 package pei.java.jse.lab.java7new;
 
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.assertj.core.api.Assertions.*;
+
+import com.github.peiatgithub.java.utils.RunFlag;
 import java.io.IOException;
+
+import org.junit.Test;
 
 /**
  * The try-with-resources Statement
@@ -14,11 +21,19 @@ import java.io.IOException;
  */
 public class TryWithResourcesStatement {
 	
-	public static void main(String[] args) throws Exception {
-
-		try(AnAutoCloseableResource aacr = new AnAutoCloseableResource()){};
-		try(AnCloseableResource acr = new AnCloseableResource()){};
-	
+	@Test
+	public void tryWithResourcesDemo() throws Exception {
+		
+		RunFlag.reset();
+		
+		try(AnAutoCloseableResource aacr = new AnAutoCloseableResource()){
+		};
+		assertThat(RunFlag.runTimes(), is(1));
+		try(AnCloseableResource acr = new AnCloseableResource()){
+		};
+		assertThat(RunFlag.runTimes(), is(2));
+		
+		RunFlag.reset();
 	}
 
 }
@@ -26,7 +41,7 @@ public class TryWithResourcesStatement {
 class AnAutoCloseableResource implements java.lang.AutoCloseable{
 	@Override
 	public void close() throws Exception {
-		System.out.println("AutoCloseable, being CLOSED.");
+		RunFlag.run();
 	}
 	
 }
@@ -34,6 +49,6 @@ class AnAutoCloseableResource implements java.lang.AutoCloseable{
 class AnCloseableResource implements java.io.Closeable {
 	@Override
 	public void close() throws IOException {
-		System.out.println("Closeable, being CLOSED.");
+		RunFlag.run();
 	}
 }

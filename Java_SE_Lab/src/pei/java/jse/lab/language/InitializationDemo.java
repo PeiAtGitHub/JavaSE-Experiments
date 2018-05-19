@@ -1,11 +1,7 @@
 package pei.java.jse.lab.language;
 
 import org.junit.Test;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-
-import static com.github.peiatgithub.java.utils.Utils.*;
-
+import static org.assertj.core.api.Assertions.*;
 
 /**
  * 
@@ -16,7 +12,7 @@ public class InitializationDemo {
     
     @Test
 	public void stackOverflow() {
-    	assertThat(catchThrowable(()->new InfiniteInitRecurseDemo()), instanceOf(StackOverflowError.class));
+    	assertThatThrownBy(()->new InfiniteInitRecurseDemo()).isInstanceOf(StackOverflowError.class);
 	}
     
 	@Test

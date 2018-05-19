@@ -1,6 +1,6 @@
 package pei.java.jse.lab.specialty;
 
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.*;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -12,8 +12,6 @@ import java.util.Arrays;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
-import static com.github.peiatgithub.java.utils.Utils.*;
-import static com.github.peiatgithub.java.utils.Constants.*;
 
 /**
  * 
@@ -33,13 +31,13 @@ public class Networking {
         System.out.println(Arrays.toString(localHost.getAddress()));
         System.out.println(localHost.getHostAddress());
         System.out.println(localHost.getHostName());
-        assertTrue(localHost.isReachable(1000));
+        assertThat(localHost.isReachable(1000));
         
         InetAddress wikipediaAddress = InetAddress.getByName(DOMAIN_WIKIPEDIA);
         System.out.println(Arrays.toString(wikipediaAddress.getAddress()));
         System.out.println(wikipediaAddress.getHostAddress());
         System.out.println(wikipediaAddress.getHostName());
-        assertTrue("Failed to ping wikipedia within 3s", wikipediaAddress.isReachable(3000));
+        assertThat(wikipediaAddress.isReachable(3000));
     }
     
     @Test

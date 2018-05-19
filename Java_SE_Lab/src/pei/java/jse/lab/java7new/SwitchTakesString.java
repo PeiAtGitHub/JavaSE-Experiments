@@ -20,7 +20,7 @@ public class SwitchTakesString {
          * Since Java 7 the good old 'switch' takes a string
          */
         String name = FIRST_NAME;
-        String msg = "";
+        String msg = EMPTY;
         
         switch (name) {
         case FIRST_NAME:

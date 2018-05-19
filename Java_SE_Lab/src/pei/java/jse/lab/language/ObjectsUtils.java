@@ -1,8 +1,9 @@
 package pei.java.jse.lab.language;
 
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static com.github.peiatgithub.java.utils.Utils.*;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.assertj.core.api.Assertions.*;
+
 import static com.github.peiatgithub.java.utils.Constants.*;
 import java.util.Objects;
 
@@ -18,9 +19,8 @@ public class ObjectsUtils {
     @Test
     public void testNullnessChecking(){
         // Null checking made one liner.
-        Throwable e = catchThrowable(()->Objects.requireNonNull(null, "Sth is null!"));
-        assertThat(e, instanceOf(NullPointerException.class));
-        assertThat(e.getMessage(), is("Sth is null!"));
+        final String STH_IS_NULL = "Sth is null";
+		assertThatThrownBy(()->Objects.requireNonNull(null, STH_IS_NULL)).isInstanceOf(NPE).hasMessage(STH_IS_NULL);
     }
 
     @Test

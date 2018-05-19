@@ -1,8 +1,8 @@
 package pei.java.jse.lab.java8new;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 import javax.script.ScriptEngine;
@@ -47,7 +47,7 @@ public class OtherMiscs {
         nashorn.eval("print('Hello Nashorn!')");
         nashorn.eval("print(new Date())");
         nashorn.eval("print(Math.PI)");
-        assertEquals(9, ((Integer) nashorn.eval("3*3")).intValue());
+        assertThat(((Integer) nashorn.eval("3*3")).intValue(), is(9));
     }
 
 }

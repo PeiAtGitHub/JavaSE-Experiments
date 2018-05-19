@@ -2,8 +2,8 @@ package pei.java.design.pattern.lab.stateStrategyPolicy;
 
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
-import static org.apache.commons.lang3.StringUtils.*;
 import static com.github.peiatgithub.java.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.Constants.*;
 
 
 /**
@@ -77,14 +77,14 @@ class removeSpaceState implements TextingState {
 
 class dashJoinedState implements TextingState {
     public void write(TextWriter stateCtxt, String txt) {
-        System.out.println(txt.replaceAll(SPACE, "-"));
+        System.out.println(txt.replaceAll(SPACE, DASH));
         stateCtxt.setTxtState(new underScoreJoinedState());
     }
 }
 
 class underScoreJoinedState implements TextingState {
     public void write(TextWriter stateCtxt, String txt) {
-        System.out.println(txt.replaceAll(SPACE, "_"));
+        System.out.println(txt.replaceAll(SPACE, UNDER_SCORE));
         stateCtxt.setTxtState(new lowerCaseState());
     }
 }
