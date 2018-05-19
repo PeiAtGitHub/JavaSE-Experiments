@@ -1,8 +1,5 @@
 package pei.java.thirdp.lab.emails;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -23,7 +20,9 @@ import org.junit.Test;
 import com.dumbster.smtp.SimpleSmtpServer;
 import com.dumbster.smtp.SmtpMessage;
 import com.google.common.collect.ImmutableMap;
-
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.assertj.core.api.Assertions.*;
 
 /**
  * Dumbster: "a simple fake SMTP server for unit testing"
@@ -97,7 +96,7 @@ public class TestEMailsWithDumbster {
 	private void dumbsterEmailAssertions(SimpleSmtpServer server) {
 		
 		List<SmtpMessage> emails = server.getReceivedEmails();
-		assertThat(emails.size(), is(1));
+		assertThat(emails).hasSize(1);
 
 		SmtpMessage email = emails.get(0);
 		System.out.format("A demo of all email headers: %n%s", email.getHeaderNames());
@@ -107,6 +106,7 @@ public class TestEMailsWithDumbster {
 		assertThat(email.getHeaderValue("To"), is(TO));
 		assertThat(email.getHeaderValue("From"), is(FROM));
 		assertThat(email.getHeaderValue("Cc"), is(CC));
+		
 	}
 	
 }

@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.*;
 import static pei.java.thirdp.lab.utils.US_CITY.*;
 import pei.java.thirdp.lab.utils.US_CITY;
 
@@ -51,13 +51,13 @@ public class GraphDemo {
 
         log.info("New York adjacent cities: {}", usCities.adjacentNodes(NEW_YORK));
         log.info("New York Degree: {}", usCities.degree(NEW_YORK));
-        assertTrue(usCities.edgesConnecting(BALTIMORE, PORTLAND).isEmpty());
-        assertFalse(usCities.hasEdgeConnecting(BALTIMORE, SEATTLE));
+        assertThat(usCities.edgesConnecting(BALTIMORE, PORTLAND)).isEmpty();
+        assertThat(usCities.hasEdgeConnecting(BALTIMORE, SEATTLE)).isFalse();
         log.info("St_Louis 2-hop neighers: {}", getTwoHopNeighbors(usCities, ST_LOUIS));
         
         //
         ImmutableNetwork<US_CITY, DirectConnection> immutableCityNetwork = ImmutableNetwork.copyOf(usCities);
-        assertFalse(immutableCityNetwork.asGraph().hasEdgeConnecting(NEW_YORK, ATLANTA));
+        assertThat(immutableCityNetwork.asGraph().hasEdgeConnecting(NEW_YORK, ATLANTA)).isFalse();
 
     }
 

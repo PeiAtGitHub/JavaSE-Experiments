@@ -1,16 +1,14 @@
 package pei.java.jse.lab.java8new;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.Optional;
 import java.util.function.Function;
 
 import org.junit.Test;
 
-import static com.github.peiatgithub.java.utils.Utils.*;
 import static com.github.peiatgithub.java.utils.Constants.*;
 
 
@@ -28,16 +26,16 @@ public class OptionalDemo {
     public void basics() {
         
         Optional<String> strOpt1 = Optional.of(str2);
-        assertThat(catchThrowable(()->Optional.of(null)), instanceOf(NullPointerException.class));
+        assertThatThrownBy(()->Optional.of(null)).isInstanceOf(NPE);
         
         Optional<Object> nullOpt = Optional.ofNullable(null);
         Optional<Object> emptyOpt = Optional.empty();
         Optional<String> strOpt2 = strOpt1.filter(s->s.contains("morning")); // empty 
         
-        assertTrue(strOpt1.isPresent());
-        assertFalse(strOpt2.isPresent());
-        assertFalse(emptyOpt.isPresent());
-        assertFalse(nullOpt.isPresent());
+        assertThat(strOpt1.isPresent());
+        assertThat(strOpt2.isPresent()).isFalse();
+        assertThat(emptyOpt.isPresent()).isFalse();
+        assertThat(nullOpt.isPresent()).isFalse();
         
         strOpt1.ifPresent(str -> System.out.println("Optional 1 present: " + str));
         
@@ -51,7 +49,7 @@ public class OptionalDemo {
         assertThat(strOpt1Mapped.get(), is(str2.concat( " San").concat(" Zhang")));
 
         Optional<String> strOpt2Mapped = strOpt2.map(f);
-        assertFalse(strOpt2Mapped.isPresent());
+        assertThat(strOpt2Mapped.isPresent()).isFalse();
     }
 
 }

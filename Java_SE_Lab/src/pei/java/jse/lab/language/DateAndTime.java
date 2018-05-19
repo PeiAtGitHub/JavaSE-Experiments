@@ -1,9 +1,8 @@
 package pei.java.jse.lab.language;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.assertj.core.api.Assertions.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -22,8 +21,9 @@ public class DateAndTime {
     @Test
     public void systemTimeMillis() {
         
-        assertEquals("Expected to fail if you run this test earlier than 2001.Sep.09 or later than 2286.Nov.20, ",
-                13, String.valueOf(System.currentTimeMillis()).length());
+        assertThat(String.valueOf(System.currentTimeMillis()))
+        .as("Expected to fail if you run this test earlier than 2001.Sep.09 or later than 2286.Nov.20, ")
+        .hasSize(13);
 
     }
 
@@ -36,23 +36,23 @@ public class DateAndTime {
         
         assertThat(date.toString(), is("Sat Nov 20 18:46:39 CET 2286"));
         
-        assertEquals(THE_MAX_13_DIGIT_NUMBER , calendar.getTimeInMillis());
-        assertEquals(2286, calendar.get(Calendar.YEAR));
-        assertEquals(Calendar.NOVEMBER, calendar.get(Calendar.MONTH));
-        assertEquals(20, calendar.get(Calendar.DATE));
-        assertEquals(Calendar.SATURDAY, calendar.get(Calendar.DAY_OF_WEEK));
-        assertEquals(324, calendar.get(Calendar.DAY_OF_YEAR));
-        assertEquals(18, calendar.get(Calendar.HOUR_OF_DAY));
-        assertEquals(6, calendar.get(Calendar.HOUR));
+        assertThat(calendar.getTimeInMillis(), is(THE_MAX_13_DIGIT_NUMBER));
+        assertThat(calendar.get(Calendar.YEAR), is(2286));
+        assertThat(calendar.get(Calendar.MONTH), is(Calendar.NOVEMBER));
+        assertThat(calendar.get(Calendar.DATE), is(20));
+        assertThat(calendar.get(Calendar.DAY_OF_WEEK), is(Calendar.SATURDAY));
+        assertThat(calendar.get(Calendar.DAY_OF_YEAR), is(324));
+        assertThat(calendar.get(Calendar.HOUR_OF_DAY), is(18));
+        assertThat(calendar.get(Calendar.HOUR), is(6));
     
         // Representation
         assertThat(calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US), is("Nov"));
         
         // Manipulation
         calendar.add(Calendar.DATE, 100); // after 100 days 
-        assertEquals(2287, calendar.get(Calendar.YEAR));
-        assertEquals(Calendar.FEBRUARY, calendar.get(Calendar.MONTH));
-        assertEquals(28, calendar.get(Calendar.DATE));
+        assertThat(calendar.get(Calendar.YEAR), is(2287));
+        assertThat(calendar.get(Calendar.MONTH), is(Calendar.FEBRUARY));
+        assertThat(calendar.get(Calendar.DATE), is(28));
         
         // Output formatting
         // Format method has features particularly for calendar 

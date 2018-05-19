@@ -1,6 +1,6 @@
 package pei.java.jse.lab.java8new;
 
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.*;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -39,8 +39,8 @@ public class DateAndTimeDemos {
         log.info("4: {}", LocalTime.of(23, 59));
         log.info("5: {}", LocalTime.parse("23:59:59"));
 
-        assertTrue(localDateTime.isAfter(LocalDateTime.MIN));
-        assertTrue(localDateTime.isBefore(LocalDateTime.MAX));
+        assertThat(localDateTime.isAfter(LocalDateTime.MIN));
+        assertThat(localDateTime.isBefore(LocalDateTime.MAX));
         log.info("Month 100 days later: {}", localDateTime.plusDays(100).getMonthValue());
         log.info("Years to the Java supported MAX date: {}", localDateTime.until(LocalDateTime.MAX, ChronoUnit.YEARS));
 

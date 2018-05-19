@@ -1,6 +1,7 @@
 package pei.java.design.pattern.lab.factory;
 
 import lombok.Getter;
+import static com.github.peiatgithub.java.utils.Constants.*;
 
 /**
  * 
@@ -25,7 +26,7 @@ public class FactoryDemo {
 class NameFactory {
     
     public FullName createName(String nameString) {
-        if (nameString.contains(",")) {
+        if (nameString.contains(COMMA)) {
             return new LFName(nameString);
         } else {
             return new FLName(nameString);
@@ -46,9 +47,9 @@ class FullName {
 
 class FLName extends FullName {
     public FLName(String s) {
-        String[] flNames = s.split(" ");
+        String[] flNames = s.split(SPACE);
         if(flNames.length == 1) {// no space
-            firstName = "";
+            firstName = EMPTY;
             lastName = flNames[0].trim();
         }else if(flNames.length == 2) {
             firstName = flNames[0].trim();
@@ -60,7 +61,7 @@ class FLName extends FullName {
 }
 class LFName extends FullName {
     public LFName(String s) {
-        String[] flNames = s.split(",");
+        String[] flNames = s.split(COMMA);
         if(flNames.length == 1) {// no comma
             throw new RuntimeException("Input name does not contain comma: " + s);
         }else if(flNames.length == 2) {

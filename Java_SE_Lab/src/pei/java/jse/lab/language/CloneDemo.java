@@ -1,8 +1,7 @@
 package pei.java.jse.lab.language;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Test;
 
@@ -27,8 +26,8 @@ public class CloneDemo {
         assertSame(computer1.name, computer2.name);
         // primitives are independent
         computer1.memoryGB = 16;
-        assertEquals(16, computer1.memoryGB);
-        assertEquals(8, computer2.memoryGB);
+        assertThat(computer1.memoryGB, is(16));
+        assertThat(computer2.memoryGB, is(8));
     }
 }
 

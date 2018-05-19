@@ -2,9 +2,11 @@ package pei.java.thirdp.lab.guava;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
-import static com.github.peiatgithub.java.utils.Utils.*;
+import static org.assertj.core.api.Assertions.*;
+
 import static com.github.peiatgithub.java.utils.Constants.*;
 
 import org.junit.Test;
@@ -23,11 +25,11 @@ public class BaseDemos {
 
     @Test
     public void testStrings() throws Exception {
-        assertTrue(Strings.isNullOrEmpty(null));
-        assertTrue(Strings.isNullOrEmpty(""));
-        assertFalse(Strings.isNullOrEmpty(" "));
+    	assertThat(Strings.isNullOrEmpty(null));
+    	assertThat(Strings.isNullOrEmpty(EMPTY));
+    	assertThat(Strings.isNullOrEmpty(SPACE)).isFalse();
         
-        assertThat(Strings.nullToEmpty(null), is(""));
+        assertThat(Strings.nullToEmpty(null)).isEmpty();
         
         assertThat(Strings.padEnd("HELLO", 8, '$'), is("HELLO$$$"));
         assertThat(Strings.repeat("HELLO", 3), is("HELLOHELLOHELLO"));
@@ -43,9 +45,8 @@ public class BaseDemos {
         Person person = new Person(FIRST_NAME, LAST_NAME, 50, Person.Gender.MALE);
         
         System.out.println(checkNotNull(person).toString());
-        assertThat(catchThrowable(()->checkNotNull(null).toString()), instanceOf(NullPointerException.class));
-        
-        assertThat(catchThrowable(()->checkState(person.getAge()>30)), nullValue());
-        assertThat(catchThrowable(()->checkState(person.getAge()<30)), instanceOf(IllegalStateException.class));
+        assertThatThrownBy(()->checkNotNull(null).toString()).isInstanceOf(NPE);
+        checkState(person.getAge()>30);
+        assertThatThrownBy(()->checkState(person.getAge()<30)).isInstanceOf(ISE);
     }
 }

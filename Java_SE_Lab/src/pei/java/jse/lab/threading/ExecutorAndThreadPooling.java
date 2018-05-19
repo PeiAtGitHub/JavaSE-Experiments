@@ -1,7 +1,8 @@
 package pei.java.jse.lab.threading;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -30,10 +31,10 @@ public class ExecutorAndThreadPooling {
         thrPoolExecutor.execute(new TheTask("DDD",5));
         thrPoolExecutor.execute(new TheTask("EEE",5));
         thrPoolExecutor.shutdown();
-        assertTrue(thrPoolExecutor.isShutdown());
-        assertFalse(thrPoolExecutor.isTerminated());
-        assertTrue(thrPoolExecutor.awaitTermination(11, TimeUnit.SECONDS));
-        assertTrue(thrPoolExecutor.isTerminated());
+        assertThat(thrPoolExecutor.isShutdown());
+        assertThat(thrPoolExecutor.isTerminated()).isFalse();
+        assertThat(thrPoolExecutor.awaitTermination(11, TimeUnit.SECONDS));
+        assertThat(thrPoolExecutor.isTerminated());
         
     }
     

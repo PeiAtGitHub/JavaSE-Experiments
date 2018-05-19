@@ -1,7 +1,8 @@
 package pei.java.jse.lab.threading;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.assertj.core.api.Assertions.*;
 import static com.github.peiatgithub.java.utils.Utils.*;
 import static com.github.peiatgithub.java.utils.Constants.*;
 
@@ -11,6 +12,7 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -32,17 +34,17 @@ public class ExplicitSync {
         t1.join();
         t2.join();
         // without the sync mechanism, the result should be a random number
-        assertEquals(0, counter.getCount());
+        assertThat(counter.getCount(), is(0));
     }
 
     @Test
     public void tesSemaphore() throws InterruptedException {
-        int numberOfThreads = 100;
-        CountDownLatch latch = new CountDownLatch(numberOfThreads);
-        int numberOfPermits = 30;
-        Semaphore semp = new Semaphore(numberOfPermits);
+        int numOfThreads = 100;
+        CountDownLatch latch = new CountDownLatch(numOfThreads);
+        int numOfPermits = 30;
+        Semaphore semp = new Semaphore(numOfPermits);
         Random r = new Random();
-        for (int i = 1; i <= numberOfThreads; i++) {
+        for (int i = 1; i <= numOfThreads; i++) {
             new Thread(()-> {
                 printlnWithThreadName("Started.");
                 try {
@@ -59,7 +61,7 @@ public class ExplicitSync {
         }
         latch.await();
         printlnWithThreadName("All threads finished. Available permits: " + semp.availablePermits());
-        assertEquals(numberOfPermits, semp.availablePermits());
+        assertThat(semp.availablePermits(), is(numOfPermits));
     }
     
     @Test @Ignore("This method got stuck.")
@@ -95,7 +97,7 @@ public class ExplicitSync {
         t1.join();
         t2.join();
         
-        fail("Should never reach here.");
+        Assert.fail(CODE_SHOULD_NOT_REACH_HERE);
         
         /*
          * Sync cannot be interrupted.
