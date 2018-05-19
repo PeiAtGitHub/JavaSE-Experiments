@@ -2,7 +2,7 @@ package pei.java.jse.lab.threading;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
-import static com.github.peiatgithub.java.utils.Constants.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.concurrent.*;
 
@@ -34,17 +34,14 @@ public class CallableAndFuture {
 
         threadPool.shutdown();
 
-        //
         future = Executors.newCachedThreadPool().submit(theTask);
-        try {
-            future.get(1, TimeUnit.SECONDS);
-            fail(SHOULDv_THROWN_EXCEPTION);
-        } catch (Exception e) {
-            assertThat(e, instanceOf(TimeoutException.class));
-        }
+        
+        final Future<String> tmpFuture = future; // this is only to make the below lamda work.
+        assertThatThrownBy(()->tmpFuture.get(1, TimeUnit.SECONDS)).isInstanceOf(TimeoutException.class);
+        
         future.cancel(true);
-        assertTrue(future.isCancelled());
-        assertTrue(future.isDone());
+        assertThat(future.isCancelled());
+        assertThat(future.isDone());
     }
 }
 

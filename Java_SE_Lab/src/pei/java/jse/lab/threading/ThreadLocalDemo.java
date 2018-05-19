@@ -3,6 +3,7 @@ package pei.java.jse.lab.threading;
 import static com.github.peiatgithub.java.utils.Utils.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.Random;
 
@@ -26,8 +27,8 @@ public class ThreadLocalDemo {
             tlDemo.tlNumber.set(10);
             tlDemo.number = new Integer(10);
             
-            assertEquals(10, tlDemo.tlNumber.get().intValue());
-            assertEquals(10, tlDemo.number.intValue());
+            assertThat(tlDemo.tlNumber.get().intValue(), is(10));
+            assertThat(tlDemo.number.intValue(), is(10));
 
             ThrLocalSetter t1 = new ThrLocalSetter(50, tlDemo);
             ThrLocalSetter t2 = new ThrLocalSetter(100, tlDemo);
@@ -36,9 +37,9 @@ public class ThreadLocalDemo {
             thr1.join();
             thr2.join();
             
-            assertEquals(10, tlDemo.tlNumber.get().intValue());
-            assertEquals(10, t1.getTlNumber());
-            assertEquals(10, t2.getTlNumber());
+            assertThat(tlDemo.tlNumber.get().intValue(), is(10));
+            assertThat(t1.getTlNumber(), is(10));
+            assertThat(t2.getTlNumber(), is(10));
 
             assertThat(tlDemo.number.intValue(), anyOf(is(50), is(100)));
             assertThat(tlDemo.number.intValue(), is(t1.getNumber())); 
@@ -59,7 +60,7 @@ class ThrLocalSetter implements Runnable {
     public void run() {
         this.tlt.tlNumber.set(n);
         threadSleep(new Random().nextInt(3000)); // max 3s
-        assertEquals(n, getTlNumber());
+        assertThat(getTlNumber(), is(n));
         this.tlt.number = n;
     }
     

@@ -1,7 +1,6 @@
 package pei.java.design.pattern.lab.factory;
 
 import java.util.Random;
-import static com.github.peiatgithub.java.utils.Utils.*;
 
 /**
  * 

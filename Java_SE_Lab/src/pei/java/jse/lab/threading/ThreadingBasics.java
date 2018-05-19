@@ -1,6 +1,5 @@
 package pei.java.jse.lab.threading;
-
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.*;
 import static com.github.peiatgithub.java.utils.Utils.*;
 import com.github.peiatgithub.java.utils.NanoStopWatch;
 
@@ -66,9 +65,9 @@ public class ThreadingBasics {
     @Test
     public void interruption() throws InterruptedException {
         Thread thr = createAndStartThread(()->threadSleep(10000));
-        assertTrue(thr.isAlive());
+        assertThat(thr.isAlive());
         thr.interrupt();
-        assertTrue(thr.isInterrupted());
+        assertThat(thr.isInterrupted());
         thr.join();
     }
 

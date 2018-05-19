@@ -84,7 +84,6 @@ class ShoppingCart implements Visitee{
 /*
  * Business logics are implemented in visitor, not in visitee
  */
-
 class Cashier implements Visitor {
 
     private double totalCost = 0;
