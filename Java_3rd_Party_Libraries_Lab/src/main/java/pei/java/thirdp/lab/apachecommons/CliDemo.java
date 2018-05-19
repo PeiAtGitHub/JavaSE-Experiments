@@ -6,6 +6,8 @@ import org.apache.commons.cli.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 import static org.assertj.core.api.Assertions.*;
 
 /**
@@ -61,15 +63,15 @@ public class CliDemo {
 		assertThat(cmd.getOptionValue("a")).isNull();
 
 		assertThat(cmd.hasOption("b"));
-		assertThat(cmd.getOptionValue("b")).isEqualTo("A1");
+		assertThat(cmd.getOptionValue("b"), is("A1"));
 		assertThat(cmd.getOptionValues("b")).hasSize(2).contains("A2", atIndex(1));
 
 		assertThat(cmd.hasOption("f"));
-		assertThat(cmd.getOptionValue("f")).isEqualTo("A3");
+		assertThat(cmd.getOptionValue("f"), is("A3"));
 		assertThat(cmd.getOptionValues("f")).hasSize(1);
 		
 		assertThat(cmd.hasOption("t"));
-		assertThat(cmd.getOptionValue("t")).isEqualTo("A5");
+		assertThat(cmd.getOptionValue("t"), is("A5"));
 		assertThat(cmd.getOptionValues("t")).hasSize(1);
 		
 		assertThat(cmd.hasOption("T"));
@@ -78,7 +80,7 @@ public class CliDemo {
 		assertThat(cmd.hasOption("h"));
 		assertThat(cmd.hasOption("help"));
 		assertThat(cmd.hasOption("H")).isFalse(); 
-		assertThat(cmd.getOptionValue("h", "h default value")).isEqualTo("h default value");
+		assertThat(cmd.getOptionValue("h", "h default value"), is("h default value"));
 				
 		assertThat(cmd.hasOption("r"));
 		assertThat(cmd.hasOption("required"));

@@ -11,6 +11,8 @@ import java.util.Iterator;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * 
@@ -73,9 +75,9 @@ public class IoFileUtilsTests {
         FileUtils.moveDirectoryToDirectory(dir2, dir1, false);
         // after move: dir1/dir2/dir1
         // after move: file obj won't change! its path won't change
-        assertThat(dir2.getPath()).isEqualTo("dir2");
+        assertThat(dir2.getPath(), is("dir2"));
         assertThat(dir2.exists()).isFalse();
-        assertThat(file211.getPath()).isEqualTo("dir2/dir1/file1.html");
+        assertThat(file211.getPath(), is("dir2/dir1/file1.html"));
         assertThat(file211.exists()).isFalse();
 
         // write, read

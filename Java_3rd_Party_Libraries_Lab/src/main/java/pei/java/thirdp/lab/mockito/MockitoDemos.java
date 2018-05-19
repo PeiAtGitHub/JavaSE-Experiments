@@ -1,6 +1,5 @@
 package pei.java.thirdp.lab.mockito;
 
-import static com.github.peiatgithub.java.utils.Utils.*;
 import static com.github.peiatgithub.java.utils.Constants.*;
 
 import java.util.List;
@@ -15,6 +14,8 @@ import com.google.common.collect.Lists;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.assertj.core.api.Assertions.*;
+import static com.github.peiatgithub.java.utils.Constants.*;
 
 
 /**
@@ -102,9 +103,9 @@ public class MockitoDemos {
 		assertThat(customerDao.saveCustomer(customer).getId(), is(id));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void saveCustomerNull() {
-		customerDao.saveCustomer(null);
+		assertThatThrownBy(()->customerDao.saveCustomer(null)).isInstanceOf(IAE);
 	}
 
 	@Test
@@ -124,11 +125,11 @@ public class MockitoDemos {
 		verify(eventRecorder, times(customers.size())).recordEvent(myCaptor.capture());
 
 		List<Event> sentEvents = myCaptor.getAllValues();
-		assertEquals(customers.size(), sentEvents.size());
+		assertThat(customers).hasSameSizeAs(sentEvents);
 		for (int i = 0; i < sentEvents.size(); i++) {
 			Event event = sentEvents.get(i);
 			assertNotNull(customers.get(i).getRegistrationDate());
-			assertThat(String.valueOf(event.getCustomerId()).length(), is(16));
+			assertThat(String.valueOf(event.getCustomerId())).hasSize(16);
 			assertNotNull(event.getEventTimestamp());
 			assertThat(event.getType(), is(Event.Type.REGISTRATION));
 			assertThat(event.getCustomerFullName(), is(customers.get(i).getFullName()));

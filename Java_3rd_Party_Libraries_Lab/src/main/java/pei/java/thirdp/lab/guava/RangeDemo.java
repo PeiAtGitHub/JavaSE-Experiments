@@ -1,13 +1,12 @@
 package pei.java.thirdp.lab.guava;
 
-import static com.github.peiatgithub.java.utils.Utils.*;
 import static com.github.peiatgithub.java.utils.Constants.*;
 
 import java.util.Set;
 
 import static org.junit.Assert.*;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
+import static org.assertj.core.api.Assertions.*;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -34,12 +33,12 @@ public class RangeDemo {
 		 */
 		Range<String> rangeJT = Range.closedOpen("Jerry", "Tom");
 		
-		assertThat(rangeJT.contains("Emily"), is(false));
-		assertThat(rangeJT.contains("Jerry"), is(true));
-		assertThat(rangeJT.contains("Mike"), is(true));
-		assertThat(rangeJT.contains("mike"), is(false));
-		assertThat(rangeJT.contains("Tom"), is(false));
-		assertThat(rangeJT.containsAll(TEST_MAP_123.keySet()), is(true));
+		assertThat(rangeJT.contains("Emily")).isFalse();
+		assertThat(rangeJT.contains("Jerry"));
+		assertThat(rangeJT.contains("Mike"));
+		assertThat(rangeJT.contains("mike")).isFalse();
+		assertThat(rangeJT.contains("Tom")).isFalse();
+		assertThat(rangeJT.containsAll(TEST_MAP_123.keySet()));
 		assertThat(rangeJT, is(Range.range("Jerry", BoundType.CLOSED, "Tom", BoundType.OPEN)));
 
 		Range<String> rangeST = rangeJT.intersection(Range.closed("Stan", "Wendy"));
@@ -50,21 +49,21 @@ public class RangeDemo {
 		assertThat(rangeST.lowerBoundType(), is(BoundType.CLOSED));
 		assertThat(rangeST.upperBoundType(), is(BoundType.OPEN));
 		
-		assertThat(rangeST.isConnected(rangeJT), is(true));
+		assertThat(rangeST.isConnected(rangeJT));
 		assertThat(rangeST.span(rangeJT), is(rangeJT));
 
-		assertThat(rangeST.encloses(Range.singleton("Str")), is(true));
+		assertThat(rangeST.encloses(Range.singleton("Str")));
 		
 		Range<Integer> range1To100 = Range.closed(1, 100); // [1, 100]
 		
-		assertThat(range1To100.containsAll(TEST_LIST_123), is(true));
-		assertThat(range1To100.contains(RandomUtils.nextInt(1, 101)), is(true));
+		assertThat(range1To100.containsAll(TEST_LIST_123));
+		assertThat(range1To100.contains(RandomUtils.nextInt(1, 101)));
 		
-		assertThat(Range.openClosed(1, 1).isEmpty(), is(true));
-		assertThat(Range.closedOpen(1, 1).isEmpty(), is(true));
+		assertThat(Range.openClosed(1, 1).isEmpty());
+		assertThat(Range.closedOpen(1, 1).isEmpty());
 		
-		assertThat(catchThrowable(()->Range.open(1, 1)), instanceOf(IllegalArgumentException.class));
-		assertThat(catchThrowable(()->Range.open(2, 1)), instanceOf(IllegalArgumentException.class));
+		assertThatThrownBy(()->Range.open(1, 1)).isInstanceOf(IAE);
+		assertThatThrownBy(()->Range.open(2, 1)).isInstanceOf(IAE);
 		
 	}
 	
@@ -82,22 +81,21 @@ public class RangeDemo {
 		 *  but instead returns a view of the range as a set."
 		 */
 		Set<Integer> intSet = ContiguousSet.create(Range.closed(1, 100), integers);
-		assertThat(intSet, is(ContiguousSet.closed(1, 100)));
-		assertThat(intSet.size(), is(100));
+		assertThat(intSet).hasSize(100).isEqualTo(ContiguousSet.closed(1, 100));
 		
 		MyStringsDiscreteDomain1 msdd1 = new MyStringsDiscreteDomain1();
 		assertThat(msdd1.distance("S1", "S100"), is(99L));
-		assertThat(ContiguousSet.create(Range.closedOpen("S1", "S100"), msdd1).size(), is(99));
+		assertThat(ContiguousSet.create(Range.closedOpen("S1", "S100"), msdd1)).hasSize(99);
 		
-		assertThat(catchThrowable(()->msdd1.distance("Jerry", "Tom")), instanceOf(NumberFormatException.class));
-		assertThat(catchThrowable(()->ContiguousSet.create(Range.closedOpen("Jerry", "Tom"), msdd1))
-				, instanceOf(NumberFormatException.class));
+		assertThatThrownBy(()->msdd1.distance("Jerry", "Tom")).isInstanceOf(NumberFormatException.class);
+		assertThatThrownBy(()->ContiguousSet.create(Range.closedOpen("Jerry", "Tom"), msdd1))
+		.isInstanceOf(NumberFormatException.class);
 		
 		MyStringsDiscreteDomain2 msdd2 = new MyStringsDiscreteDomain2();
 		assertThat(msdd2.distance("Jerry", "Tom"), is(MyStringsDiscreteDomain2.FIXED_DISTANCE));
 		
 		Set<String> strSet = ContiguousSet.create(Range.closedOpen("Jerry", "Tom"), msdd2);
-		assertEquals(strSet.size(), MyStringsDiscreteDomain2.FIXED_DISTANCE + 1); 
+		assertThat(strSet.size()).isEqualTo(MyStringsDiscreteDomain2.FIXED_DISTANCE + 1); 
 		/*
 		 *  this Set actually contains only two strings: "Jerry" and "STR"
 		 *  this is a demo of improper impl of DiscreteDomain

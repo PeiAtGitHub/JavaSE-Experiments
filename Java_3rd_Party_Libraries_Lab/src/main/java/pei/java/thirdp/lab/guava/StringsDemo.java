@@ -1,9 +1,9 @@
 package pei.java.thirdp.lab.guava;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static com.github.peiatgithub.java.utils.Utils.*;
 import static com.github.peiatgithub.java.utils.Constants.*;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -28,15 +28,15 @@ public class StringsDemo {
 		assertThat(Strings.commonSuffix("Please eat this cake!", "Please take this cake!"), is(" this cake!"));
 		
 		assertThat(Strings.emptyToNull(STR), is(STR));
-		assertThat(Strings.emptyToNull(""), nullValue());
+		assertThat(Strings.emptyToNull(EMPTY)).isNull();
 		
 		assertThat(Strings.nullToEmpty(STR), is(STR));
-		assertThat(Strings.nullToEmpty(null), is(""));
+		assertThat(Strings.nullToEmpty(null), is(EMPTY));
 
-		assertThat(Strings.isNullOrEmpty(null), is(true));
-		assertThat(Strings.isNullOrEmpty(""), is(true));
-		assertThat(Strings.isNullOrEmpty(STR), is(false));
-		assertThat(Strings.isNullOrEmpty(" "), is(false));
+		assertThat(Strings.isNullOrEmpty(null));
+		assertThat(Strings.isNullOrEmpty(EMPTY));
+		assertThat(Strings.isNullOrEmpty(STR)).isFalse();
+		assertThat(Strings.isNullOrEmpty(SPACE)).isFalse();
 		
 		assertThat(Strings.padEnd("Please eat this cake!", 5, '!'), is("Please eat this cake!"));
 		assertThat(Strings.padEnd("Please eat this cake!", 30, '!'), is("Please eat this cake!!!!!!!!!!"));
@@ -60,7 +60,7 @@ public class StringsDemo {
 	public void joinerDemo() throws Exception {
 		
 		Joiner joiner1 = Joiner.on("; ").skipNulls();
-		Joiner joiner2 = Joiner.on("; ").useForNull("");
+		Joiner joiner2 = Joiner.on("; ").useForNull(EMPTY);
 		
 		assertThat(joiner1.join(S1, null, S2), is("S1; S2"));
 		assertThat(joiner2.join(S1, null, S2), is("S1; ; S2"));
@@ -70,8 +70,9 @@ public class StringsDemo {
 		
 		//MapJoiner
 		Joiner.MapJoiner mapJoiner = joiner2.withKeyValueSeparator("$");
-		assertThat(mapJoiner.join(TEST_MAP_123).toString(), is("S1$1; S2$2; S3$3"));
-		assertThat(mapJoiner.appendTo(new StringBuilder(STR), TEST_MAP_123).toString(), is("STRS1$1; S2$2; S3$3"));
+		assertThat(mapJoiner.join(TEST_MAP_123)).contains("S1$1", "S2$2", "S3$3");
+		assertThat(mapJoiner.appendTo(new StringBuilder(STR), TEST_MAP_123).toString())
+		.contains("STR", "S1$1", "S2$2", "S3$3");
 		
 	}
 	
@@ -121,8 +122,8 @@ public class StringsDemo {
 				, is("Please eat this cake!"));
 		assertThat(CharMatcher.inRange('0', '9').retainFrom("Please123 eat0 this555 cake!123"), is("1230555123"));
 		assertThat(CharMatcher.inRange('a', 'f').negate().removeFrom("Please eat this cake!"), is("eaeeacae"));
-		assertThat(CharMatcher.inRange('a', 'f').matches('f'), is(true));
-		assertThat(CharMatcher.inRange('a', 'f').matches('F'), is(false));
+		assertThat(CharMatcher.inRange('a', 'f').matches('f'));
+		assertThat(CharMatcher.inRange('a', 'f').matches('F')).isFalse();
 		
 		assertThat(CharMatcher.whitespace().trimFrom("			Please eat this cake!\n\r  ")
 				, is("Please eat this cake!"));

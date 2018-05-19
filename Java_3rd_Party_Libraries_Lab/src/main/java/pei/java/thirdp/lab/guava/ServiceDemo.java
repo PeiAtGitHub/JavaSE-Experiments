@@ -1,14 +1,15 @@
 package pei.java.thirdp.lab.guava;
 
-import static org.junit.Assert.*;
 
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import static com.github.peiatgithub.java.utils.Utils.*;
 import static com.github.peiatgithub.java.utils.Constants.*;
+import static com.github.peiatgithub.java.utils.Utils.printlnWithThreadName;
+import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.assertj.core.api.Assertions.*;
 
 import org.junit.Test;
 
@@ -46,7 +47,7 @@ public class ServiceDemo {
 		s.addListener(new MyListener(), Executors.newSingleThreadExecutor());
 		
 		s.startAsync().awaitRunning();
-		assertTrue(s.isRunning());
+		assertThat(s.isRunning());
 		assertThat(s.state(), is(State.RUNNING));
 		
 		int ms = r.nextInt(10000);
@@ -67,7 +68,7 @@ public class ServiceDemo {
 		s.addListener(new MyListener(), Executors.newSingleThreadExecutor());
 		
 		s.startAsync().awaitRunning();
-		assertTrue(s.isRunning());
+		assertThat(s.isRunning());
 		assertThat(s.state(), is(State.RUNNING));
 		
 		int ms = r.nextInt(10000);
@@ -87,7 +88,7 @@ public class ServiceDemo {
 			s.startAsync().awaitRunning();
 			
 			Throwable e = catchThrowable(()->s.awaitTerminated());
-			assertThat(e, instanceOf(IllegalStateException.class));
+			assertThat(e).isInstanceOf(ISE);
 			printlnWithThreadName(e.getMessage());
 			
 			assertThat(s.state(), is(State.FAILED));

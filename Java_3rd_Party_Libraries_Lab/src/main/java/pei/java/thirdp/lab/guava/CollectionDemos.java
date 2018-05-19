@@ -1,12 +1,8 @@
 package pei.java.thirdp.lab.guava;
 
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.*;
 import static pei.java.thirdp.lab.utils.SolarPlanet.EARTH;
 import static pei.java.thirdp.lab.utils.SolarPlanet.JUPITER;
 import static pei.java.thirdp.lab.utils.SolarPlanet.MARS;
@@ -15,9 +11,9 @@ import static pei.java.thirdp.lab.utils.SolarPlanet.NEPTUNE;
 import static pei.java.thirdp.lab.utils.SolarPlanet.SATURN;
 import static pei.java.thirdp.lab.utils.SolarPlanet.URANUS;
 import static pei.java.thirdp.lab.utils.SolarPlanet.VENUS;
-import static com.github.peiatgithub.java.utils.Utils.*;
 import static com.github.peiatgithub.java.utils.Constants.*;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -65,9 +61,9 @@ public class CollectionDemos {
     @Test
     public void testLists() throws Exception {
         ArrayList<Integer> numbers = Lists.newArrayList(1, 2, 3);
-        assertThat(numbers.toString(),  is("[1, 2, 3]"));
-        assertThat(Lists.reverse(numbers).toString(),  is("[3, 2, 1]"));
-        assertThat(Lists.transform(numbers, x->2*x).toString(),  is("[2, 4, 6]"));
+        assertThat(numbers).containsExactly(1, 2, 3);
+        assertThat(Lists.reverse(numbers)).containsExactly(3, 2, 1);
+        assertThat(Lists.transform(numbers, x->2*x)).containsExactly(2, 4, 6);
     }
 
     @Test
@@ -76,38 +72,40 @@ public class CollectionDemos {
         HashSet<Integer> set1 = Sets.newHashSet(1, 2, 3);
         HashSet<Integer> set2 = Sets.newHashSet(1, 2, 6);
         
-        assertThat(Sets.difference(set1, set2).toString(), is("[3]"));
-        assertThat(Sets.difference(set2, set1).toString(), is("[6]"));
-        assertThat(Sets.symmetricDifference(set1, set2).toString(), is("[3, 6]"));
-        assertThat(Sets.intersection(set1, set2).toString(), is("[1, 2]"));
-        assertThat(Sets.union(set1, set2).toString(), is("[1, 2, 3, 6]"));
+        assertThat(Sets.difference(set1, set2)).containsExactly(3);
+        assertThat(Sets.difference(set2, set1)).containsExactly(6);
+        assertThat(Sets.symmetricDifference(set1, set2)).containsExactly(3, 6);
+        assertThat(Sets.intersection(set1, set2)).containsExactly(1, 2);
+        assertThat(Sets.union(set1, set2)).containsExactly(1, 2, 3, 6);
         
-        assertThat(Sets.filter(set1, x->x<5).toString(), is("[1, 2, 3]"));
-        assertThat(Sets.filter(set2, x->x<5).toString(), is("[1, 2]"));
+        assertThat(Sets.filter(set1, x->x<5)).containsExactly(1, 2, 3);
+        assertThat(Sets.filter(set2, x->x<5)).containsExactly(1, 2);
 
-        assertThat(Sets.combinations(set1, 2), hasSize(3));
+        assertThat(Sets.combinations(set1, 2)).hasSize(3);
         
         EnumSet<SolarPlanet> otherPlanets = Sets.complementOf(EnumSet.of(EARTH));
-        assertThat(otherPlanets, hasSize(7));
-        assertThat(otherPlanets, not(hasItem(EARTH)));
-        assertThat(otherPlanets, hasItems(MARS, SATURN, VENUS, NEPTUNE, JUPITER, URANUS, MERCURY));
+        assertThat(otherPlanets).hasSize(7).doesNotContain(EARTH).contains(MARS, SATURN, VENUS, NEPTUNE, JUPITER, URANUS, MERCURY);
 
         ImmutableSet<SolarPlanet> planets = ImmutableSet.of(MARS, SATURN, EARTH);
-        assertThat(planets.toString(), is("[MARS, SATURN, EARTH]"));
-        assertThat(ImmutableSortedSet.copyOf(planets).asList().toString(), is("[EARTH, MARS, SATURN]"));
+        assertThat(planets).containsExactly(MARS, SATURN, EARTH);
+        assertThat(ImmutableSortedSet.copyOf(planets).asList()).containsExactly(EARTH, MARS, SATURN);
         
     }
     
     @Test
     public void testMap() throws Exception {
 
-        assertThat(Maps.newHashMap().size(), is(0));
-        assertThat(Maps.newEnumMap(SolarPlanet.class).size(), is(0));
-        assertThat(Maps.asMap(TEST_SET_123, x->x*10).toString(), is("{1=10, 2=20, 3=30}"));
+        assertThat(Maps.newHashMap()).hasSize(0);
+        assertThat(Maps.newEnumMap(SolarPlanet.class)).hasSize(0);
+        assertThat(Maps.asMap(TEST_SET_123, x->x*10)).containsExactly(
+        		new AbstractMap.SimpleEntry<Integer, Integer>(1, 10)
+        		, new AbstractMap.SimpleEntry<Integer, Integer>(2, 20)
+        		, new AbstractMap.SimpleEntry<Integer, Integer>(3, 30));
 
         ImmutableMap<String, Integer> immuMap = ImmutableMap.of(S1, 1, S2, 2);
         assertThat(immuMap.keySet().iterator().next(), is(S1));
         assertThat(ImmutableSortedMap.copyOf(immuMap).keySet().iterator().next(), is(S1));
+        
     }
 
 
@@ -115,10 +113,10 @@ public class CollectionDemos {
     public void demoOfImmutable() throws Exception {// What is "immutable"?
         ImmutableList<Person> persons = ImmutableList.of(Person.builder().firstName(FIRST_NAME).build());
         
-        assertThat(catchThrowable(() -> persons.add(new Person())),instanceOf(UnsupportedOperationException.class));
-        assertThat(catchThrowable(() -> persons.set(0, new Person())),instanceOf(UnsupportedOperationException.class));
-        assertThat(catchThrowable(() -> persons.remove(0)), instanceOf(UnsupportedOperationException.class));
-        assertThat(catchThrowable(() -> persons.clear()), instanceOf(UnsupportedOperationException.class));
+        assertThatThrownBy(() -> persons.add(new Person())).isInstanceOf(UOE);
+        assertThatThrownBy(() -> persons.set(0, new Person())).isInstanceOf(UOE);
+        assertThatThrownBy(() -> persons.remove(0)).isInstanceOf(UOE);
+        assertThatThrownBy(() -> persons.clear()).isInstanceOf(UOE);
         
         persons.get(0).setFirstName(STR);
         assertThat(persons.get(0).getFirstName(), is(STR));
@@ -127,13 +125,13 @@ public class CollectionDemos {
     @Test
     public void testMultiSet() throws Exception {
         Multiset<Integer> multiSet = HashMultiset.create(Sets.newHashSet(1, 2, 6));
-        assertThat(multiSet, hasSize(3));
+        assertThat(multiSet).hasSize(3);
         assertThat(multiSet.count(6), is(1));
         multiSet.setCount(2, 3);
         multiSet.setCount(6, 2);
-        assertThat(multiSet, hasSize(6));
+        assertThat(multiSet).hasSize(6);
         assertThat(multiSet.count(6), is(2));
-        assertThat(multiSet.elementSet(), hasSize(3));
+        assertThat(multiSet.elementSet()).hasSize(3);
         assertThat(multiSet.entrySet().iterator().next().getElement(), is(1));
         assertThat(multiSet.entrySet().iterator().next().getCount(), is(1));
 
@@ -153,43 +151,46 @@ public class CollectionDemos {
         listMultimap.put(S3, 3);
         listMultimap.put(S3, 3);
         assertThat(listMultimap.size(), is(9));
-        assertThat(listMultimap.asMap().size(), is(3));
-        assertThat(listMultimap.get(S1).toString(), is("[1, 1, 1]"));
-        assertThat(listMultimap.asMap().get(S1).toString(), is("[1, 1, 1]"));
+        assertThat(listMultimap.asMap()).hasSize(3);
+        assertThat(listMultimap.get(S1)).containsExactly(1, 1, 1);
+        assertThat(listMultimap.asMap().get(S1)).containsExactly(1, 1, 1);
         
         SetMultimap<String, Integer> setMultimap = MultimapBuilder.hashKeys().hashSetValues().build();
         setMultimap.putAll(S1, Sets.newHashSet(1, 1, 1));
         setMultimap.putAll(S2, Sets.newHashSet(2, 2, 2));
         setMultimap.putAll(S3, Sets.newHashSet(3, 3, 3));
         assertThat(setMultimap.size(), is(3));
-        assertThat(setMultimap.get(S1).toString(), is("[1]"));
-        assertThat(setMultimap.asMap().size(), is(3));
-        assertThat(setMultimap.asMap().get(S1).toString(), is("[1]"));
+        assertThat(setMultimap.get(S1)).containsExactly(1);
+        assertThat(setMultimap.asMap()).hasSize(3);
+        assertThat(setMultimap.asMap().get(S1)).containsExactly(1);
         setMultimap.clear();
         setMultimap.putAll(S1, Sets.newHashSet(1, 2, 3));
         setMultimap.putAll(S2, Sets.newHashSet(4, 5, 6));
         setMultimap.putAll(S3, Sets.newHashSet(7, 8, 9));
         assertThat(setMultimap.size(), is(9));
-        assertThat(setMultimap.get(S1).toString(), is("[1, 2, 3]"));
-        assertThat(setMultimap.asMap().size(), is(3));
-        assertThat(setMultimap.asMap().get(S1).toString(), is("[1, 2, 3]"));
+        assertThat(setMultimap.get(S1)).containsExactlyInAnyOrder(1, 2, 3);
+        assertThat(setMultimap.asMap()).hasSize(3);
+        assertThat(setMultimap.asMap().get(S1)).containsExactlyInAnyOrder(1, 2, 3);
         
-        assertThat(ImmutableMultimap.of(S1, 1, S2, 2, S1, 3).get(S1), hasSize(2));
+        assertThat(ImmutableMultimap.of(S1, 1, S2, 2, S1, 3).get(S1)).hasSize(2);
+        
     }
     
     @Test
     public void testBimap() throws Exception {
+    	
         HashBiMap<String, Integer> biMap = HashBiMap.<String, Integer>create(TEST_MAP_123);
         assertThat(biMap.get(S1), is(1));
         assertThat(biMap.inverse().get(1), is(S1));
         
-        assertThat(catchThrowable(()->biMap.put(" ", 1)), instanceOf(IllegalArgumentException.class));
+        assertThatThrownBy(()->biMap.put(" ", 1)).isInstanceOf(IAE);
         
         biMap.forcePut(" ", 1);
         assertThat(biMap.get(" "), is(1));
-        assertThat(biMap.keySet(), not(hasItem(S1)));
+        assertThat(biMap.keySet()).doesNotContain(S1);
         
-        assertThat(catchThrowable(() -> ImmutableBiMap.of(S1, 1, S2, 1)), instanceOf(IllegalArgumentException.class));
+        assertThatThrownBy(() -> ImmutableBiMap.of(S1, 1, S2, 1)).isInstanceOf(IAE);
+        
     }
     
     @Test
@@ -200,8 +201,8 @@ public class CollectionDemos {
         sales.put(2, "Jan", 200);
         sales.put(2, "Feb", 100);
         sales.put(3, "Mar", 300);
-        assertThat(sales.row(1).size(), is(2));
-        assertThat(sales.cellSet().size(), is(5));
+        assertThat(sales.row(1)).hasSize(2);
+        assertThat(sales.cellSet()).hasSize(5);
 
         ImmutableTable<Integer, String, String> customersTable = ImmutableTable.<Integer, String, String>builder()
                 .put(1, "Name", "Person One")
@@ -253,11 +254,10 @@ public class CollectionDemos {
     @Test
 	public void iterablesDemo() throws Exception {
     	
-		Iterables.filter(
+		assertThat(Iterables.filter(
 			ImmutableList.of(new NullPointerException(), new IllegalArgumentException(), new IllegalStateException())
-			, NullPointerException.class)
-		.forEach(e->assertThat(e, instanceOf(NullPointerException.class)));
-		
+			, NPE)).allMatch(e -> e instanceof NullPointerException);
+
 		assertThat(Iterables.filter(TEST_LIST_123, Range.closed(-10, 2)).toString(), is("[1, 2]"));
 		
 		assertThat(Iterables.find(TEST_LIST_123, Range.closed(-10, 2)), is(1));

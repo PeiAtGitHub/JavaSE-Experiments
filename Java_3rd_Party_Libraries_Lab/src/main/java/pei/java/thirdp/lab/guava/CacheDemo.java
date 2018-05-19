@@ -1,7 +1,7 @@
 package pei.java.thirdp.lab.guava;
 
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
@@ -47,22 +47,22 @@ public class CacheDemo {
         
         NanoStopWatch.begin();
         Graph<US_CITY> g1 = graphsCache.get(1);
-        assertTrue(NanoStopWatch.stopAndGetMillis() <= 1);
+        assertThat(NanoStopWatch.stopAndGetMillis()).isLessThanOrEqualTo(1);
         
         assertSame(g1, graphsCache.get(1));
         //
         NanoStopWatch.begin();
         Graph<US_CITY> g2 = graphsCache.get(2);
-        assertTrue(NanoStopWatch.stopAndGetMillis() >= HEAVEY_COMPUTING_MILLIS );
+        assertThat(NanoStopWatch.stopAndGetMillis()).isGreaterThanOrEqualTo(HEAVEY_COMPUTING_MILLIS );
         assertSame(g2, graphsCache.get(2));
         //
         assertNotSame(g2, g1);
         
         CacheStats cacheStats = graphsCache.stats();
-        assertThat(cacheStats.hitCount(), is(3L));
-        assertThat(cacheStats.loadCount(), is(1L));
-        assertThat(cacheStats.missCount(), is(1L));
-        assertThat(cacheStats.requestCount(), is(4L));
+        assertThat(cacheStats.hitCount()).isEqualTo(3);
+        assertThat(cacheStats.loadCount()).isEqualTo(1);
+        assertThat(cacheStats.missCount()).isEqualTo(1);
+        assertThat(cacheStats.requestCount()).isEqualTo(4);
     }
     
     @Test
@@ -72,17 +72,18 @@ public class CacheDemo {
         
         NanoStopWatch.begin();
         Graph<US_CITY> g1 = graphsCache.get(1, new CallableImpl());
-        assertTrue(NanoStopWatch.stopAndGetMillis() >= HEAVEY_COMPUTING_MILLIS );
+        assertThat(NanoStopWatch.stopAndGetMillis()).isGreaterThanOrEqualTo(HEAVEY_COMPUTING_MILLIS);
 
         NanoStopWatch.begin();
         assertSame(g1, graphsCache.get(1, new CallableImpl()));
-        assertTrue(NanoStopWatch.stopAndGetMillis() <= 1);
+        assertThat(NanoStopWatch.stopAndGetMillis()).isLessThanOrEqualTo(1);
         
         CacheStats cacheStats = graphsCache.stats();
-        assertThat(cacheStats.hitCount(), is(1L));
-        assertThat(cacheStats.loadCount(), is(1L));
-        assertThat(cacheStats.missCount(), is(1L));
-        assertThat(cacheStats.requestCount(), is(2L));    
+        assertThat(cacheStats.hitCount()).isEqualTo(1);
+        assertThat(cacheStats.loadCount()).isEqualTo(1);
+        assertThat(cacheStats.missCount()).isEqualTo(1);
+        assertThat(cacheStats.requestCount()).isEqualTo(2);    
+        
     }
 
     @Test
@@ -97,10 +98,11 @@ public class CacheDemo {
         graphsCache.put(1, GraphBuilder.undirected().build());
         graphsCache.put(2, GraphBuilder.directed().build());
         
-        assertThat(graphsCache.size(), is(2L));
+        assertThat(graphsCache.size()).isEqualTo(2);
         graphsCache.invalidate(2); // manual remove does not affect eviction count
-        assertThat(graphsCache.size(), is(1L));
-        assertThat(graphsCache.stats().evictionCount(), is(0L));
+        assertThat(graphsCache.size()).isEqualTo(1);
+        assertThat(graphsCache.stats().evictionCount()).isEqualTo(0);
+        
     }
 
     
