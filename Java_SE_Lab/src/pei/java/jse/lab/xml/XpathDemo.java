@@ -11,6 +11,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.github.peiatgithub.java.utils.xml.XpathBuilder;
+
 import lombok.extern.slf4j.Slf4j;
 import static pei.java.jse.lab.xml.XmlUtils.*;
 
@@ -25,7 +27,8 @@ public class XpathDemo {
     @Test
 	public void findPlantWhichNeedsSunLight() throws Exception {
     	
-        String xpath = "//PLANT/LIGHT[contains(., 'Sun')]";
+    	String xpath = 
+    			XpathBuilder.newBuilder().startFromAnywhere("PLANT").down("LIGHT").contentContains("Sun").build();
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
         		.parse(new File(INPUT_XML));
         NodeList lightNodes = (NodeList) XPathFactory.newInstance().newXPath()

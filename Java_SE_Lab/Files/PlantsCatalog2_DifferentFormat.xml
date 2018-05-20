@@ -4,14 +4,8 @@ this file content is based on an example from www.w3schools.com,
 with a little modifications by me.
 -->
 <CATALOG>
-	<PLANT id="1">
-		<COMMON>Bloodroot</COMMON>
-		<BOTANICAL>Sanguinaria canadensis</BOTANICAL>
-		<ZONE>4</ZONE>
-		<LIGHT>Mostly Shady</LIGHT>
-		<PRICE currency="USD">2.44</PRICE>
-		<AVAILABILITY>031599</AVAILABILITY>
-	</PLANT>
+	<PLANT id="1"><COMMON>Bloodroot</COMMON><BOTANICAL>Sanguinaria canadensis</BOTANICAL><ZONE>4</ZONE><LIGHT>Mostly Shady</LIGHT><PRICE currency="USD">2.44</PRICE><AVAILABILITY>031599</AVAILABILITY></PLANT>
+	
 	<PLANT id="2">
 		<COMMON>Columbine</COMMON>
 		<BOTANICAL>Aquilegia canadensis</BOTANICAL>
@@ -20,6 +14,7 @@ with a little modifications by me.
 		<PRICE currency="EUR">9.37</PRICE>
 		<AVAILABILITY>030699</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="3">
 		<COMMON>Marsh Marigold</COMMON>
 		<BOTANICAL>Caltha palustris</BOTANICAL>
@@ -28,6 +23,7 @@ with a little modifications by me.
 		<PRICE currency="USD">6.81</PRICE>
 		<AVAILABILITY>051799</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="4">
 		<COMMON>Cowslip</COMMON>
 		<BOTANICAL>Caltha palustris</BOTANICAL>
@@ -36,6 +32,7 @@ with a little modifications by me.
 		<PRICE>9.90</PRICE>
 		<AVAILABILITY>030699</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="5">
 		<COMMON>Dutchman's-Breeches</COMMON>
 		<BOTANICAL>Dicentra cucullaria</BOTANICAL>
@@ -44,6 +41,7 @@ with a little modifications by me.
 		<PRICE>6.44</PRICE>
 		<AVAILABILITY>012099</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="6">
 		<COMMON>Ginger, Wild</COMMON>
 		<BOTANICAL>Asarum canadense</BOTANICAL>
@@ -52,6 +50,7 @@ with a little modifications by me.
 		<PRICE>9.03</PRICE>
 		<AVAILABILITY>041899</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="7">
 		<COMMON>Hepatica</COMMON>
 		<BOTANICAL>Hepatica americana</BOTANICAL>
@@ -60,6 +59,7 @@ with a little modifications by me.
 		<PRICE>4.45</PRICE>
 		<AVAILABILITY>012699</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="8">
 		<COMMON>Liverleaf</COMMON>
 		<BOTANICAL>Hepatica americana</BOTANICAL>
@@ -68,6 +68,7 @@ with a little modifications by me.
 		<PRICE>3.99</PRICE>
 		<AVAILABILITY>010299</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="9">
 		<COMMON>Jack-In-The-Pulpit</COMMON>
 		<BOTANICAL>Arisaema triphyllum</BOTANICAL>
@@ -76,6 +77,7 @@ with a little modifications by me.
 		<PRICE>3.23</PRICE>
 		<AVAILABILITY>020199</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="10">
 		<COMMON>Mayapple</COMMON>
 		<BOTANICAL>Podophyllum peltatum</BOTANICAL>
@@ -84,6 +86,7 @@ with a little modifications by me.
 		<PRICE>2.98</PRICE>
 		<AVAILABILITY>060599</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="11">
 		<COMMON>Phlox, Woodland</COMMON>
 		<BOTANICAL>Phlox divaricata</BOTANICAL>
@@ -92,6 +95,7 @@ with a little modifications by me.
 		<PRICE>2.80</PRICE>
 		<AVAILABILITY>012299</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="12">
 		<COMMON>Phlox, Blue</COMMON>
 		<BOTANICAL>Phlox divaricata</BOTANICAL>
@@ -100,6 +104,7 @@ with a little modifications by me.
 		<PRICE>5.59</PRICE>
 		<AVAILABILITY>021699</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="13">
 		<COMMON>Spring-Beauty</COMMON>
 		<BOTANICAL>Claytonia Virginica</BOTANICAL>
@@ -108,6 +113,7 @@ with a little modifications by me.
 		<PRICE>6.59</PRICE>
 		<AVAILABILITY>020199</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="14">
 		<COMMON>Trillium</COMMON>
 		<BOTANICAL>Trillium grandiflorum</BOTANICAL>
@@ -116,6 +122,7 @@ with a little modifications by me.
 		<PRICE>3.90</PRICE>
 		<AVAILABILITY>042999</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="15">
 		<COMMON>Wake Robin</COMMON>
 		<BOTANICAL>Trillium grandiflorum</BOTANICAL>
@@ -124,6 +131,7 @@ with a little modifications by me.
 		<PRICE>3.20</PRICE>
 		<AVAILABILITY>022199</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="16">
 		<COMMON>Violet, Dog-Tooth</COMMON>
 		<BOTANICAL>Erythronium americanum</BOTANICAL>
@@ -132,6 +140,7 @@ with a little modifications by me.
 		<PRICE>9.04</PRICE>
 		<AVAILABILITY>020199</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="17">
 		<COMMON>Trout Lily</COMMON>
 		<BOTANICAL>Erythronium americanum</BOTANICAL>
@@ -140,6 +149,7 @@ with a little modifications by me.
 		<PRICE>6.94</PRICE>
 		<AVAILABILITY>032499</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="18">
 		<COMMON>Adder's-Tongue</COMMON>
 		<BOTANICAL>Erythronium americanum</BOTANICAL>
@@ -148,6 +158,7 @@ with a little modifications by me.
 		<PRICE>9.58</PRICE>
 		<AVAILABILITY>041399</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="19">
 		<COMMON>Anemone</COMMON>
 		<BOTANICAL>Anemone blanda</BOTANICAL>
@@ -156,6 +167,7 @@ with a little modifications by me.
 		<PRICE>8.86</PRICE>
 		<AVAILABILITY>122698</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="20">
 		<COMMON>Grecian Windflower</COMMON>
 		<BOTANICAL>Anemone blanda</BOTANICAL>
@@ -164,6 +176,7 @@ with a little modifications by me.
 		<PRICE>9.16</PRICE>
 		<AVAILABILITY>071099</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="21">
 		<COMMON>Bee Balm</COMMON>
 		<BOTANICAL>Monarda didyma</BOTANICAL>
@@ -172,6 +185,7 @@ with a little modifications by me.
 		<PRICE>4.59</PRICE>
 		<AVAILABILITY>050399</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="22">
 		<COMMON>Bergamot</COMMON>
 		<BOTANICAL>Monarda didyma</BOTANICAL>
@@ -180,6 +194,7 @@ with a little modifications by me.
 		<PRICE>7.16</PRICE>
 		<AVAILABILITY>042799</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="23">
 		<COMMON>Black-Eyed Susan</COMMON>
 		<BOTANICAL>Rudbeckia hirta</BOTANICAL>
@@ -188,6 +203,7 @@ with a little modifications by me.
 		<PRICE>9.80</PRICE>
 		<AVAILABILITY>061899</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="24">
 		<COMMON>Buttercup</COMMON>
 		<BOTANICAL>Ranunculus</BOTANICAL>
@@ -196,6 +212,7 @@ with a little modifications by me.
 		<PRICE>2.57</PRICE>
 		<AVAILABILITY>061099</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="25">
 		<COMMON>Crowfoot</COMMON>
 		<BOTANICAL>Ranunculus</BOTANICAL>
@@ -204,6 +221,7 @@ with a little modifications by me.
 		<PRICE>9.34</PRICE>
 		<AVAILABILITY>040399</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="26">
 		<COMMON>Butterfly Weed</COMMON>
 		<BOTANICAL>Asclepias tuberosa</BOTANICAL>
@@ -212,6 +230,7 @@ with a little modifications by me.
 		<PRICE>2.78</PRICE>
 		<AVAILABILITY>063099</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="27">
 		<COMMON>Cinquefoil</COMMON>
 		<BOTANICAL>Potentilla</BOTANICAL>
@@ -220,6 +239,7 @@ with a little modifications by me.
 		<PRICE>7.06</PRICE>
 		<AVAILABILITY>052599</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="28">
 		<COMMON>Primrose</COMMON>
 		<BOTANICAL>Oenothera</BOTANICAL>
@@ -228,6 +248,7 @@ with a little modifications by me.
 		<PRICE>6.56</PRICE>
 		<AVAILABILITY>013099</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="29">
 		<COMMON>Gentian</COMMON>
 		<BOTANICAL>Gentiana</BOTANICAL>
@@ -236,6 +257,7 @@ with a little modifications by me.
 		<PRICE>7.81</PRICE>
 		<AVAILABILITY>051899</AVAILABILITY>
 	</PLANT>
+
 	<PLANT id="30">
 		<COMMON>Blue Gentian</COMMON>
 		<BOTANICAL>Gentiana</BOTANICAL>
@@ -244,6 +266,7 @@ with a little modifications by me.
 		<PRICE>8.56</PRICE>
 		<AVAILABILITY>050299</AVAILABILITY>
 	</PLANT>
+
 	<PLANT id="31">
 		<COMMON>Jacob's Ladder</COMMON>
 		<BOTANICAL>Polemonium caeruleum</BOTANICAL>
@@ -252,6 +275,7 @@ with a little modifications by me.
 		<PRICE>9.26</PRICE>
 		<AVAILABILITY>022199</AVAILABILITY>
 	</PLANT>
+
 	<PLANT id="32">
 		<COMMON>Greek Valerian</COMMON>
 		<BOTANICAL>Polemonium caeruleum</BOTANICAL>
@@ -260,6 +284,7 @@ with a little modifications by me.
 		<PRICE>4.36</PRICE>
 		<AVAILABILITY>071499</AVAILABILITY>
 	</PLANT>
+
 	<PLANT id="33">
 		<COMMON>California Poppy</COMMON>
 		<BOTANICAL>Eschscholzia californica</BOTANICAL>
@@ -268,6 +293,7 @@ with a little modifications by me.
 		<PRICE>7.89</PRICE>
 		<AVAILABILITY>032799</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="34">
 		<COMMON>Shooting Star</COMMON>
 		<BOTANICAL>Dodecatheon</BOTANICAL>
@@ -276,6 +302,7 @@ with a little modifications by me.
 		<PRICE>8.60</PRICE>
 		<AVAILABILITY>051399</AVAILABILITY>
 	</PLANT>
+	
 	<PLANT id="35">
 		<COMMON>Snakeroot</COMMON>
 		<BOTANICAL>Cimicifuga</BOTANICAL>
@@ -284,6 +311,7 @@ with a little modifications by me.
 		<PRICE>5.63</PRICE>
 		<AVAILABILITY>071199</AVAILABILITY>
 	</PLANT>
+
 	<PLANT id="36">
 		<COMMON>Cardinal Flower</COMMON>
 		<BOTANICAL>Lobelia cardinalis</BOTANICAL>
@@ -292,4 +320,5 @@ with a little modifications by me.
 		<PRICE>3.02</PRICE>
 		<AVAILABILITY>022299</AVAILABILITY>
 	</PLANT>
+
 </CATALOG>
