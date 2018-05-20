@@ -57,6 +57,11 @@ public class StringAndCharTests {
         assertEquals(s1, s2);
         assertNotSame(s1, s2);
     }
+    
+    @Test
+	public void testFormat() throws Exception {
+    	assertThat(String.format("abc", "def"), is("abc"));
+	}
 
     @Test
     public void testNoSpliter() {

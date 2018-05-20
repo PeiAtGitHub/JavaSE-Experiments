@@ -49,8 +49,32 @@ public class MethodFeatures {
         Person p = new Person("AAA", "AAA", 0);
         manipulateObj(p);
         assertThat(p.getFirstName(), is("BBB"));
+        
     }
     
+
+	@Test
+	public void assignmentAndPassInArgAtSameTime() throws Exception {
+
+		boolean pass1 = false;
+		int pass2;
+
+		assertThat(testPassInBl(pass1 = true));
+		assertThat(testPassInBl(pass1 = false)).isFalse();
+
+		assertThat(testPassInNum(pass2 = 1), is(1));
+		assertThat(testPassInNum(pass2 = 100), is(100));
+		
+	}
+
+
+	private boolean testPassInBl(boolean a) {
+		return a;
+	}
+
+	private int testPassInNum(int a) {
+		return a;
+	}
 
 }
 
