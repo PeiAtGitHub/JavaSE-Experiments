@@ -60,7 +60,7 @@ public class StringAndCharTests {
     
     @Test
 	public void testFormat() throws Exception {
-    	assertThat(String.format("abc", "def"), is("abc"));
+    	assertThat(String.format(ABC, "def"), is(ABC));
 	}
 
     @Test
