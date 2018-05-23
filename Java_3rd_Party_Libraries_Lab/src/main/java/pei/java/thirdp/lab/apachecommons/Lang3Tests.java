@@ -6,6 +6,10 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.junit.Test;
+
+import com.github.peiatgithub.java.utils.JavaRegexBuilder;
+import com.google.common.base.Strings;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -21,33 +25,26 @@ public class Lang3Tests {
 
 	@Test
 	public void testRandomString() throws Exception {
-		String s1 = RandomStringUtils.random(20);
-		String s2 = RandomStringUtils.randomAlphanumeric(20);
-		String s3 = RandomStringUtils.randomAlphabetic(20);
-		String s4 = RandomStringUtils.randomNumeric(20);
+		
+		int n = 20;
+		
+		assertThat(RandomStringUtils.random(n)).hasSize(n).matches(getRegexBuilder().anyChar(n/2, n).build());
 
-		assertThat(s1).hasSize(20);
-		ifThen(s1.matches("\\w{20}"), () -> System.out.println("When can this happen???!!!"));
+		assertThat(RandomStringUtils.randomAlphanumeric(n)).hasSize(n)
+			.matches(getRegexBuilder().lettersAndNumbers(n).build());
 
-		assertThat(s2.matches("\\w{20}"));
-		ifThen(s2.matches("[a-zA-Z]{20}"), () -> System.out.println("Not a single digit in the string!!!"));
+		assertThat(RandomStringUtils.randomAlphabetic(n)).hasSize(n)
+			.matches(getRegexBuilder().lettersIgnoreCase(n).build());
 
-		assertThat(s3.matches("[a-zA-Z]{20}"));
-		assertThat(s3.matches("\\w{20}"));
+		assertThat(RandomStringUtils.randomNumeric(n)).hasSize(n).matches(getRegexBuilder().digit(n).build());
 
-		assertThat(s4.matches("\\d{20}"));
-
-		System.out.println(s1);
-		System.out.println(s2);
-		System.out.println(s3);
-		System.out.println(s4);
 	}
 
 	@Test
 	public void testValidate() {
 		assertThatThrownBy(() -> Validate.exclusiveBetween(100, 200, new Random().nextInt(100)))
 				.isInstanceOf(IAE);
-		assertThatThrownBy(() -> Validate.notBlank("   ")).isInstanceOf(IAE);
+		assertThatThrownBy(() -> Validate.notBlank(Strings.repeat(SPACE, 3))).isInstanceOf(IAE);
 		assertThatThrownBy(() -> Validate.validState(false)).isInstanceOf(ISE);
 	}
 
@@ -204,4 +201,13 @@ public class Lang3Tests {
 		assertThat(StringUtils.abbreviate("This is a weird feature.", 12), is("This is a..."));
 		assertThat(StringUtils.abbreviate("This is a weird feature.", 10, 12), is("...weird ..."));
 	}
+	
+	/*
+	 * 
+	 */
+	
+	private JavaRegexBuilder getRegexBuilder() {
+		return JavaRegexBuilder.newBuilder();
+	}
+		
 }
