@@ -1,6 +1,7 @@
 package pei.java.thirdp.lab.mockito;
 
 import static com.github.peiatgithub.java.utils.Constants.*;
+import static com.github.peiatgithub.java.utils.Utils.*;
 
 import java.util.List;
 
@@ -15,7 +16,6 @@ import com.google.common.collect.Lists;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.assertj.core.api.Assertions.*;
-import static com.github.peiatgithub.java.utils.Constants.*;
 
 
 /**
@@ -51,7 +51,7 @@ public class MockitoDemos {
 		reminderSender = new ReminderSender(invoiceStorage, emailSender, eventRecorder);
 		registrationService = new RegistrationService(customerDao, eventRecorder);
 
-		id = getRandom16DigitNumber();
+		id = randomNumberOfDigit(16);
 		customer = new Customer(FIRST_NAME, LAST_NAME);
 
 	}
@@ -115,7 +115,7 @@ public class MockitoDemos {
 
 		doAnswer(invocation -> {
 			Customer customer = invocation.getArgument(0);
-			customer.setId(getRandom16DigitNumber());
+			customer.setId(randomNumberOfDigit(16));
 			return null;
 		}).when(entityManager).persist(ArgumentMatchers.any(Customer.class));
 
@@ -136,7 +136,4 @@ public class MockitoDemos {
 		}
 	}
 
-	public static long getRandom16DigitNumber() {
-		return RandomUtils.nextLong(1_000_000_000_000_000L, 10_000_000_000_000_000L);
-	}
 }
