@@ -1,12 +1,11 @@
 package pei.java.thirdp.lab.DB;
-import static pei.java.thirdp.lab.DB.DbUtils.JDBC_URL_DERBY;
-import static pei.java.thirdp.lab.DB.DbUtils.JDBC_URL_SHUTDOWN_DERBY;
 import static pei.java.thirdp.lab.DB.DbUtils.PASSWORD;
 import static pei.java.thirdp.lab.DB.DbUtils.SQL_CREATE_TABLE_CUSTOMERS;
 import static pei.java.thirdp.lab.DB.DbUtils.TABLE_CUSTOMERS;
 import static pei.java.thirdp.lab.DB.DbUtils.USERNAME;
 import static pei.java.thirdp.lab.DB.DbUtils.sqlSelectFrom;
 import static com.github.peiatgithub.java.utils.Utils.*;
+import static com.github.peiatgithub.java.utils.database.DBUtils.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -80,7 +79,7 @@ public class JDBCdemo {
     
     public static void shutDownDerby() {
         try {
-            DriverManager.getConnection(JDBC_URL_SHUTDOWN_DERBY);
+            DriverManager.getConnection(JDBC_URL_DERBY_SHUTDOWN);
         } catch (SQLException ex) {
             ifElse((ex.getErrorCode() == 50000) && (ex.getSQLState().equals("XJ015")), 
                 ()->System.out.println("Derby shut down normally."),

@@ -25,6 +25,14 @@ public class StringAndCharTests {
 	private static final String ABC = "abc";
 
 	@Test
+	public void testLen() {
+		
+		assertThat(EMPTY.length()).isEqualTo(0);
+		assertThat((new StringBuilder(EMPTY)).length()).isEqualTo(0);
+		
+	}
+	
+	@Test
     public void testIndexing() {
         /*
          * The convention of indexing is: begin index is inclusive, end index is

@@ -149,6 +149,7 @@ public class Lang3Tests {
 		assertThat(StringUtils.join(EMPTY, null, "a"), is("a"));
 		assertThat(StringUtils.join("a", "b", "c"), is("abc"));
 		assertThat(StringUtils.join(TEST_INT_ARRAY_123, ';'), is("1;2;3"));
+		assertThat(StringUtils.join(1, ';'), is("1;"));
 		assertThat(StringUtils.join(TEST_LIST_123.iterator(), ';'), is("1;2;3"));
 		assertThat(StringUtils.joinWith(SEMICOLON, "a", "b", "c"), is("a;b;c"));
 		assertThat(StringUtils.repeat("Hello", 3), is("HelloHelloHello"));

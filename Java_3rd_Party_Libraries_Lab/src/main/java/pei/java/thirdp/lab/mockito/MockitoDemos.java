@@ -7,8 +7,10 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 import org.mockito.ArgumentMatchers;
-import org.apache.commons.lang3.RandomUtils;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.junit.*;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 
 import com.google.common.collect.Lists;
@@ -23,37 +25,33 @@ import static org.assertj.core.api.Assertions.*;
  * @author pei
  *
  */
+@RunWith(MockitoJUnitRunner.class)
 public class MockitoDemos {
 
-	// Classes to be tested
-	CustomerDao customerDao;
-	ReminderSender reminderSender;
-	RegistrationService registrationService;
-
-	// dependent infrastructures (will be mocked)
+	// dependent infrastructures (mocked)
+	@Mock
 	EntityManager entityManager;
+	@Mock
 	EmailSender emailSender;
+	@Mock
 	InvoiceStorage invoiceStorage;
+	@Mock
 	EventRecorder eventRecorder;
 
-	//
+	// Classes to be tested
+	CustomerDao customerDao; 
+	ReminderSender reminderSender;
+	RegistrationService registrationService;
+	
+	Customer customer =  new Customer(FIRST_NAME, LAST_NAME);
 	long id;
-	Customer customer;
 
 	@Before
 	public void setup() {
-		entityManager = mock(EntityManager.class);
-		invoiceStorage = mock(InvoiceStorage.class);
-		emailSender = mock(EmailSender.class);
-		eventRecorder = mock(EventRecorder.class);
-
 		customerDao = new CustomerDao(entityManager);
 		reminderSender = new ReminderSender(invoiceStorage, emailSender, eventRecorder);
 		registrationService = new RegistrationService(customerDao, eventRecorder);
-
 		id = randomNumberOfDigit(16);
-		customer = new Customer(FIRST_NAME, LAST_NAME);
-
 	}
 
 	@Test
