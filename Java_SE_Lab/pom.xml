@@ -59,7 +59,7 @@
 		<dependency>
 			<groupId>com.github.peiatgithub</groupId>
 			<artifactId>pjutils</artifactId>
-			<version>3.0</version>
+			<version>4.0</version>
 		</dependency>
 
 
