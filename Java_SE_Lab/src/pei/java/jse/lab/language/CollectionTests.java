@@ -56,7 +56,7 @@ public class CollectionTests {
         assertThatThrownBy(()->Collections.<String> emptyList().add(STR)).isInstanceOf(UOE);
         
         assertThat(Collections.singletonList(STR)).containsExactly("STR");
-        assertThat(Collections.singletonMap("ABC", "XYZ").toString(), is("{ABC=XYZ}"));
+        assertThat(Collections.singletonMap("ABC", "XYZ")).hasSize(1).contains(entry("ABC", "XYZ"));
 
     }
     

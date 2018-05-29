@@ -13,7 +13,6 @@ import static pei.java.thirdp.lab.utils.SolarPlanet.URANUS;
 import static pei.java.thirdp.lab.utils.SolarPlanet.VENUS;
 import static com.github.peiatgithub.java.utils.Constants.*;
 
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -84,7 +83,8 @@ public class CollectionDemos {
         assertThat(Sets.combinations(set1, 2)).hasSize(3);
         
         EnumSet<SolarPlanet> otherPlanets = Sets.complementOf(EnumSet.of(EARTH));
-        assertThat(otherPlanets).hasSize(7).doesNotContain(EARTH).contains(MARS, SATURN, VENUS, NEPTUNE, JUPITER, URANUS, MERCURY);
+        assertThat(otherPlanets).hasSize(7).doesNotContain(EARTH)
+        	.contains(MARS, SATURN, VENUS, NEPTUNE, JUPITER, URANUS, MERCURY);
 
         ImmutableSet<SolarPlanet> planets = ImmutableSet.of(MARS, SATURN, EARTH);
         assertThat(planets).containsExactly(MARS, SATURN, EARTH);
@@ -97,10 +97,7 @@ public class CollectionDemos {
 
         assertThat(Maps.newHashMap()).hasSize(0);
         assertThat(Maps.newEnumMap(SolarPlanet.class)).hasSize(0);
-        assertThat(Maps.asMap(TEST_SET_123, x->x*10)).containsExactly(
-        		new AbstractMap.SimpleEntry<Integer, Integer>(1, 10)
-        		, new AbstractMap.SimpleEntry<Integer, Integer>(2, 20)
-        		, new AbstractMap.SimpleEntry<Integer, Integer>(3, 30));
+        assertThat(Maps.asMap(TEST_SET_123, x->x*10)).contains(entry(1, 10), entry(2, 20), entry(3, 30));
 
         ImmutableMap<String, Integer> immuMap = ImmutableMap.of(S1, 1, S2, 2);
         assertThat(immuMap.keySet().iterator().next(), is(S1));
