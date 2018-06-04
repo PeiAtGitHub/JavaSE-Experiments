@@ -1,11 +1,12 @@
 package pei.java.jse.lab.systemAndRuntime;
 
-import static com.github.peiatgithub.java.utils.Constants.UNSUPPORTED_CASE;
+import static com.github.peiatgithub.java.utils.Constants.*;
 import static com.github.peiatgithub.java.utils.Utils.*;
 
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Properties;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -88,5 +89,22 @@ public class SystemAndRuntime {
         }
 		
     }
-
+    
+    @Test
+	public void testProperties() throws Exception {
+    	
+		Properties defaultProps = new Properties();
+		defaultProps.put("Florida", "Tallahassee");
+		defaultProps.put("Wisconsin", "Madison");
+		
+		Properties capitals = new Properties(defaultProps);
+		capitals.put("Washington", "Olympia");
+		capitals.put("Illinois", "Springfield");
+		capitals.put("California", "Sacramento");
+		
+		assertThat(capitals.getProperty("Washington")).isEqualTo("Olympia");
+		assertThat(capitals.getProperty("Florida")).isEqualTo("Tallahassee");
+		assertThat(capitals.getProperty(NON_EXIST)).isNull();
+		
+    }
 }
