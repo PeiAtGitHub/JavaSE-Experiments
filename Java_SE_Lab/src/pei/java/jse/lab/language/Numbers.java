@@ -71,6 +71,13 @@ public class Numbers {
     	assertThat(Double.max(22d/7d, Math.PI), is(22d/7d));
     	
 	}
+    
+    @Test
+    public void numberWrappers() {
+        assertThat(new Integer(3).toString(), is("3"));
+        assertThat(new Double(3.3).toString(), is("3.3"));
+    }
+
 
     @Test
     public void numberOverFlow() {

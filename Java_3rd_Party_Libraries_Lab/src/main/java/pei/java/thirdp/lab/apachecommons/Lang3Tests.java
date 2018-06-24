@@ -208,7 +208,7 @@ public class Lang3Tests {
 	 */
 	
 	private JavaRegexBuilder getRegexBuilder() {
-		return JavaRegexBuilder.newBuilder();
+		return new JavaRegexBuilder();
 	}
 		
 }
