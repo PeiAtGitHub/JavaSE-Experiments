@@ -1,5 +1,7 @@
 package pei.java.thirdp.lab.DB;
 
+import static com.github.peiatgithub.java.utils.Utils.*;
+
 
 /**
  * 
@@ -26,14 +28,14 @@ public class DbUtils {
 
     
     public static final String sqlSelectFrom(String column, String table) {
-        return String.format("select %s from %s", column, table);
+        return str("select {} from {}", column, table) ;
     }
 
     public static final String sqlDropTable(String table) {
-        return String.format("drop table %s", table);
+        return str("drop table {}", table);
     }
 
     public static final String sqlClearTable(String table) {
-    	return String.format("delete from %s", table);
+    	return str("delete from {}", table);
     }
 }

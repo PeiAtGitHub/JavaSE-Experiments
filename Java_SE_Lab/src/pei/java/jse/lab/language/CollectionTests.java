@@ -60,6 +60,8 @@ public class CollectionTests {
 
         assertThat(Collections.singletonList(STR)).containsExactly("STR");
         assertThat(Collections.singletonMap("ABC", "XYZ")).hasSize(1).contains(entry("ABC", "XYZ"));
+        
+        assertThat(Collections.singleton(STR)).contains(STR);
 
     }
 

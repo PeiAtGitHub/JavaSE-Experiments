@@ -28,7 +28,7 @@ public class XpathDemo {
 	public void findPlantWhichNeedsSunLight() throws Exception {
     	
     	String xpath = 
-    			XpathBuilder.newBuilder().startFromAnywhere("PLANT").down("LIGHT").contentContains("Sun").build();
+    			new XpathBuilder().startFromAnywhere("PLANT").down("LIGHT").contentContains("Sun").build();
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
         		.parse(new File(INPUT_XML));
         NodeList lightNodes = (NodeList) XPathFactory.newInstance().newXPath()
