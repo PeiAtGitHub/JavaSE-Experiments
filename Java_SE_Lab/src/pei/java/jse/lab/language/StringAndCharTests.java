@@ -25,11 +25,22 @@ public class StringAndCharTests {
 	private static final String ABC = "abc";
 
 	@Test
+    public void testStringBuilder() throws Exception {
+        
+	    StringBuilder sb = new StringBuilder();
+	    assertThat(sb.length()).isEqualTo(0);
+	    assertThat(sb.toString()).isEqualTo(EMPTY);
+
+	    sb = new StringBuilder(EMPTY);
+	    assertThat(sb.length()).isEqualTo(0);
+	    assertThat(sb.toString()).isEqualTo(EMPTY);
+	    
+    }
+	
+	@Test
 	public void testLen() {
-		
 		assertThat(EMPTY.length()).isEqualTo(0);
 		assertThat((new StringBuilder(EMPTY)).length()).isEqualTo(0);
-		
 	}
 	
 	@Test

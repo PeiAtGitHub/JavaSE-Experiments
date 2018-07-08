@@ -15,6 +15,7 @@ import java.util.Map.Entry;
 
 import org.junit.Test;
 
+import com.github.peiatgithub.java.utils.collections.MapBuilder;
 import com.google.common.collect.ImmutableMap;
 
 import static com.github.peiatgithub.java.utils.Constants.*;
@@ -117,7 +118,7 @@ public class CollectionTests {
     @Test
     public void linkedHashMapKeepsInsertionOrder() throws Exception {
 
-        LinkedHashMap<Integer, String> lhm1 = new LinkedHashMap(ImmutableMap.of(1, S1, 3, S3, 2, S2));
+        LinkedHashMap<Integer, String> lhm1 = new LinkedHashMap<Integer, String>(ImmutableMap.of(1, S1, 3, S3, 2, S2));
 
         Integer[] expectedKeys = new Integer[] { 1, 3, 2 };
         String[] expectedValues = new String[] { S1, S3, S2 };
@@ -130,10 +131,7 @@ public class CollectionTests {
         assertThat(i, is(3));
         
         // another approach test
-        LinkedHashMap<Integer, String> lhm2 = new LinkedHashMap();
-        lhm2.put(3, S3);
-        lhm2.put(2, S2);
-        lhm2.put(1, S1);
+        LinkedHashMap<Integer, String> lhm2 = MapBuilder.linkedHashMap(3, S3).put(2, S2).put(1, S1).build();
         expectedKeys = new Integer[] { 3, 2, 1 };
         expectedValues = new String[] { S3, S2, S1 };
         i = 0;
