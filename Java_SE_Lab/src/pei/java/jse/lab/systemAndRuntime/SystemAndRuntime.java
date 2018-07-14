@@ -8,21 +8,18 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Properties;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 
  * @author pei
- *
  */
 @Slf4j
 public class SystemAndRuntime {
@@ -58,7 +55,7 @@ public class SystemAndRuntime {
 	@Test
     public void fileSystem() {
         File[] roots = File.listRoots();
-        assertThat(roots.length > 0);
+        assertThat(roots.length).isGreaterThan(0);
         log.info("FS roots: {}", Arrays.toString(roots));
         log.info("Abs Path: {}", roots[0].getAbsolutePath());
         log.info("Total Space: {} or {}"
@@ -81,11 +78,11 @@ public class SystemAndRuntime {
     public void thePaths() {
     	
 		if(SystemUtils.IS_OS_LINUX) {
-            assertThat(Paths.get("/what/ever/path/" + FILE_NAME).getFileName().toString(), is(FILE_NAME));
+            assertEquals(FILE_NAME, Paths.get("/what/ever/path/" + FILE_NAME).getFileName().toString());
         }else if(SystemUtils.IS_OS_WINDOWS){
-            assertThat(Paths.get("C:\\what\\ever\\path\\" + FILE_NAME).getFileName().toString(), is(FILE_NAME));
+            assertEquals(FILE_NAME, Paths.get("C:\\what\\ever\\path\\" + FILE_NAME).getFileName().toString());
         }else {
-        	Assert.fail(UNSUPPORTED_CASE);
+        	fail(UNSUPPORTED_CASE);
         }
 		
     }
@@ -102,9 +99,9 @@ public class SystemAndRuntime {
 		capitals.put("Illinois", "Springfield");
 		capitals.put("California", "Sacramento");
 		
-		assertThat(capitals.getProperty("Washington")).isEqualTo("Olympia");
-		assertThat(capitals.getProperty("Florida")).isEqualTo("Tallahassee");
-		assertThat(capitals.getProperty(NON_EXIST)).isNull();
+		assertEquals("Olympia", capitals.getProperty("Washington"));
+		assertEquals("Tallahassee", capitals.getProperty("Florida"));
+		assertNull(capitals.getProperty(NON_EXIST));
 		
     }
 }

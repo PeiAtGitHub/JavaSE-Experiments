@@ -1,12 +1,11 @@
 package pei.java.jse.lab.language;
 
-import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
 /**
- * 
  * @author pei
- *
  */
 public class InitializationDemo {
     

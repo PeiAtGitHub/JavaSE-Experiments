@@ -1,81 +1,68 @@
 package pei.java.jse.lab.language;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.is;
 import static org.assertj.core.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static com.github.peiatgithub.java.utils.Utils.*;
-
 import java.util.Random;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 
  * @author pei
- *
  */
 @Slf4j
 public class Numbers {
 	
 	 @Test
 		public void division() throws Exception {
+	    	assertEquals(0, 3/5);
+	    	assertEquals(0.6, 3.0/5);
 
-	    	assertThat(3/5, is(0));
-	    	assertThat(3.0/5, is(0.6d));
-
-	    	assertThat(5/3, is(1));
-	    	assertThat(5/3.0, is(1.6666666666666667d));
-
+	    	assertEquals(1, 5/3);
+	    	assertEquals(1.6666666666666667d, 5/3.0);
 		}
 	    
 	    @Test
 	    public void modOperator(){
-	    	
 	        assertEquals(0, 0 % 255);
 	        assertEquals(180, 180 % 255);
 	        assertEquals(0, 255 % 255);
 	        assertEquals(5, 155555 % 255);
-	        
 	    }
 
 
     @Test
     public void someMathUtils() {
-        
-    	assertThat(Math.round(0.4), is(0l));
-    	assertThat(Math.round(0.6), is(1l));
+        assertEquals(0, Math.round(0.4));
+        assertEquals(1, Math.round(0.6));
         
         assertThat(Math.random()).isGreaterThanOrEqualTo(0d).isLessThan(1d);
         
-        assertThat(Math.max(1, 2), is(2));
-        assertThat(Math.min(1, 2), is(1));
+        assertEquals(2, Math.max(1, 2));
+        assertEquals(1, Math.min(1, 2));
         
-        assertThat(Math.pow(2, 8), is(256d));
-        assertThat(Math.sqrt(36), is(6d));
-        assertThat(Math.toDegrees(Math.PI), is(180d));
-
+        assertEquals(256, Math.pow(2, 8));
+        assertEquals(6, Math.sqrt(36));
+        assertEquals(180, Math.toDegrees(Math.PI));
     }
     
     @Test
 	public void someNumberUtils() throws Exception {
-		
-    	assertThat(Integer.compare(1, 1), is(0));
-    	assertThat(Integer.max(1, 2), is(2));
-    	assertThat(Integer.parseInt("1"), is(1));
-    	assertThat(Integer.valueOf("1"), is(1));
+        assertEquals(0, Integer.compare(1, 1));
+        assertEquals(2, Integer.max(1, 2));
+        assertEquals(1, Integer.parseInt("1"));
+        assertEquals(new Integer(1), Integer.valueOf("1"));
 
-    	assertThat(Double.compare(1, 1), is(0));
-    	assertThat(Double.max(22d/7d, Math.PI), is(22d/7d));
-    	
+        assertEquals(0, Double.compare(1, 1));
+        assertEquals(22d/7d, Double.max(22d/7d, Math.PI));
 	}
     
     @Test
     public void numberWrappers() {
-        assertThat(new Integer(3).toString(), is("3"));
-        assertThat(new Double(3.3).toString(), is("3.3"));
+        assertEquals("3", new Integer(3).toString());
+        assertEquals("3.3", new Double(3.3).toString());
     }
 
 
@@ -94,7 +81,7 @@ public class Numbers {
         assertThat((Integer.MAX_VALUE * 123)).isLessThan(Integer.MAX_VALUE);
         
         log.info("Interesting to Know, Integer.MIN_VALUE == -Integer.MAX_VALUE-1");
-        assertThat(Integer.MIN_VALUE, is(-Integer.MAX_VALUE-1));
+        assertEquals(-Integer.MAX_VALUE-1, Integer.MIN_VALUE);
         assertThat((Integer.MIN_VALUE - 1)).isGreaterThan(Integer.MIN_VALUE);// overflow
     }
     

@@ -1,32 +1,28 @@
 package pei.java.jse.lab.language;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import static org.assertj.core.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static com.github.peiatgithub.java.utils.Constants.*;
 import java.util.Objects;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
- * 
  * @author Pei
- *
  */
 public class ObjectsUtils {
 
     @Test
-    public void testNullnessChecking(){
+    public void testNullnessChecking() {
         // Null checking made one liner.
         final String STH_IS_NULL = "Sth is null";
-		assertThatThrownBy(()->Objects.requireNonNull(null, STH_IS_NULL)).isInstanceOf(NPE).hasMessage(STH_IS_NULL);
+        assertThatThrownBy(() -> Objects.requireNonNull(null, STH_IS_NULL)).isInstanceOf(NPE).hasMessage(STH_IS_NULL);
     }
 
     @Test
-    public void toStringDemo(){
-    	assertThat(Objects.toString(STR), is(STR));
-    	assertThat(Objects.toString(null), is(NULL_TEXT));
+    public void toStringDemo() {
+        assertEquals(STR, Objects.toString(STR));
+        assertEquals(NULL_TEXT, Objects.toString(null));
     }
 
 }

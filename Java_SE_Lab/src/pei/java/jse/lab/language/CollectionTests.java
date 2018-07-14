@@ -1,8 +1,12 @@
 package pei.java.jse.lab.language;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.github.peiatgithub.java.utils.collections.MapBuilder;
 import com.google.common.collect.ImmutableMap;
@@ -21,9 +25,7 @@ import com.google.common.collect.ImmutableMap;
 import static com.github.peiatgithub.java.utils.Constants.*;
 
 /**
- * 
  * @author pei
- *
  */
 public class CollectionTests {
 
@@ -38,8 +40,8 @@ public class CollectionTests {
     public void someCollectionsUtils() {
         List<Integer> aList = Arrays.asList(5, 2, 1, 4, 3);
 
-        assertThat(Collections.max(aList), is(5));
-        assertThat(Collections.min(aList), is(1));
+        assertThat(Collections.max(aList)).isEqualTo(5);
+        assertThat(Collections.min(aList)).isEqualTo(1);
 
         assertThat(aList).containsExactly(5, 2, 1, 4, 3);
         Collections.reverse(aList);
@@ -105,42 +107,27 @@ public class CollectionTests {
         assertThat(theMap).containsAllEntriesOf(TEST_MAP_123);
 
         // non-existing key
-        assertThat(theMap.get("XXX")).isNull();
-        assertThat(theMap.remove("XXX")).isNull();
+        assertNull(theMap.get("XXX"));
+        assertNull(theMap.remove("XXX"));
         // map.remove() returns the Value
-        assertThat(theMap.remove(S1), is(1));
+        assertThat(theMap.remove(S1)).isEqualTo(1);
         // set.remove() returns boolean
-        assertThat(theMap.keySet().remove(S1)).isFalse();
-        assertThat(theMap.keySet().remove(S2));
-        assertThat(theMap.size(), is(1));
+        assertFalse(theMap.keySet().remove(S1));
+        assertTrue(theMap.keySet().remove(S2));
+        assertThat(theMap).hasSize(1);
     }
 
     @Test
     public void linkedHashMapKeepsInsertionOrder() throws Exception {
 
         LinkedHashMap<Integer, String> lhm1 = new LinkedHashMap<Integer, String>(ImmutableMap.of(1, S1, 3, S3, 2, S2));
-
-        Integer[] expectedKeys = new Integer[] { 1, 3, 2 };
-        String[] expectedValues = new String[] { S1, S3, S2 };
-        int i = 0;
-        for (Entry entry : lhm1.entrySet()) {
-            assertThat(entry.getKey(), is(expectedKeys[i]));
-            assertThat(entry.getValue(), is(expectedValues[i]));
-            i++;
-        }
-        assertThat(i, is(3));
+        assertThat(lhm1.keySet()).containsExactly(1, 3, 2);
+        assertThat(lhm1.values()).containsExactly(S1, S3, S2);
         
         // another approach test
         LinkedHashMap<Integer, String> lhm2 = MapBuilder.linkedHashMap(3, S3).put(2, S2).put(1, S1).build();
-        expectedKeys = new Integer[] { 3, 2, 1 };
-        expectedValues = new String[] { S3, S2, S1 };
-        i = 0;
-        for (Integer k: lhm2.keySet()) {
-            assertThat(k, is(expectedKeys[i]));
-            assertThat(lhm2.get(k), is(expectedValues[i]));
-            i++;
-        }
-        assertThat(i, is(3));
+        assertThat(lhm2.keySet()).containsExactly(3, 2, 1);
+        assertThat(lhm2.values()).containsExactly(S3, S2, S1);
     }
 
     @Test
@@ -153,9 +140,9 @@ public class CollectionTests {
 
         // default initial values
         for (int i = 0; i < n; i++) {
-            assertThat(longArr[i]).isEqualTo(0);
-            assertThat(strArr[i]).isNull();
-            assertThat(booleanArr[i]).isFalse();
+            assertEquals(0, longArr[i]);
+            assertNull(strArr[i]);
+            assertFalse(booleanArr[i]);
         }
 
     }

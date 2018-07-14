@@ -6,51 +6,46 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.Test;
+
 import static com.github.peiatgithub.java.utils.Constants.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 /**
- * 
  * @author pei
- *
  */
 public class StreamDemo {
 
-    static final List<String> strList = Arrays.asList("abc", "", "bc", "efg", "abcd", "", "", "jkl");
+    private static final List<String> STR_LIST = Arrays.asList("abc", "", "bc", "efg", "abcd", "", "", "jkl");
 
-    public static void main(String[] args) {
-        //
-        System.out.println("Filtered Strs: " + strList.stream().filter(s -> !s.isEmpty()).collect(Collectors.toList()));
+    @Test
+    void stream() throws Exception {
+
+        assertThat(STR_LIST.stream().filter(s -> !s.isEmpty()).collect(Collectors.toList())).containsExactly("abc",
+                "bc", "efg", "abcd", "jkl");
 
         // Random stream
-        System.out.print("Print 3 random integers:");
-        new Random().ints(3, 0, 100).forEach(i -> System.out.print(i + SEMICOLON));
-        System.out.println();
-        // limit
-        System.out.print("Print another 3 random integers:");
-        new Random().ints(0, 100).limit(3).forEach(i -> System.out.print(i + SEMICOLON));
-        System.out.println();
-        // sort
-        System.out.print("Print yet another 3 random integers, sorted:");
-        new Random().ints(3, 0, 100).sorted().forEach(i -> System.out.print(i + SEMICOLON));
-        System.out.println();
+        new Random().ints(3, 0, 100).forEach(i -> assertThat(i).isBetween(0, 99));
+        // with limit
+        new Random().ints(0, 100).limit(3).forEach(i -> assertThat(i).isGreaterThanOrEqualTo(0).isLessThan(100));
 
-        // map
-        System.out.println("Unique squares: "
-                + Arrays.asList(3, -3, 6, 6, 5).stream().map(i -> i * i).distinct().collect(Collectors.toList()));
+        System.out.println("Sorted randome number: ");
+        new Random().ints(3, 0, 100).sorted().forEach(i -> System.out.print(i + COMMA));
 
-        // get count of empty string
-        System.out.format("Empty string count: %d%n", strList.parallelStream().filter(s -> s.isEmpty()).count());
+        assertThat(Arrays.asList(3, -3, 6, 6, 5).stream().map(i -> i * i).distinct().collect(Collectors.toList()))
+                .containsExactly(9, 36, 25);
 
-        // collectors
-        System.out.println(
-                "Merged String: " + strList.stream().filter(s -> !s.isEmpty()).collect(Collectors.joining(", ")));
+        assertEquals(3, STR_LIST.parallelStream().filter(s -> s.isEmpty()).count());
+
+        assertEquals("abc, bc, efg, abcd, jkl",
+                STR_LIST.stream().filter(s -> !s.isEmpty()).collect(Collectors.joining(", ")));
 
         // stats
         IntSummaryStatistics stats = Arrays.asList(3, 2, 2, 3, 7, 3, 5).stream().mapToInt(x -> x).summaryStatistics();
-        System.out.println("Max: " + stats.getMax());
-        System.out.println("Min: " + stats.getMin());
-        System.out.println("Sum: " + stats.getSum());
-        System.out.println("Avg: " + stats.getAverage());
+        assertEquals(7, stats.getMax());
+        assertEquals(2, stats.getMin());
+        assertEquals(25, stats.getSum());
+        assertEquals(3.5714285714285716, stats.getAverage());
     }
-
 }

@@ -1,12 +1,13 @@
 package pei.java.jse.lab.threading;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.concurrent.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -15,7 +16,6 @@ import org.junit.Test;
  * @author pei
  *
  */
-
 public class CallableAndFuture {
 
     final static String TASK_RETURNED_TEXT = "Callable Task Finished";
@@ -26,22 +26,22 @@ public class CallableAndFuture {
 
         Callable<String> theTask = new CallableTask();
         Future<String> future = threadPool.submit(theTask);
-        assertThat(future.get(), is(TASK_RETURNED_TEXT));
+        assertEquals(TASK_RETURNED_TEXT, future.get());
 
         FutureTask<String> fTask = new FutureTask<String>(theTask);
         threadPool.submit(fTask);
-        assertThat(fTask.get(), is(TASK_RETURNED_TEXT));
+        assertEquals(TASK_RETURNED_TEXT, fTask.get());
 
         threadPool.shutdown();
 
         future = Executors.newCachedThreadPool().submit(theTask);
         
         final Future<String> tmpFuture = future; // this is only to make the below lamda work.
-        assertThatThrownBy(()->tmpFuture.get(1, TimeUnit.SECONDS)).isInstanceOf(TimeoutException.class);
+        assertThrows(TimeoutException.class, ()->tmpFuture.get(1, TimeUnit.SECONDS));
         
         future.cancel(true);
-        assertThat(future.isCancelled());
-        assertThat(future.isDone());
+        assertTrue(future.isCancelled());
+        assertTrue(future.isDone());
     }
 }
 

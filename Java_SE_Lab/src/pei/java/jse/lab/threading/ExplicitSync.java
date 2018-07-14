@@ -1,8 +1,7 @@
 package pei.java.jse.lab.threading;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static com.github.peiatgithub.java.utils.Utils.*;
 import static com.github.peiatgithub.java.utils.Constants.*;
 
@@ -12,17 +11,14 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 
  * @author pei
- *
  */
 public class ExplicitSync {
 
@@ -34,7 +30,7 @@ public class ExplicitSync {
         t1.join();
         t2.join();
         // without the sync mechanism, the result should be a random number
-        assertThat(counter.getCount(), is(0));
+        assertEquals(0, counter.getCount());
     }
 
     @Test
@@ -61,10 +57,11 @@ public class ExplicitSync {
         }
         latch.await();
         printlnWithThreadName("All threads finished. Available permits: " + semp.availablePermits());
-        assertThat(semp.availablePermits(), is(numOfPermits));
+        assertEquals(numOfPermits, semp.availablePermits());
     }
     
-    @Test @Ignore("This method got stuck.")
+    @Test 
+    @Disabled("This method got stuck.")
     public void deadLockDemo() throws InterruptedException {
 
         final Object resource1 = new Object();
@@ -97,7 +94,7 @@ public class ExplicitSync {
         t1.join();
         t2.join();
         
-        Assert.fail(CODE_SHOULD_NOT_REACH_HERE);
+        fail(CODE_SHOULD_NOT_REACH_HERE);
         
         /*
          * Sync cannot be interrupted.

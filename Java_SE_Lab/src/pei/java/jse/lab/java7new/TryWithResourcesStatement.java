@@ -1,13 +1,13 @@
 package pei.java.jse.lab.java7new;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.github.peiatgithub.java.utils.RunFlag;
 import java.io.IOException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 /**
  * The try-with-resources Statement
@@ -28,10 +28,13 @@ public class TryWithResourcesStatement {
 		
 		try(AnAutoCloseableResource aacr = new AnAutoCloseableResource()){
 		};
-		assertThat(RunFlag.runTimes(), is(1));
+		
+		assertEquals(1, RunFlag.runTimes());
+		
 		try(AnCloseableResource acr = new AnCloseableResource()){
 		};
-		assertThat(RunFlag.runTimes(), is(2));
+		
+		assertEquals(2, RunFlag.runTimes());
 		
 		RunFlag.reset();
 	}

@@ -2,12 +2,10 @@ package pei.java.jse.lab.threading;
 
 import java.util.Arrays;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
- * 
  * @author pei
- *
  */
 public class ThreadingMiscs {
     

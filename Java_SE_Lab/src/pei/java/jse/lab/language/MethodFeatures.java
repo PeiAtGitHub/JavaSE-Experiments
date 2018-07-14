@@ -1,21 +1,20 @@
 package pei.java.jse.lab.language;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.google.common.collect.Lists;
 
 import pei.java.jse.lab.utils.Person;
 
 /**
- * 
  * @author pei
- *
  */
 public class MethodFeatures {
 	
@@ -36,11 +35,11 @@ public class MethodFeatures {
     public void testPassingArgs() throws Exception {
         int i = 1;
         manipulatePrimitive(i);
-        assertThat(i, is(1));
+        assertEquals(1,  i);
 
         String s = "abc";
         manipulateString(s);
-        assertThat(s, is("abc"));
+        assertEquals("abc", s);
         
         ArrayList<String> list = Lists.newArrayList("abc");
         manipulateList(list);
@@ -48,8 +47,7 @@ public class MethodFeatures {
         
         Person p = new Person("AAA", "AAA", 0);
         manipulateObj(p);
-        assertThat(p.getFirstName(), is("BBB"));
-        
+        assertEquals("BBB", p.getFirstName());
     }
     
 
@@ -59,11 +57,11 @@ public class MethodFeatures {
 		boolean pass1 = false;
 		int pass2;
 
-		assertThat(testPassInBl(pass1 = true));
-		assertThat(testPassInBl(pass1 = false)).isFalse();
+		assertTrue(testPassInBl(pass1 = true));
+		assertFalse(testPassInBl(pass1 = false));
 
-		assertThat(testPassInNum(pass2 = 1), is(1));
-		assertThat(testPassInNum(pass2 = 100), is(100));
+		assertEquals(1, testPassInNum(pass2 = 1));
+		assertEquals(100, testPassInNum(pass2 = 100));
 		
 	}
 

@@ -1,21 +1,19 @@
 package pei.java.jse.lab.java7new;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 
 import static com.github.peiatgithub.java.utils.Constants.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
 
 /**
  * @author Pei
  */
 public class SwitchTakesString {
 
-
     @Test
-    public void testSwitchTakesString() {
+    public void switchTakesString() {
         /*
          * Since Java 7 the good old 'switch' takes a string
          */
@@ -30,7 +28,7 @@ public class SwitchTakesString {
             break;
         }
 
-        assertThat(msg, is(FIRST_NAME));
+        assertEquals(FIRST_NAME, msg);
     }
     
 }

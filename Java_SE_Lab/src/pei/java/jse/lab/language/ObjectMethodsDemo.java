@@ -4,15 +4,17 @@ import static com.github.peiatgithub.java.utils.Constants.*;
 
 import java.util.Random;
 
-import static org.assertj.core.api.Assertions.*;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 /**
- * 
  * @author pei
- *
  */
 public class ObjectMethodsDemo {
 	
@@ -36,21 +38,19 @@ public class ObjectMethodsDemo {
 		final Object aNullableObj = isNull ? null : NULL_TEXT; 
 		
 		if(isNull) {
-			assertThat(NULL_TEXT.equals(aNullableObj)).isFalse();
-			assertThatThrownBy(()->aNullableObj.equals(NULL_TEXT)).isInstanceOf(NPE);
+			assertFalse(NULL_TEXT.equals(aNullableObj));
+			assertThrows(NPE, ()->aNullableObj.equals(NULL_TEXT));
 		}else {
-			assertThat(NULL_TEXT.equals(aNullableObj));
-			assertThat(aNullableObj.equals(NULL_TEXT));
+			assertTrue(NULL_TEXT.equals(aNullableObj));
+			assertTrue(aNullableObj.equals(NULL_TEXT));
 		}
-		
 	}
 	
 	
 	@Test
+	@Disabled
 	public void hashCodeMethod() throws Exception {
 		//TODO
-		Assert.fail("This test has not been implemented.");
-		
 	}
 
 }

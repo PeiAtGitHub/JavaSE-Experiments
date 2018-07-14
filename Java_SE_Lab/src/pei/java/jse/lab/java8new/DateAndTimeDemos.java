@@ -1,6 +1,7 @@
 package pei.java.jse.lab.java8new;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -13,14 +14,12 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 
  * @author pei
- *
  */
 @Slf4j
 public class DateAndTimeDemos {
@@ -39,8 +38,9 @@ public class DateAndTimeDemos {
         log.info("4: {}", LocalTime.of(23, 59));
         log.info("5: {}", LocalTime.parse("23:59:59"));
 
-        assertThat(localDateTime.isAfter(LocalDateTime.MIN));
-        assertThat(localDateTime.isBefore(LocalDateTime.MAX));
+        assertTrue(localDateTime.isAfter(LocalDateTime.MIN));
+        assertTrue(localDateTime.isBefore(LocalDateTime.MAX));
+
         log.info("Month 100 days later: {}", localDateTime.plusDays(100).getMonthValue());
         log.info("Years to the Java supported MAX date: {}", localDateTime.until(LocalDateTime.MAX, ChronoUnit.YEARS));
 
@@ -74,9 +74,10 @@ public class DateAndTimeDemos {
 
         // adjusters
         log.info("Next Monday : {}", localDate.with(TemporalAdjusters.next(DayOfWeek.MONDAY)));
-        log.info("2nd Saturday of this month : {}", LocalDate.of(localDate.getYear(), localDate.getMonth(), 1)
-                .with(TemporalAdjusters.nextOrSame(DayOfWeek.SATURDAY))
-                .with(TemporalAdjusters.next(DayOfWeek.SATURDAY)));
+        log.info("2nd Saturday of this month : {}",
+                LocalDate.of(localDate.getYear(), localDate.getMonth(), 1)
+                        .with(TemporalAdjusters.nextOrSame(DayOfWeek.SATURDAY))
+                        .with(TemporalAdjusters.next(DayOfWeek.SATURDAY)));
     }
 
 }

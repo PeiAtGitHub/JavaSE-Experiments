@@ -3,16 +3,14 @@ package pei.java.jse.lab.specialty;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import lombok.RequiredArgsConstructor;
 
 import static com.github.peiatgithub.java.utils.Utils.*;
 
 /**
- * 
  * @author pei
- *
  */
 public class TestTimer {
     

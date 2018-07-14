@@ -1,10 +1,12 @@
 package pei.java.jse.lab.language.pkg;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import pei.java.jse.lab.language.pkg.subPkg.MethodsAccessExample;
 
-
+/**
+ * @author pei
+ */
 public class MethodAccessOutsideExample {
 
     @Test

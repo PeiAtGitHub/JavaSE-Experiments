@@ -1,49 +1,46 @@
 package pei.java.jse.lab.language;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static com.github.peiatgithub.java.utils.Constants.*;
 
 /**
- * 
  * @author pei
- *
  */
 public class StringAndCharTests {
 
     private static final String STRING_UNDER_SEARCH = "abc-xxxxx-abbbc-ac";
-	private static final String REGEX_RELUCTANT = "a.+?c";
-	private static final String REGEX_GREEDY = "a.+c";
-	private static final String ABC = "abc";
+    private static final String REGEX_RELUCTANT = "a.+?c";
+    private static final String REGEX_GREEDY = "a.+c";
+    private static final String ABC = "abc";
 
-	@Test
+    @Test
     public void testStringBuilder() throws Exception {
-        
-	    StringBuilder sb = new StringBuilder();
-	    assertThat(sb.length()).isEqualTo(0);
-	    assertThat(sb.toString()).isEqualTo(EMPTY);
 
-	    sb = new StringBuilder(EMPTY);
-	    assertThat(sb.length()).isEqualTo(0);
-	    assertThat(sb.toString()).isEqualTo(EMPTY);
-	    
+        assertEquals(0, EMPTY.length());
+        
+        StringBuilder sb = new StringBuilder();
+        assertEquals(0, sb.length());
+        assertEquals(EMPTY, sb.toString());
+
+        sb = new StringBuilder(EMPTY);
+        assertEquals(0, sb.length());
+        assertEquals(EMPTY, sb.toString());
+
     }
-	
-	@Test
-	public void testLen() {
-		assertThat(EMPTY.length()).isEqualTo(0);
-		assertThat((new StringBuilder(EMPTY)).length()).isEqualTo(0);
-	}
-	
-	@Test
+
+    @Test
     public void testIndexing() {
         /*
          * The convention of indexing is: begin index is inclusive, end index is
@@ -51,24 +48,24 @@ public class StringAndCharTests {
          */
         String str = "1,1;2,2;3,3;";
 
-        assertThat(str.indexOf(SEMICOLON), is(3));
-        assertThat(str.indexOf(SEMICOLON, 3), is(3)); // begin index inclusive
-        assertThat(str.indexOf(SEMICOLON, 4), is(7));
-        assertThat(str.indexOf(ABC), is(-1));
+        assertEquals(3, str.indexOf(SEMICOLON));
+        assertEquals(3, str.indexOf(SEMICOLON, 3)); // begin index inclusive
+        assertEquals(7, str.indexOf(SEMICOLON, 4));
+        assertEquals(-1, str.indexOf(ABC));
 
-        assertThat(str.substring(0, 2), is("1,"));
-        assertThat(str.substring(0), is(str));
-        assertThat(str.substring(str.length() - 1), is(SEMICOLON));
+        assertEquals("1,", str.substring(0, 2));
+        assertEquals(str, str.substring(0));
+        assertEquals(SEMICOLON, str.substring(str.length() - 1));
         assertThat(str.substring(str.length())).isEmpty(); // this behavior, i think, makes no sense
 
-        assertThatThrownBy(()->str.substring(str.length() + 1)).isInstanceOf(IOBE);
+        assertThatThrownBy(() -> str.substring(str.length() + 1)).isInstanceOf(IOBE);
     }
 
     @Test
     public void testEquals() {
         String s1 = "abc";
         String s2 = "abc";
-        assertEquals(s1,  s2);
+        assertEquals(s1, s2);
         assertSame(s1, s2); // literal defined same-content strings are actually one object internally
 
         s1 = new String("abc");
@@ -76,11 +73,11 @@ public class StringAndCharTests {
         assertEquals(s1, s2);
         assertNotSame(s1, s2);
     }
-    
+
     @Test
-	public void testFormat() throws Exception {
-    	assertThat(String.format(ABC, "def"), is(ABC));
-	}
+    public void testFormat() throws Exception {
+        assertEquals(ABC, String.format(ABC, "def"));
+    }
 
     @Test
     public void testNoSpliter() {
@@ -89,38 +86,32 @@ public class StringAndCharTests {
 
     @Test
     public void numberToChar() {
-    	assertThat((char) (48), is('0'));
-    	assertThat((char) (49), is('1'));
-    	assertThat((char) (72), is('H'));
-    	assertThat((char) (73), is('I'));
-        // each char above takes only one byte (0~127)
-        // each char below takes more than one byte
-    	assertThat((char) (196), is('Ä'));
-    	assertThat((char) (256), is('Ā'));
-    	assertThat((char) (1234567), is('횇'));
+        assertEquals('0', (char) (48));
+        assertEquals('1', (char) (49));
+        assertEquals('H', (char) (72));
+        assertEquals('I', (char) (73));
     }
 
     @Test
     public void demoOfSpecialChars() {
-        assertThat(String.format("\u007C"), is("|"));
-        assertThat(String.format("\u00F1"), is("ñ"));
-        assertThat(String.format("\\u007C"), is("\\u007C"));
+        
+        assertEquals("|", String.format("\u007C"));
+        assertEquals("\\u007C", String.format("\\u007C"));
 
         String first = "AAA\r\nBBB\r\nCCC\r\n";
         String second = "AAA\nBBB\nCCC\n";
         String third = "AAA\rBBB\rCCC\r";
-        assertThat(first.length(), is(15));
-        assertThat(second.length(), is(12));
-        assertThat(third.length(), is(12));
-         
+        assertEquals(15, first.length());
+        assertEquals(12, second.length());
+        assertEquals(12, third.length());
+
         System.out.print(first);
         System.out.print(second);
         System.out.print(third);
     }
 
     /*
-     * Regex tests.
-     * Regex behavior from language to language may vary, e.g. Java and
+     * Regex tests. Regex behavior from language to language may vary, e.g. Java and
      * Python
      * 
      * "^"(begin) and "$"(end) are necessary for some languages in some cases, while
@@ -140,50 +131,50 @@ public class StringAndCharTests {
         assertTrue(matcher.find());
         switch (regex) {
         case REGEX_GREEDY:
-        	assertThat(matcher.group(), is(STRING_UNDER_SEARCH));
-            assertThat(matcher.start(), is(0));
-            assertThat(matcher.end(), is(18));
+            assertEquals(STRING_UNDER_SEARCH, matcher.group());
+            assertEquals(0, matcher.start());
+            assertEquals(18, matcher.end());
             break;
         case REGEX_RELUCTANT:
-            assertThat(matcher.group(), is(ABC));
-            assertThat(matcher.start(), is(0));
-            assertThat(matcher.end(), is(3));
+            assertEquals(ABC, matcher.group());
+            assertEquals(0, matcher.start());
+            assertEquals(3, matcher.end());
             break;
         default:
-        	throw new RuntimeException(UNSUPPORTED_CASE);
+            throw new RuntimeException(UNSUPPORTED_CASE);
         }
         // 2nd
         boolean found = matcher.find();
         switch (regex) {
         case REGEX_GREEDY:
-        	assertThat(found).isFalse();
+            assertFalse(found);
             break;
         case REGEX_RELUCTANT:
-        	assertThat(found);
-            assertThat(matcher.group(), is("abbbc"));
-            assertThat(matcher.start(), is(10));
-            assertThat(matcher.end(), is(15));
+            assertTrue(found);
+            assertEquals("abbbc", matcher.group());
+            assertEquals(10, matcher.start());
+            assertEquals(15, matcher.end());
             break;
         default:
-        	throw new RuntimeException(UNSUPPORTED_CASE);
+            throw new RuntimeException(UNSUPPORTED_CASE);
         }
         // 3rd
-        assertThat(matcher.find()).isFalse();
+        assertFalse(matcher.find());
     }
 
     @Test
     public void testMatches() {
-        String regex = new Random().nextBoolean()? REGEX_GREEDY : REGEX_RELUCTANT; 
+        String regex = new Random().nextBoolean() ? REGEX_GREEDY : REGEX_RELUCTANT;
         System.out.println("Regex: " + regex);
-        assertThat(STRING_UNDER_SEARCH.matches(regex));
+        assertTrue(STRING_UNDER_SEARCH.matches(regex));
     }
 
     @Test
     public void testExtraction() { // search matches
         Matcher matcher = Pattern.compile("First Name:(.*?); Last Name:")
-        		.matcher("First Name: Three; Last Name: Zhang");
-        assertThat(matcher.find());
-        assertThat(matcher.group(1).trim(), is("Three"));
+                .matcher("First Name: Three; Last Name: Zhang");
+        assertTrue(matcher.find());
+        assertEquals("Three", matcher.group(1).trim());
     }
 
 }

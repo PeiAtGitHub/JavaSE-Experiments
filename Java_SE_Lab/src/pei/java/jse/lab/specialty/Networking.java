@@ -1,6 +1,7 @@
 package pei.java.jse.lab.specialty;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -10,13 +11,10 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 
 /**
- * 
  * @author pei
- *
  */
 public class Networking {
 	
@@ -31,13 +29,13 @@ public class Networking {
         System.out.println(Arrays.toString(localHost.getAddress()));
         System.out.println(localHost.getHostAddress());
         System.out.println(localHost.getHostName());
-        assertThat(localHost.isReachable(1000));
+        assertTrue(localHost.isReachable(1000));
         
         InetAddress wikipediaAddress = InetAddress.getByName(DOMAIN_WIKIPEDIA);
         System.out.println(Arrays.toString(wikipediaAddress.getAddress()));
         System.out.println(wikipediaAddress.getHostAddress());
         System.out.println(wikipediaAddress.getHostName());
-        assertThat(wikipediaAddress.isReachable(3000));
+        assertTrue(wikipediaAddress.isReachable(3000));
     }
     
     @Test

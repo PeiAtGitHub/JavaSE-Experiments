@@ -3,16 +3,15 @@ package pei.java.jse.lab.language;
 import static com.github.peiatgithub.java.utils.Utils.*;
 import static com.github.peiatgithub.java.utils.Constants.*;
 
-import org.junit.Test;
-
 import com.github.peiatgithub.java.utils.RunFlag;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 /**
- * 
  * @author pei
- *
  */
 public class Miscs {
 
@@ -28,7 +27,7 @@ public class Miscs {
 		case 2:
 			fail(CODE_SHOULD_NOT_REACH_HERE);
 		case 3:
-			assertThat(RunFlag.runTimes()).isEqualTo(0);
+		    assertEquals(0, RunFlag.runTimes());
 			RunFlag.run();
 		case 4:
 			RunFlag.run();
@@ -40,7 +39,7 @@ public class Miscs {
 			RunFlag.run();
 		}
 		
-		assertThat(RunFlag.runTimes()).isEqualTo(5);
+		assertEquals(5, RunFlag.runTimes());
 		
 	}
 

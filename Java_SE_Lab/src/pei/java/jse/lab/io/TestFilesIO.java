@@ -1,8 +1,7 @@
 package pei.java.jse.lab.io;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,15 +12,13 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Properties;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static com.github.peiatgithub.java.utils.Constants.*;
 
 
 /**
- * 
  * @author pei
- *
  */
 public class TestFilesIO {
 
@@ -32,6 +29,7 @@ public class TestFilesIO {
 	@Test
 	public void testPropertiesFile() throws IOException {
 		Properties props = new Properties();
+		
 		// Properties has another constructor that takes a default Properties object
 		// which has default properties
 		// Demo for this feature is skipped here.
@@ -40,13 +38,11 @@ public class TestFilesIO {
         	props.load(in);
         };
         
-        assertThat(props.getProperty("p1"), is("abcdefg"));
-        assertThat(props.getProperty("p2"), is("1234567890"));
-        
-        assertThat(props.getProperty("p3")).isEmpty();
-        
-        assertThat(props.getProperty("NonExistentKey")).isNull();
-        assertThat(props.getProperty("NonExistentKey", DEFAULT_STR), is(DEFAULT_STR));
+        assertEquals("abcdefg", props.getProperty("p1"));
+        assertEquals("1234567890", props.getProperty("p2"));
+        assertEquals("", props.getProperty("p3"));
+        assertEquals(DEFAULT_STR, props.getProperty("NonExistentKey", DEFAULT_STR));
+        assertNull(props.getProperty("NonExistentKey"));
     }
     
     @Test

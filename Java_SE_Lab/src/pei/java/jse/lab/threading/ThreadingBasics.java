@@ -1,15 +1,15 @@
 package pei.java.jse.lab.threading;
+
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import static com.github.peiatgithub.java.utils.Utils.*;
 import com.github.peiatgithub.java.utils.NanoStopWatch;
 
-import org.junit.Test;
-
-
 /**
- * 
  * @author pei
- *
  */
 public class ThreadingBasics {
 
@@ -29,17 +29,17 @@ public class ThreadingBasics {
     @Test
     public void implRunnable() throws InterruptedException {
 
-    	printlnWithThreadName("Starting a separate thread");
-        
-    	NanoStopWatch.begin();
+        printlnWithThreadName("Starting a separate thread");
+
+        NanoStopWatch.begin();
         Thread thr = createAndStartThread(new MessageLooper());
         printlnWithThreadName("Waiting for the separate thread to finish");
 
         while (thr.isAlive()) {
-        	printlnWithThreadName("Waiting...");
+            printlnWithThreadName("Waiting...");
             thr.join(2000); // join(): current thread wait for thr to complete
             if (((NanoStopWatch.getMillis()) > 28000L) && thr.isAlive()) {// wait at most 28s
-            	printlnWithThreadName("Tired of waiting!");
+                printlnWithThreadName("Tired of waiting!");
                 thr.interrupt();
                 thr.join();
             }
@@ -61,13 +61,13 @@ public class ThreadingBasics {
         }
         thr.join();
     }
-    
+
     @Test
     public void interruption() throws InterruptedException {
-        Thread thr = createAndStartThread(()->threadSleep(10000));
-        assertThat(thr.isAlive());
+        Thread thr = createAndStartThread(() -> threadSleep(10000));
+        assertTrue(thr.isAlive());
         thr.interrupt();
-        assertThat(thr.isInterrupted());
+        assertTrue(thr.isInterrupted());
         thr.join();
     }
 
@@ -88,14 +88,14 @@ public class ThreadingBasics {
 
 //
 class ASimpleThread extends Thread {
-	public void run() {
-		printlnWithThreadName("ASimpleThread.run() starts!");
-		repeatRun(3, ()-> {
-			printlnWithThreadName(":)");
-			threadSleep(1000);
-		});
-		printlnWithThreadName("ASimpleThread.run() ends!");
-	}
+    public void run() {
+        printlnWithThreadName("ASimpleThread.run() starts!");
+        repeatRun(3, () -> {
+            printlnWithThreadName(":)");
+            threadSleep(1000);
+        });
+        printlnWithThreadName("ASimpleThread.run() ends!");
+    }
 }
 
 //

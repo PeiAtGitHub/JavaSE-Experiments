@@ -1,20 +1,17 @@
 package pei.java.jse.lab.threading;
 
 import static com.github.peiatgithub.java.utils.Utils.*;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Random;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import lombok.AllArgsConstructor;
 
 /**
- * 
  * @author pei
- *
  */
 public class ThreadLocalDemo {
     
@@ -27,8 +24,8 @@ public class ThreadLocalDemo {
             tlDemo.tlNumber.set(10);
             tlDemo.number = new Integer(10);
             
-            assertThat(tlDemo.tlNumber.get().intValue(), is(10));
-            assertThat(tlDemo.number.intValue(), is(10));
+            assertEquals(10, tlDemo.tlNumber.get().intValue());
+            assertEquals(10, tlDemo.number.intValue());
 
             ThrLocalSetter t1 = new ThrLocalSetter(50, tlDemo);
             ThrLocalSetter t2 = new ThrLocalSetter(100, tlDemo);
@@ -37,13 +34,13 @@ public class ThreadLocalDemo {
             thr1.join();
             thr2.join();
             
-            assertThat(tlDemo.tlNumber.get().intValue(), is(10));
-            assertThat(t1.getTlNumber(), is(10));
-            assertThat(t2.getTlNumber(), is(10));
+            assertEquals(10, tlDemo.tlNumber.get().intValue());
+            assertEquals(10, t1.getTlNumber());
+            assertEquals(10, t2.getTlNumber());
 
-            assertThat(tlDemo.number.intValue(), anyOf(is(50), is(100)));
-            assertThat(tlDemo.number.intValue(), is(t1.getNumber())); 
-            assertThat(t1.getNumber(), is(t2.getNumber())); 
+            assertThat(tlDemo.number.intValue()).isIn(50, 100);
+            assertEquals(t1.getNumber(), tlDemo.number.intValue()); 
+            assertEquals(t2.getNumber(), t1.getNumber()); 
         }
 
 }
@@ -60,7 +57,7 @@ class ThrLocalSetter implements Runnable {
     public void run() {
         this.tlt.tlNumber.set(n);
         threadSleep(new Random().nextInt(3000)); // max 3s
-        assertThat(getTlNumber(), is(n));
+        assertEquals(n, getTlNumber());
         this.tlt.number = n;
     }
     
