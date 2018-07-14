@@ -5,209 +5,208 @@ import java.util.Random;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.github.peiatgithub.java.utils.JavaRegexBuilder;
 import com.google.common.base.Strings;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.github.peiatgithub.java.utils.Constants.*;
 
 /**
- * 
  * @author pei
- *
  */
 public class Lang3Tests {
 
-	@Test
-	public void testRandomString() throws Exception {
-		
-		int n = 20;
-		
-		assertThat(RandomStringUtils.random(n)).hasSize(n).matches(getRegexBuilder().anyChar(n/2, n).build());
+    @Test
+    public void testRandomString() throws Exception {
 
-		assertThat(RandomStringUtils.randomAlphanumeric(n)).hasSize(n)
-			.matches(getRegexBuilder().lettersAndNumbers(n).build());
+        int n = 20;
 
-		assertThat(RandomStringUtils.randomAlphabetic(n)).hasSize(n)
-			.matches(getRegexBuilder().lettersIgnoreCase(n).build());
+        assertThat(RandomStringUtils.random(n)).hasSize(n).matches(getRegexBuilder().anyChar(n / 2, n).build());
 
-		assertThat(RandomStringUtils.randomNumeric(n)).hasSize(n).matches(getRegexBuilder().digit(n).build());
+        assertThat(RandomStringUtils.randomAlphanumeric(n)).hasSize(n)
+                .matches(getRegexBuilder().lettersAndNumbers(n).build());
 
-	}
+        assertThat(RandomStringUtils.randomAlphabetic(n)).hasSize(n)
+                .matches(getRegexBuilder().lettersIgnoreCase(n).build());
 
-	@Test
-	public void testValidate() {
-		assertThatThrownBy(() -> Validate.exclusiveBetween(100, 200, new Random().nextInt(100)))
-				.isInstanceOf(IAE);
-		assertThatThrownBy(() -> Validate.notBlank(Strings.repeat(SPACE, 3))).isInstanceOf(IAE);
-		assertThatThrownBy(() -> Validate.validState(false)).isInstanceOf(ISE);
-	}
+        assertThat(RandomStringUtils.randomNumeric(n)).hasSize(n).matches(getRegexBuilder().digit(n).build());
 
-	@Test
-	public void testStringUtils() throws Exception {
-		/*
-		 * Utils here are all NULL-SAFE
-		 */
-		assertThat(StringUtils.length(null), is(0));
+    }
 
-		// constants
-		assertThat(StringUtils.INDEX_NOT_FOUND, is(-1));
-		assertThat(StringUtils.SPACE, is(" "));
+    @Test
+    public void testValidate() {
+        assertThatThrownBy(() -> Validate.exclusiveBetween(100, 200, new Random().nextInt(100))).isInstanceOf(IAE);
+        assertThatThrownBy(() -> Validate.notBlank(Strings.repeat(SPACE, 3))).isInstanceOf(IAE);
+        assertThatThrownBy(() -> Validate.validState(false)).isInstanceOf(ISE);
+    }
 
-		// empty, blank
-		assertThat(StringUtils.isEmpty(null));
-		assertThat(StringUtils.isEmpty(EMPTY));
-		assertThat(StringUtils.isEmpty("   ")).isFalse();
+    @Test
+    public void testStringUtils() throws Exception {
+        /*
+         * Utils here are all NULL-SAFE
+         */
+        assertEquals(0, StringUtils.length(null));
 
-		assertThat(StringUtils.isBlank(null));
-		assertThat(StringUtils.isBlank(EMPTY));
-		assertThat(StringUtils.isBlank("   "));
+        // constants
+        assertEquals(-1, StringUtils.INDEX_NOT_FOUND);
+        assertEquals(" ", StringUtils.SPACE);
 
-		assertThat(StringUtils.defaultString(null, DEFAULT_STR), is(DEFAULT_STR));
-		assertThat(StringUtils.defaultString(STR, DEFAULT_STR), is(STR));
+        // empty, blank
+        assertTrue(StringUtils.isEmpty(null));
+        assertTrue(StringUtils.isEmpty(EMPTY));
+        assertFalse(StringUtils.isEmpty("   "));
 
-		assertThat(StringUtils.defaultIfBlank(null, DEFAULT_STR), is(DEFAULT_STR));
-		assertThat(StringUtils.defaultIfBlank("       ", DEFAULT_STR), is(DEFAULT_STR));
-		assertThat(StringUtils.defaultIfBlank(STR, DEFAULT_STR), is(STR));
-		assertThat(StringUtils.defaultIfEmpty(null, DEFAULT_STR), is(DEFAULT_STR));
-		assertThat(StringUtils.defaultIfEmpty("       ", DEFAULT_STR), is("       "));
-		assertThat(StringUtils.defaultIfEmpty(STR, DEFAULT_STR), is(STR));
+        assertTrue(StringUtils.isBlank(null));
+        assertTrue(StringUtils.isBlank(EMPTY));
+        assertTrue(StringUtils.isBlank("   "));
 
-		// truncate, sub string, split
-		assertThat(StringUtils.truncate(null, Math.abs(new Random().nextInt()))).isNull();
-		assertThat(StringUtils.truncate("123456789", 5), is("12345"));
-		assertThat(StringUtils.truncate("123456789", 8), is("12345678"));
-		assertThat(StringUtils.truncate("123456789", 10), is("123456789"));
+        assertEquals(DEFAULT_STR, StringUtils.defaultString(null, DEFAULT_STR));
+        assertEquals(STR, StringUtils.defaultString(STR, DEFAULT_STR));
 
-		assertThatThrownBy(() -> StringUtils.truncate("123456789", -1)).isInstanceOf(IAE);
+        assertEquals(DEFAULT_STR, StringUtils.defaultIfBlank(null, DEFAULT_STR));
+        assertEquals(DEFAULT_STR, StringUtils.defaultIfBlank("       ", DEFAULT_STR));
+        assertEquals(STR, StringUtils.defaultIfBlank(STR, DEFAULT_STR));
+        assertEquals(DEFAULT_STR, StringUtils.defaultIfEmpty(null, DEFAULT_STR));
+        assertEquals("       ", StringUtils.defaultIfEmpty("       ", DEFAULT_STR));
+        assertEquals(STR, StringUtils.defaultIfEmpty(STR, DEFAULT_STR));
 
-		assertThat(StringUtils.left("abcdef", 2), is("ab"));
-		assertThat(StringUtils.right("abcdef", 2), is("ef"));
-		assertThat(StringUtils.mid("abcdef", 3, 2), is("de"));
-		assertThat(StringUtils.substringBefore("abcdef", "cd"), is("ab"));
-		assertThat(StringUtils.substringAfter("abcdef", "cd"), is("ef"));
-		assertThat(StringUtils.substringBetween(",abcdef,", COMMA), is("abcdef"));
-		assertThat(StringUtils.substringBetween("...<tag>abcdef</tag>...", "<tag>", "</tag>"), is("abcdef"));
+        // truncate, sub string, split
+        assertNull(StringUtils.truncate(null, Math.abs(new Random().nextInt())));
+        assertEquals("12345", StringUtils.truncate("123456789", 5));
+        assertEquals("12345678", StringUtils.truncate("123456789", 8));
+        assertEquals("123456789", StringUtils.truncate("123456789", 10));
 
-		assertThat(StringUtils.substringsBetween("[a][b][c]", "[", "]")).containsExactly("a", "b", "c");
-		assertThat(StringUtils.split("abc  def")).containsExactly("abc", "def");
-		assertThat(StringUtils.split("a..b.c", '.')).containsExactly("a", "b", "c");
-		assertThat(StringUtils.splitByCharacterType("ab   de fg")).containsExactly("ab", "   ", "de", " ", "fg");
-		assertThat(StringUtils.splitByCharacterType("foo200BarDrink")).containsExactly("foo", "200", "B", "ar", "D",
-				"rink");
-		assertThat(StringUtils.splitByCharacterTypeCamelCase("foo200BarDrink")).containsExactly("foo", "200", "Bar",
-				"Drink");
+        assertThatThrownBy(() -> StringUtils.truncate("123456789", -1)).isInstanceOf(IAE);
 
-		assertThat(StringUtils.getDigits("(541) 754-3010"), is("5417543010"));
+        assertEquals("ab", StringUtils.left("abcdef", 2));
+        assertEquals("ef", StringUtils.right("abcdef", 2));
+        assertEquals("de", StringUtils.mid("abcdef", 3, 2));
+        assertEquals("ab", StringUtils.substringBefore("abcdef", "cd"));
+        assertEquals("ef", StringUtils.substringAfter("abcdef", "cd"));
+        assertEquals("abcdef", StringUtils.substringBetween(",abcdef,", COMMA));
+        assertEquals("abcdef", StringUtils.substringBetween("...<tag>abcdef</tag>...", "<tag>", "</tag>"));
 
-		// trim, strip, remove
-		assertThat(StringUtils.trim(null)).isNull();
-		assertThat(StringUtils.trim(EMPTY), is(EMPTY));
-		assertThat(StringUtils.trim("   "), is(EMPTY));
-		assertThat(StringUtils.trim("    abc    "), is("abc"));
-		assertThat(StringUtils.strip(null, "abc")).isNull();
-		assertThat(StringUtils.strip(" abc ", null), is("abc"));
-		assertThat(StringUtils.strip("  abcyx", "xyz"), is("  abc"));
-		assertThat(StringUtils.stripStart("y xabc  ", "xyz "), is("abc  "));
-		assertThat(StringUtils.stripStart("$$$%%%---a-b-c  ", "xyz$%- "), is("a-b-c  "));
-		assertThat(StringUtils.deleteWhitespace("   ab  c  "), is("abc"));
-		assertThat(StringUtils.remove("www.domain.www.com", "www."), is("domain.com"));
-		assertThat(StringUtils.removeIgnoreCase("www.domain.www.com", "www."), is("domain.com"));
-		assertThat(StringUtils.removeStart("www.domain.www.com", "www."), is("domain.www.com"));
-		assertThat(StringUtils.removeEnd("a;b;c;", SEMICOLON), is("a;b;c"));
-		assertThat(StringUtils.removeEndIgnoreCase("www.domain.COM", ".com"), is("www.domain"));
-		assertThat(StringUtils.removeAll("ABCabc123abc", "[a-z]"), is("ABC123"));
-		assertThat(StringUtils.removePattern("ABCabc123", "[a-z]"), is("ABC123"));
-		assertThat(StringUtils.chomp("abc\r"), is("abc"));
-		assertThat(StringUtils.chomp("abc\n"), is("abc"));
-		assertThat(StringUtils.chomp("abc\r\n"), is("abc"));
-		assertThat(StringUtils.chomp("abc\r\n\r\n"), is("abc\r\n"));
-		assertThat(StringUtils.chop("a;b;c;"), is("a;b;c"));
-		assertThat(StringUtils.chop("Hello,"), is("Hello"));
-		assertThat(StringUtils.chop("abc\r\n"), is("abc"));
-		assertThat(StringUtils.unwrap("'ab'", "'"), is("ab"));
+        assertThat(StringUtils.substringsBetween("[a][b][c]", "[", "]")).containsExactly("a", "b", "c");
+        assertThat(StringUtils.split("abc  def")).containsExactly("abc", "def");
+        assertThat(StringUtils.split("a..b.c", '.')).containsExactly("a", "b", "c");
+        assertThat(StringUtils.splitByCharacterType("ab   de fg")).containsExactly("ab", "   ", "de", " ", "fg");
+        assertThat(StringUtils.splitByCharacterType("foo200BarDrink")).containsExactly("foo", "200", "B", "ar", "D",
+                "rink");
+        assertThat(StringUtils.splitByCharacterTypeCamelCase("foo200BarDrink")).containsExactly("foo", "200", "Bar",
+                "Drink");
 
-		// replace
-		assertThat(StringUtils.replaceIgnoreCase("FoOFoofoo", "foo", "ABC"), is("ABCABCABC"));
-		assertThat(StringUtils.replaceOnceIgnoreCase("FoOFoofoo", "foo", "ABC"), is("ABCFoofoo"));
-		assertThat(StringUtils.replacePattern("ABCabc123", "[a-z]", "_"), is("ABC___123"));
-		assertThat(StringUtils.replaceEach("abcde", new String[] { "ab", "d" }, new String[] { "d", "t" }), is("dcte"));
-		assertThat(StringUtils.overlay("abcdef", "zzzz", 2, 4), is("abzzzzef"));
-		assertThat(StringUtils.upperCase("aBc"), is("ABC"));
-		assertThat(StringUtils.capitalize("hello"), is("Hello"));
-		assertThat(StringUtils.uncapitalize("Hello"), is("hello"));
-		assertThat(StringUtils.swapCase("Hello"), is("hELLO"));
-		assertThat(StringUtils.normalizeSpace("    This is     what they call normalize space   ")
-				, is("This is what they call normalize space"));
+        assertEquals("5417543010", StringUtils.getDigits("(541) 754-3010"));
 
-		// add, join
-		assertThat(StringUtils.join(EMPTY, null, "a"), is("a"));
-		assertThat(StringUtils.join("a", "b", "c"), is("abc"));
-		assertThat(StringUtils.join(TEST_INT_ARRAY_123, ';'), is("1;2;3"));
-		assertThat(StringUtils.join(1, ';'), is("1;"));
-		assertThat(StringUtils.join(TEST_LIST_123.iterator(), ';'), is("1;2;3"));
-		assertThat(StringUtils.joinWith(SEMICOLON, "a", "b", "c"), is("a;b;c"));
-		assertThat(StringUtils.repeat("Hello", 3), is("HelloHelloHello"));
-		assertThat(StringUtils.repeat("Hello", COMMA, 3), is("Hello,Hello,Hello"));
-		assertThat(StringUtils.rightPad("Hello", 3), is("Hello"));
-		assertThat(StringUtils.rightPad("Hello", 10), is("Hello     "));
-		assertThat(StringUtils.rightPad("Hello", 10, 'z'), is("Hellozzzzz"));
-		assertThat(StringUtils.rightPad("Hello", 10, "xyz"), is("Helloxyzxy"));
-		assertThat(StringUtils.leftPad("Hello", 10, "xyz"), is("xyzxyHello"));
-		assertThat(StringUtils.center("ME", 12, '$'), is("$$$$$ME$$$$$"));
-		assertThat(StringUtils.wrap("ab", '\''), is("'ab'"));
+        // trim, strip, remove
+        assertNull(StringUtils.trim(null));
+        assertEquals(EMPTY, StringUtils.trim(EMPTY));
+        assertEquals(EMPTY, StringUtils.trim("   "));
+        assertEquals("abc", StringUtils.trim("    abc    "));
+        assertNull(StringUtils.strip(null, "abc"));
+        assertEquals("abc", StringUtils.strip(" abc ", null));
+        assertEquals("  abc", StringUtils.strip("  abcyx", "xyz"));
+        assertEquals("abc  ", StringUtils.stripStart("y xabc  ", "xyz "));
+        assertEquals("a-b-c  ", StringUtils.stripStart("$$$%%%---a-b-c  ", "xyz$%- "));
+        assertEquals("abc", StringUtils.deleteWhitespace("   ab  c  "));
+        assertEquals("domain.com", StringUtils.remove("www.domain.www.com", "www."));
+        assertEquals("domain.com", StringUtils.removeIgnoreCase("www.domain.www.com", "www."));
+        assertEquals("domain.www.com", StringUtils.removeStart("www.domain.www.com", "www."));
+        assertEquals("a;b;c", StringUtils.removeEnd("a;b;c;", SEMICOLON));
+        assertEquals("www.domain", StringUtils.removeEndIgnoreCase("www.domain.COM", ".com"));
+        assertEquals("ABC123", StringUtils.removeAll("ABCabc123abc", "[a-z]"));
+        assertEquals("ABC123", StringUtils.removePattern("ABCabc123", "[a-z]"));
+        assertEquals("abc", StringUtils.chomp("abc\r"));
+        assertEquals("abc", StringUtils.chomp("abc\n"));
+        assertEquals("abc", StringUtils.chomp("abc\r\n"));
+        assertEquals("abc\r\n", StringUtils.chomp("abc\r\n\r\n"));
+        assertEquals("a;b;c", StringUtils.chop("a;b;c;"));
+        assertEquals("Hello", StringUtils.chop("Hello,"));
+        assertEquals("abc", StringUtils.chop("abc\r\n"));
+        assertEquals("ab", StringUtils.unwrap("'ab'", "'"));
 
-		// equal, comparison
-		assertThat(StringUtils.equals(null, null));
-		assertThat(StringUtils.equals("abc", null)).isFalse();
-		assertThat(StringUtils.equalsIgnoreCase("abc", "Abc"));
-		assertThat(StringUtils.difference("hello world", "hello there"), is("there"));
-		assertThat(StringUtils.difference("hallo world", "hello there"), is("ello there"));
-		assertThat(StringUtils.indexOfDifference("hallo world", "hello there") == 1);
+        // replace
+        assertEquals("ABCABCABC", StringUtils.replaceIgnoreCase("FoOFoofoo", "foo", "ABC"));
+        assertEquals("ABCFoofoo", StringUtils.replaceOnceIgnoreCase("FoOFoofoo", "foo", "ABC"));
+        assertEquals("ABC___123", StringUtils.replacePattern("ABCabc123", "[a-z]", "_"));
+        assertEquals("dcte", StringUtils.replaceEach("abcde", new String[] { "ab", "d" }, new String[] { "d", "t" }));
+        assertEquals("abzzzzef", StringUtils.overlay("abcdef", "zzzz", 2, 4));
+        assertEquals("ABC", StringUtils.upperCase("aBc"));
+        assertEquals("Hello", StringUtils.capitalize("hello"));
+        assertEquals("hello", StringUtils.uncapitalize("Hello"));
+        assertEquals("hELLO", StringUtils.swapCase("Hello"));
+        assertEquals("This is what they call normalize space",
+                StringUtils.normalizeSpace("    This is     what they call normalize space   "));
 
-		// indexing, containing
-		assertThat(StringUtils.ordinalIndexOf("abcdefgabcabc", "abc", 3), is(10));
-		assertThat(StringUtils.indexOfAny("abcdefgabcabc", 'b', 'f'), is(1));
-		assertThat(StringUtils.indexOfAny("abcdefgabcabc", "bf"), is(1));
-		assertThat(StringUtils.indexOfAnyBut("abcdefgabcabc", "abc"), is(3));
-		assertThat(StringUtils.contains(null, 'a')).isFalse();
-		assertThat(StringUtils.containsIgnoreCase("abcdefg", "ABC"));
-		assertThat(StringUtils.containsWhitespace("ab cdefg"));// Whitespace is defined by Character.isWhitespace(char).
-		assertThat(StringUtils.containsAny("abcdefgabcabc", 'b', 'f'));
-		assertThat(StringUtils.containsAny("abcdefgabcabc", "bf"));
-		assertThat(StringUtils.containsAny("abcdefgabcabc", "bf", "ae")).isFalse();
-		assertThat(StringUtils.containsAny("abcdefgabcabc", "bf", "ab"));
-		assertThat(StringUtils.containsOnly("abab", "abc"));
-		assertThat(StringUtils.containsOnly("abz", "abc")).isFalse();
-		assertThat(StringUtils.containsNone("abab", "xyz"));
-		assertThat(StringUtils.containsOnly("abz", "xyz")).isFalse();
-		assertThat(StringUtils.countMatches("abba", "ab") == 1);
-		assertThat(StringUtils.isAlphanumeric(RandomStringUtils.randomAlphanumeric(10)));
-		assertThat(StringUtils.startsWithIgnoreCase("abcxyz", "ABc"));
-		assertThat(StringUtils.startsWithAny("abcxyz", new String[] { "abc", "xyz" }));
+        // add, join
+        assertEquals("a", StringUtils.join(EMPTY, null, "a"));
+        assertEquals("abc", StringUtils.join("a", "b", "c"));
+        assertEquals("1;2;3", StringUtils.join(TEST_INT_ARRAY_123, ';'));
+        assertEquals("1;", StringUtils.join(1, ';'));
+        assertEquals("1;2;3", StringUtils.join(TEST_LIST_123.iterator(), ';'));
+        assertEquals("a;b;c", StringUtils.joinWith(SEMICOLON, "a", "b", "c"));
+        assertEquals("HelloHelloHello", StringUtils.repeat("Hello", 3));
+        assertEquals("Hello,Hello,Hello", StringUtils.repeat("Hello", COMMA, 3));
+        assertEquals("Hello", StringUtils.rightPad("Hello", 3));
+        assertEquals("Hello     ", StringUtils.rightPad("Hello", 10));
+        assertEquals("Hellozzzzz", StringUtils.rightPad("Hello", 10, 'z'));
+        assertEquals("Helloxyzxy", StringUtils.rightPad("Hello", 10, "xyz"));
+        assertEquals("xyzxyHello", StringUtils.leftPad("Hello", 10, "xyz"));
+        assertEquals("$$$$$ME$$$$$", StringUtils.center("ME", 12, '$'));
+        assertEquals("'ab'", StringUtils.wrap("ab", '\''));
 
-		// are the following features really useful...
-		assertThat(StringUtils.stripAccents(null)).isNull();
-		assertThat(StringUtils.stripAccents("éclair"), is("eclair"));
-		assertThat(StringUtils.stripAccents("über"), is("uber"));
-		assertThat(StringUtils.rotate("abcdefg", 2), is("fgabcde"));
-		assertThat(StringUtils.reverse("abcdefg"), is("gfedcba"));
-		assertThat(StringUtils.reverseDelimited("www.domain.com", '.'), is("com.domain.www"));
-		assertThat(StringUtils.abbreviate("This is a weird feature.", 10), is("This is..."));
-		assertThat(StringUtils.abbreviate("This is a weird feature.", 12), is("This is a..."));
-		assertThat(StringUtils.abbreviate("This is a weird feature.", 10, 12), is("...weird ..."));
-	}
-	
-	/*
-	 * 
-	 */
-	
-	private JavaRegexBuilder getRegexBuilder() {
-		return new JavaRegexBuilder();
-	}
-		
+        // equal, comparison
+        assertTrue(StringUtils.equals(null, null));
+        assertFalse(StringUtils.equals("abc", null));
+        assertTrue(StringUtils.equalsIgnoreCase("abc", "Abc"));
+        assertEquals("there", StringUtils.difference("hello world", "hello there"));
+        assertEquals("ello there", StringUtils.difference("hallo world", "hello there"));
+        assertEquals(1, StringUtils.indexOfDifference("hallo world", "hello there"));
+
+        // indexing, containing
+        assertEquals(10, StringUtils.ordinalIndexOf("abcdefgabcabc", "abc", 3));
+        assertEquals(1, StringUtils.indexOfAny("abcdefgabcabc", 'b', 'f'));
+        assertEquals(1, StringUtils.indexOfAny("abcdefgabcabc", "bf"));
+        assertEquals(3, StringUtils.indexOfAnyBut("abcdefgabcabc", "abc"));
+        assertFalse(StringUtils.contains(null, 'a'));
+        assertTrue(StringUtils.containsIgnoreCase("abcdefg", "ABC"));
+        assertTrue(StringUtils.containsWhitespace("ab cdefg"));// Whitespace is defined by Character.isWhitespace(char).
+        assertTrue(StringUtils.containsAny("abcdefgabcabc", 'b', 'f'));
+        assertTrue(StringUtils.containsAny("abcdefgabcabc", "bf"));
+        assertFalse(StringUtils.containsAny("abcdefgabcabc", "bf", "ae"));
+        assertTrue(StringUtils.containsAny("abcdefgabcabc", "bf", "ab"));
+        assertTrue(StringUtils.containsOnly("abab", "abc"));
+        assertTrue(StringUtils.containsOnly("abz", "abc"));
+        assertTrue(StringUtils.containsNone("abab", "xyz"));
+        assertTrue(StringUtils.containsOnly("abz", "xyz"));
+        assertEquals(1, StringUtils.countMatches("abba", "ab"));
+        assertTrue(StringUtils.isAlphanumeric(RandomStringUtils.randomAlphanumeric(10)));
+        assertTrue(StringUtils.startsWithIgnoreCase("abcxyz", "ABc"));
+        assertTrue(StringUtils.startsWithAny("abcxyz", new String[] { "abc", "xyz" }));
+
+        // are the following features really useful...
+        assertNull(StringUtils.stripAccents(null));
+        assertEquals("eclair", StringUtils.stripAccents("éclair"));
+        assertEquals("uber", StringUtils.stripAccents("über"));
+        assertEquals("fgabcde", StringUtils.rotate("abcdefg", 2));
+        assertEquals("gfedcba", StringUtils.reverse("abcdefg"));
+        assertEquals("com.domain.www", StringUtils.reverseDelimited("www.domain.com", '.'));
+        assertEquals("This is...", StringUtils.abbreviate("This is a weird feature.", 10));
+        assertEquals("This is a...", StringUtils.abbreviate("This is a weird feature.", 12));
+        assertEquals("...weird ...", StringUtils.abbreviate("This is a weird feature.", 10, 12));
+    }
+
+    /*
+     * 
+     */
+
+    private JavaRegexBuilder getRegexBuilder() {
+        return new JavaRegexBuilder();
+    }
+
 }
