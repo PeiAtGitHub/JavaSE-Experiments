@@ -6,12 +6,14 @@ import java.util.concurrent.TimeUnit;
 
 import static com.github.peiatgithub.java.utils.Constants.*;
 import static com.github.peiatgithub.java.utils.Utils.printlnWithThreadName;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+
+
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.github.peiatgithub.java.utils.Utils.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.AbstractExecutionThreadService;
@@ -23,14 +25,12 @@ import com.google.common.util.concurrent.ServiceManager;
 import com.google.common.util.concurrent.ServiceManager.Listener;
 
 /**
- *
  * Quote: "The Service interface is subtle and complicated. We do not recommend
  * implementing it directly. Instead please use one of the abstract base classes
- * in guava as the base for your implementation. Each base class supports a
+ * in Guava as the base for your implementation. Each base class supports a
  * specific threading model."
  * 
  * @author pei
- *
  */
 public class ServiceDemo {
 
@@ -40,20 +40,20 @@ public class ServiceDemo {
     public void testAbstractExeThreadService() throws Exception {
 
         MySingleThreadService s = new MySingleThreadService();
-        assertThat(s.state(), is(State.NEW));
+        assertEquals(State.NEW, s.state());
 
         s.addListener(new MyListener(), Executors.newSingleThreadExecutor());
 
         s.startAsync().awaitRunning();
-        assertThat(s.isRunning());
-        assertThat(s.state(), is(State.RUNNING));
+        assertTrue(s.isRunning());
+        assertEquals(State.RUNNING, s.state());
 
         int ms = r.nextInt(10000);
         printlnWithThreadName("Service gonna run for " + TimeUnit.MILLISECONDS.toSeconds(ms) + "s.");
         Thread.sleep(ms);
 
         s.stopAsync().awaitTerminated();
-        assertThat(s.state(), is(State.TERMINATED));
+        assertEquals(State.TERMINATED, s.state());
 
     }
 
@@ -61,20 +61,20 @@ public class ServiceDemo {
     public void testAbstractScheduledService() throws Exception {
 
         MyScheduledService s = new MyScheduledService();
-        assertThat(s.state(), is(State.NEW));
+        assertEquals(State.NEW, s.state());
 
         s.addListener(new MyListener(), Executors.newSingleThreadExecutor());
 
         s.startAsync().awaitRunning();
-        assertThat(s.isRunning());
-        assertThat(s.state(), is(State.RUNNING));
+        assertTrue(s.isRunning());
+        assertEquals(State.RUNNING, s.state());
 
         int ms = r.nextInt(10000);
         printlnWithThreadName("Service gonna run for " + TimeUnit.MILLISECONDS.toSeconds(ms) + "s.");
         Thread.sleep(ms);
 
         s.stopAsync().awaitTerminated();
-        assertThat(s.state(), is(State.TERMINATED));
+        assertEquals(State.TERMINATED, s.state());
 
     }
 
@@ -89,8 +89,8 @@ public class ServiceDemo {
         assertThat(e).isInstanceOf(ISE);
         printlnWithThreadName(e.getMessage());
 
-        assertThat(s.state(), is(State.FAILED));
-        assertThat(s.failureCause().getMessage(), is("Service Failed"));
+        assertEquals(State.FAILED, s.state());
+        assertEquals("Service Failed", s.failureCause().getMessage());
 
     }
 

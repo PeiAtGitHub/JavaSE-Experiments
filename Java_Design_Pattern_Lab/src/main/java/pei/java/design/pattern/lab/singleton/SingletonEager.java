@@ -1,8 +1,6 @@
 package pei.java.design.pattern.lab.singleton;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 /**
  * eager initialization

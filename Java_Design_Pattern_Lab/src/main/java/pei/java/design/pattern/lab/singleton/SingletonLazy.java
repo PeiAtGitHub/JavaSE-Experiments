@@ -1,6 +1,6 @@
 package pei.java.design.pattern.lab.singleton;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 /**
  * lazy instantiation

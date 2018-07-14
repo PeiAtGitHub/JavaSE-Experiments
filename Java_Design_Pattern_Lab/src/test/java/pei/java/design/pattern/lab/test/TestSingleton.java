@@ -1,16 +1,14 @@
 package pei.java.design.pattern.lab.test;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import pei.java.design.pattern.lab.singleton.SingletonEager;
 import pei.java.design.pattern.lab.singleton.SingletonLazy;
 
 /**
- * 
  * @author pei
- *
  */
 public class TestSingleton {
     

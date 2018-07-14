@@ -1,14 +1,16 @@
 package pei.java.thirdp.lab.htmlunit;
 
-import static org.junit.Assert.*;
+
 import static com.github.peiatgithub.java.utils.Utils.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.github.peiatgithub.java.utils.Constants.*;
 
 import java.io.File;
 import java.net.URL;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.gargoylesoftware.htmlunit.UnexpectedPage;
 import com.gargoylesoftware.htmlunit.WebClient;

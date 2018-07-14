@@ -15,14 +15,13 @@ import javax.mail.internet.MimeMessage;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.dumbster.smtp.SimpleSmtpServer;
 import com.dumbster.smtp.SmtpMessage;
 import com.google.common.collect.ImmutableMap;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Dumbster: "a simple fake SMTP server for unit testing"
@@ -101,11 +100,11 @@ public class TestEMailsWithDumbster {
 		SmtpMessage email = emails.get(0);
 		System.out.format("A demo of all email headers: %n%s", email.getHeaderNames());
 
-		assertThat(email.getBody(), is(BODY));
-		assertThat(email.getHeaderValue("Subject"), is(SUBJECT));
-		assertThat(email.getHeaderValue("To"), is(TO));
-		assertThat(email.getHeaderValue("From"), is(FROM));
-		assertThat(email.getHeaderValue("Cc"), is(CC));
+		assertEquals(BODY, email.getBody());
+		assertEquals(SUBJECT, email.getHeaderValue("Subject"));
+		assertEquals(TO, email.getHeaderValue("To"));
+		assertEquals(FROM, email.getHeaderValue("From"));
+		assertEquals(CC, email.getHeaderValue("Cc"));
 		
 	}
 	

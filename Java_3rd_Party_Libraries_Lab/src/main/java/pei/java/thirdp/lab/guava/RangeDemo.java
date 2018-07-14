@@ -4,13 +4,16 @@ import static com.github.peiatgithub.java.utils.Constants.*;
 
 import java.util.Set;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+
+
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.google.common.collect.BoundType;
 import com.google.common.collect.ContiguousSet;
@@ -19,9 +22,7 @@ import com.google.common.collect.Range;
 
 
 /**
- * 
  * @author pei
- *
  */
 public class RangeDemo {
 	
@@ -33,24 +34,24 @@ public class RangeDemo {
 		 */
 		Range<String> rangeJT = Range.closedOpen("Jerry", "Tom");
 		
-		assertThat(rangeJT.contains("Emily")).isFalse();
-		assertThat(rangeJT.contains("Jerry"));
-		assertThat(rangeJT.contains("Mike"));
-		assertThat(rangeJT.contains("mike")).isFalse();
-		assertThat(rangeJT.contains("Tom")).isFalse();
+		assertFalse(rangeJT.contains("Emily"));
+		assertTrue(rangeJT.contains("Jerry"));
+		assertTrue(rangeJT.contains("Mike"));
+		assertFalse(rangeJT.contains("mike"));
+		assertFalse(rangeJT.contains("Tom"));
 		assertThat(rangeJT.containsAll(TEST_MAP_123.keySet()));
-		assertThat(rangeJT, is(Range.range("Jerry", BoundType.CLOSED, "Tom", BoundType.OPEN)));
+		assertEquals(Range.range("Jerry", BoundType.CLOSED, "Tom", BoundType.OPEN), rangeJT);
 
 		Range<String> rangeST = rangeJT.intersection(Range.closed("Stan", "Wendy"));
 		
-		assertThat(rangeST.lowerEndpoint(), is("Stan"));
-		assertThat(rangeST.upperEndpoint(), is("Tom"));
+		assertEquals("Stan", rangeST.lowerEndpoint());
+		assertEquals("Tom", rangeST.upperEndpoint());
 		
-		assertThat(rangeST.lowerBoundType(), is(BoundType.CLOSED));
-		assertThat(rangeST.upperBoundType(), is(BoundType.OPEN));
+		assertEquals(BoundType.CLOSED, rangeST.lowerBoundType());
+		assertEquals(BoundType.OPEN, rangeST.upperBoundType());
 		
 		assertThat(rangeST.isConnected(rangeJT));
-		assertThat(rangeST.span(rangeJT), is(rangeJT));
+		assertEquals(rangeJT, rangeST.span(rangeJT));
 
 		assertThat(rangeST.encloses(Range.singleton("Str")));
 		
@@ -72,9 +73,9 @@ public class RangeDemo {
 		
 		DiscreteDomain<Integer> integers = DiscreteDomain.integers();
 		
-		assertThat(integers.distance(1, 10), is(9L));
-		assertThat(integers.next(9), is(10));
-		assertThat(integers.previous(9), is(8));
+		assertEquals(9, integers.distance(1, 10));
+		assertEquals(Integer.valueOf(10), integers.next(9));
+		assertEquals(Integer.valueOf(8), integers.previous(9));
 		
 		/*
 		 * "ContiguousSet.create does not actually construct the entire range, 
@@ -84,7 +85,7 @@ public class RangeDemo {
 		assertThat(intSet).hasSize(100).isEqualTo(ContiguousSet.closed(1, 100));
 		
 		MyStringsDiscreteDomain1 msdd1 = new MyStringsDiscreteDomain1();
-		assertThat(msdd1.distance("S1", "S100"), is(99L));
+		assertEquals(99, msdd1.distance("S1", "S100"));
 		assertThat(ContiguousSet.create(Range.closedOpen("S1", "S100"), msdd1)).hasSize(99);
 		
 		assertThatThrownBy(()->msdd1.distance("Jerry", "Tom")).isInstanceOf(NumberFormatException.class);
@@ -92,7 +93,7 @@ public class RangeDemo {
 		.isInstanceOf(NumberFormatException.class);
 		
 		MyStringsDiscreteDomain2 msdd2 = new MyStringsDiscreteDomain2();
-		assertThat(msdd2.distance("Jerry", "Tom"), is(MyStringsDiscreteDomain2.FIXED_DISTANCE));
+		assertEquals(MyStringsDiscreteDomain2.FIXED_DISTANCE, msdd2.distance("Jerry", "Tom"));
 		
 		Set<String> strSet = ContiguousSet.create(Range.closedOpen("Jerry", "Tom"), msdd2);
 		assertThat(strSet.size()).isEqualTo(MyStringsDiscreteDomain2.FIXED_DISTANCE + 1); 
@@ -100,7 +101,7 @@ public class RangeDemo {
 		 *  this Set actually contains only two strings: "Jerry" and "STR"
 		 *  this is a demo of improper impl of DiscreteDomain
 		 */
-		assertThat(strSet.toString(), is("[Jerry..STR]"));
+		assertEquals("[Jerry..STR]", strSet.toString());
 		strSet.forEach(s->System.out.println(s));
 		
 	}
