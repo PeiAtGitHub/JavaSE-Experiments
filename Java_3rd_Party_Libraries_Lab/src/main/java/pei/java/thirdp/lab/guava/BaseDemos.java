@@ -2,14 +2,11 @@ package pei.java.thirdp.lab.guava;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
-
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import static org.assertj.core.api.Assertions.*;
-
 import static com.github.peiatgithub.java.utils.Constants.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
@@ -17,9 +14,7 @@ import com.google.common.base.Strings;
 import pei.java.thirdp.lab.utils.Person;
 
 /**
- * 
  * @author pei
- *
  */
 public class BaseDemos {
 
@@ -29,15 +24,15 @@ public class BaseDemos {
     	assertThat(Strings.isNullOrEmpty(EMPTY));
     	assertThat(Strings.isNullOrEmpty(SPACE)).isFalse();
         
-        assertThat(Strings.nullToEmpty(null)).isEmpty();
+        assertEquals(EMPTY, Strings.nullToEmpty(null));
         
-        assertThat(Strings.padEnd("HELLO", 8, '$'), is("HELLO$$$"));
-        assertThat(Strings.repeat("HELLO", 3), is("HELLOHELLOHELLO"));
+        assertEquals("HELLO$$$", Strings.padEnd("HELLO", 8, '$'));
+        assertEquals("HELLOHELLOHELLO", Strings.repeat("HELLO", 3));
     }
     
     @Test
     public void testMiscs() throws Exception{
-        assertThat(MoreObjects.firstNonNull(null, DEFAULT_STR), is(DEFAULT_STR));
+        assertEquals(DEFAULT_STR, MoreObjects.firstNonNull(null, DEFAULT_STR));
     }
     
     @Test

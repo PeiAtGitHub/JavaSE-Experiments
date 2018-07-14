@@ -3,7 +3,7 @@ package pei.java.design.pattern.lab.test;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import pei.java.design.pattern.lab.adapter.LineAdapter;
 import pei.java.design.pattern.lab.adapter.RectangleAdapter;

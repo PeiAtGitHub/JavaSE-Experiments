@@ -1,28 +1,24 @@
 package pei.java.thirdp.lab.awaitility;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.awaitility.core.ConditionTimeoutException;
 import org.awaitility.reflect.exception.FieldNotFoundException;
+import org.junit.jupiter.api.Test;
 
 import static org.awaitility.Awaitility.*;
 
 import static org.awaitility.Duration.*;
-import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * 
  * @author pei
- *
  */
 public class AwaitilityDemo {
-    
-    
+
     @Test
     public void testAvailability() throws Exception {
 
@@ -49,11 +45,9 @@ public class AwaitilityDemo {
                         .isInstanceOf((FieldNotFoundException.class));
 
     }
-    
-    
-    
-    public class DataClass{
-        
+
+    public class DataClass {
+
         static final int classField = 0;
         int instanceField;
     }

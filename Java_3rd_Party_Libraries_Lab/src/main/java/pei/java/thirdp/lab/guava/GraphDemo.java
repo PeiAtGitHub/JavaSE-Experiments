@@ -3,7 +3,7 @@ package pei.java.thirdp.lab.guava;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.google.common.graph.ImmutableNetwork;
 import com.google.common.graph.MutableNetwork;

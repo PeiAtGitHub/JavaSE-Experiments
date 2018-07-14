@@ -1,20 +1,15 @@
 package pei.java.design.pattern.lab.flyweight;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import static com.github.peiatgithub.java.utils.Utils.*;
+import static org.assertj.core.api.Assertions.*;
 
 /**
- * 
  * @author pei
- *
  */
 public class FlyWeightDemo2 {
     
@@ -42,7 +37,7 @@ public class FlyWeightDemo2 {
         coffeOrderFactory.getCoffeeOrder(CAPPUCCINO).setTableNumber(95).serveCoffee();
         coffeOrderFactory.getCoffeeOrder(XPRESSO).setTableNumber(96).serveCoffee();
         
-        assertThat(coffeOrderFactory.getOrders().size(), is(3));
+        assertThat(coffeOrderFactory.getOrders()).hasSize(3);
     }
 }
 

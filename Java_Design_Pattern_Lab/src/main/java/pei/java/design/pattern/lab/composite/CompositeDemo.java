@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,12 +30,12 @@ public class CompositeDemo {
         Directory d2 = new Directory();
         Directory root = new Directory(d1, d2, f1);
 
-        assertThat(f1.getSize(), is(100L));
-        assertThat(f2.getSize(), is(200L));
-        assertThat(f3.getSize(), is(300L));
-        assertThat(root.getSize(), is(600L));
-        assertThat(d1.getSize(), is(500L));
-        assertThat(d2.getSize(), is(0L));
+        assertEquals(100, f1.getSize());
+        assertEquals(200, f2.getSize());
+        assertEquals(300, f3.getSize());
+        assertEquals(600, root.getSize());
+        assertEquals(500, d1.getSize());
+        assertEquals(0, d2.getSize());
         
     }
 }

@@ -1,8 +1,8 @@
 package pei.java.thirdp.lab.guava;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static pei.java.thirdp.lab.utils.SolarPlanet.EARTH;
 import static pei.java.thirdp.lab.utils.SolarPlanet.JUPITER;
 import static pei.java.thirdp.lab.utils.SolarPlanet.MARS;
@@ -18,7 +18,7 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.HashBiMap;
@@ -51,9 +51,7 @@ import pei.java.thirdp.lab.utils.Person;
 import pei.java.thirdp.lab.utils.SolarPlanet;
 
 /**
- * 
  * @author pei
- *
  */
 public class CollectionDemos {
 
@@ -100,8 +98,8 @@ public class CollectionDemos {
         assertThat(Maps.asMap(TEST_SET_123, x->x*10)).contains(entry(1, 10), entry(2, 20), entry(3, 30));
 
         ImmutableMap<String, Integer> immuMap = ImmutableMap.of(S1, 1, S2, 2);
-        assertThat(immuMap.keySet().iterator().next(), is(S1));
-        assertThat(ImmutableSortedMap.copyOf(immuMap).keySet().iterator().next(), is(S1));
+        assertEquals(S1, immuMap.keySet().iterator().next());
+        assertEquals(S1, ImmutableSortedMap.copyOf(immuMap).keySet().iterator().next());
         
     }
 
@@ -116,23 +114,23 @@ public class CollectionDemos {
         assertThatThrownBy(() -> persons.clear()).isInstanceOf(UOE);
         
         persons.get(0).setFirstName(STR);
-        assertThat(persons.get(0).getFirstName(), is(STR));
+        assertEquals(STR, persons.get(0).getFirstName());
     }
 
     @Test
     public void testMultiSet() throws Exception {
         Multiset<Integer> multiSet = HashMultiset.create(Sets.newHashSet(1, 2, 6));
         assertThat(multiSet).hasSize(3);
-        assertThat(multiSet.count(6), is(1));
+        assertEquals(1, multiSet.count(6));
         multiSet.setCount(2, 3);
         multiSet.setCount(6, 2);
         assertThat(multiSet).hasSize(6);
-        assertThat(multiSet.count(6), is(2));
+        assertEquals(2, multiSet.count(6));
         assertThat(multiSet.elementSet()).hasSize(3);
-        assertThat(multiSet.entrySet().iterator().next().getElement(), is(1));
-        assertThat(multiSet.entrySet().iterator().next().getCount(), is(1));
+        assertEquals(Integer.valueOf(1), multiSet.entrySet().iterator().next().getElement());
+        assertEquals(1, multiSet.entrySet().iterator().next().getCount());
 
-        assertThat(ImmutableMultiset.of(1, 2, 2, 2, 6, 6).count(6), is(2));
+        assertEquals(2, ImmutableMultiset.of(1, 2, 2, 2, 6, 6).count(6));
     }
     
     @Test
@@ -147,7 +145,7 @@ public class CollectionDemos {
         listMultimap.put(S3, 3);
         listMultimap.put(S3, 3);
         listMultimap.put(S3, 3);
-        assertThat(listMultimap.size(), is(9));
+        assertEquals(9, listMultimap.size());
         assertThat(listMultimap.asMap()).hasSize(3);
         assertThat(listMultimap.get(S1)).containsExactly(1, 1, 1);
         assertThat(listMultimap.asMap().get(S1)).containsExactly(1, 1, 1);
@@ -156,7 +154,7 @@ public class CollectionDemos {
         setMultimap.putAll(S1, Sets.newHashSet(1, 1, 1));
         setMultimap.putAll(S2, Sets.newHashSet(2, 2, 2));
         setMultimap.putAll(S3, Sets.newHashSet(3, 3, 3));
-        assertThat(setMultimap.size(), is(3));
+        assertEquals(3, setMultimap.size());
         assertThat(setMultimap.get(S1)).containsExactly(1);
         assertThat(setMultimap.asMap()).hasSize(3);
         assertThat(setMultimap.asMap().get(S1)).containsExactly(1);
@@ -164,7 +162,7 @@ public class CollectionDemos {
         setMultimap.putAll(S1, Sets.newHashSet(1, 2, 3));
         setMultimap.putAll(S2, Sets.newHashSet(4, 5, 6));
         setMultimap.putAll(S3, Sets.newHashSet(7, 8, 9));
-        assertThat(setMultimap.size(), is(9));
+        assertEquals(9, setMultimap.size());
         assertThat(setMultimap.get(S1)).containsExactlyInAnyOrder(1, 2, 3);
         assertThat(setMultimap.asMap()).hasSize(3);
         assertThat(setMultimap.asMap().get(S1)).containsExactlyInAnyOrder(1, 2, 3);
@@ -177,13 +175,13 @@ public class CollectionDemos {
     public void testBimap() throws Exception {
     	
         HashBiMap<String, Integer> biMap = HashBiMap.<String, Integer>create(TEST_MAP_123);
-        assertThat(biMap.get(S1), is(1));
-        assertThat(biMap.inverse().get(1), is(S1));
+        assertEquals(Integer.valueOf(1), biMap.get(S1));
+        assertEquals(S1, biMap.inverse().get(1));
         
         assertThatThrownBy(()->biMap.put(" ", 1)).isInstanceOf(IAE);
         
         biMap.forcePut(" ", 1);
-        assertThat(biMap.get(" "), is(1));
+        assertEquals(Integer.valueOf(1), biMap.get(" "));
         assertThat(biMap.keySet()).doesNotContain(S1);
         
         assertThatThrownBy(() -> ImmutableBiMap.of(S1, 1, S2, 1)).isInstanceOf(IAE);
@@ -209,27 +207,27 @@ public class CollectionDemos {
                 .put(3, "Name", "Person Three")
                 .put(3, "Country", "Country Three")
                 .build();
-        assertThat(customersTable.column("Name").get(1), is("Person One"));
-        assertThat(customersTable.row(3).get("Country"), is("Country Three"));
+        assertEquals("Person One", customersTable.column("Name").get(1));
+        assertEquals("Country Three", customersTable.row(3).get("Country"));
     }
     
     @Test
     public void testPeekingIterator() throws Exception {
         Iterator<Integer> it = TEST_LIST_123.iterator();
-        assertThat(it.next(), is(1));
-        assertThat(it.next(), is(2));
-        assertThat(it.next(), is(3));
-        assertThat(it.hasNext(), is(false));
+        assertEquals(Integer.valueOf(1), it.next());
+        assertEquals(Integer.valueOf(2), it.next());
+        assertEquals(Integer.valueOf(3), it.next());
+        assertFalse(it.hasNext());
         
         // Peek: to glance quickly.
         PeekingIterator<Integer> peekIt = Iterators.peekingIterator(TEST_LIST_123.iterator());
-        assertThat(peekIt.peek(), is(1));
-        assertThat(peekIt.peek(), is(1));
-        assertThat(peekIt.next(), is(1));
-        assertThat(peekIt.next(), is(2));
-        assertThat(peekIt.peek(), is(3));
-        assertThat(peekIt.next(), is(3));
-        assertThat(peekIt.hasNext(), is(false));
+        assertEquals(Integer.valueOf(1), peekIt.peek());
+        assertEquals(Integer.valueOf(1), peekIt.peek());
+        assertEquals(Integer.valueOf(1), peekIt.next());
+        assertEquals(Integer.valueOf(2), peekIt.next());
+        assertEquals(Integer.valueOf(3), peekIt.peek());
+        assertEquals(Integer.valueOf(3), peekIt.next());
+        assertFalse(peekIt.hasNext());
         /*
          * Note:
          * PeekingIterator returned by Iterators.peekingIterator does not 
@@ -245,7 +243,7 @@ public class CollectionDemos {
         rangeSet.add(Range.closedOpen(15, 20)); // range merge with previous
         rangeSet.add(Range.openClosed(0, 0)); // empty, ignored
         rangeSet.remove(Range.open(5, 10)); // this removal will split range
-        assertThat(rangeSet.toString(), is("[[1..5], [10..10], [11..20)]"));
+        assertEquals("[[1..5], [10..10], [11..20)]", rangeSet.toString());
     }
     
     @Test
@@ -255,12 +253,12 @@ public class CollectionDemos {
 			ImmutableList.of(new NullPointerException(), new IllegalArgumentException(), new IllegalStateException())
 			, NPE)).allMatch(e -> e instanceof NullPointerException);
 
-		assertThat(Iterables.filter(TEST_LIST_123, Range.closed(-10, 2)).toString(), is("[1, 2]"));
+		assertEquals("[1, 2]", Iterables.filter(TEST_LIST_123, Range.closed(-10, 2)).toString());
 		
-		assertThat(Iterables.find(TEST_LIST_123, Range.closed(-10, 2)), is(1));
+		assertEquals(Integer.valueOf(1), Iterables.find(TEST_LIST_123, Range.closed(-10, 2)));
 		
-		assertThat(Iterables.frequency(TEST_LIST_123, 1), is(1));
-		assertThat(Iterables.frequency(ImmutableList.of(1, 1, 1), 1), is(3));
+		assertEquals(1, Iterables.frequency(TEST_LIST_123, 1));
+		assertEquals(3, Iterables.frequency(ImmutableList.of(1, 1, 1), 1));
 		
 	}
 }

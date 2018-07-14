@@ -9,15 +9,15 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.*;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * 
  * @author pei
- *
  */
 public class IoFileUtilsTests {
 
@@ -43,15 +43,15 @@ public class IoFileUtilsTests {
         /*
          * constants
          */
-        assertThat(FileUtils.ONE_KB).isEqualTo(1024);
-        assertThat(FileUtils.ONE_MB).isEqualTo(1024 * 1024);
-        assertThat(FileUtils.ONE_GB).isEqualTo(1024 * 1024 * 1024);
+        assertEquals(1024, FileUtils.ONE_KB);
+        assertEquals(1024 * 1024, FileUtils.ONE_MB);
+        assertEquals(1024 * 1024 * 1024, FileUtils.ONE_GB);
 
         /*
          * dir and file manipulation
          */
         FileUtils.deleteDirectory(dir1);
-        assertThat(dir1.mkdir());
+        assertTrue(dir1.mkdir());
         assertThat(dir1.listFiles()).hasSize(0);
         FileUtils.copyURLToFile(new URL(URL_APACHE_COMMONS_IO_MAIN), file11);
         Thread.sleep(1000);
@@ -75,10 +75,10 @@ public class IoFileUtilsTests {
         FileUtils.moveDirectoryToDirectory(dir2, dir1, false);
         // after move: dir1/dir2/dir1
         // after move: file obj won't change! its path won't change
-        assertThat(dir2.getPath(), is("dir2"));
-        assertThat(dir2.exists()).isFalse();
-        assertThat(file211.getPath(), is("dir2/dir1/file1.html"));
-        assertThat(file211.exists()).isFalse();
+        assertEquals("dir2", dir2.getPath());
+        assertFalse(dir2.exists());
+        assertEquals("dir2/dir1/file1.html", file211.getPath());
+        assertFalse(file211.exists());
 
         // write, read
         assertThat(FileUtils.readFileToString(file11, Charset.defaultCharset())).as("Commons IO main page has changed")
@@ -89,13 +89,13 @@ public class IoFileUtilsTests {
         assertThat(FileUtils.readLines(fileWrite, Charset.defaultCharset())).containsExactly("S1S2");
 
         // clean, delete dir
-        assertThat(dir1.exists());
+        assertTrue(dir1.exists());
         assertThat(dir1.list()).hasSize(4);
         FileUtils.cleanDirectory(dir1);
-        assertThat(dir1.exists());
+        assertTrue(dir1.exists());
         assertThat(dir1.list()).hasSize(0);
         FileUtils.deleteDirectory(dir1);
-        assertThat(dir1.exists()).isFalse();
+        assertFalse(dir1.exists());
 
         /*
          * miscs
