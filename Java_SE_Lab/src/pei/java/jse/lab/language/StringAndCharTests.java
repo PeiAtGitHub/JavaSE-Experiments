@@ -77,6 +77,8 @@ public class StringAndCharTests {
     @Test
     public void testFormat() throws Exception {
         assertEquals(ABC, String.format(ABC, "def"));
+        
+        assertEquals("null", String.format("%s", null));
     }
 
     @Test
