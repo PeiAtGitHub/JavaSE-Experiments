@@ -1,6 +1,5 @@
 package pei.java.jse.lab.java7new;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.github.peiatgithub.java.utils.RunFlag;
@@ -19,21 +18,18 @@ import org.junit.jupiter.api.Test;
  * @author pei
  *
  */
-public class TryWithResourcesStatement {
+public class TryWithResources {
 	
 	@Test
 	public void tryWithResourcesDemo() throws Exception {
-		
 		RunFlag.reset();
 		
 		try(AnAutoCloseableResource aacr = new AnAutoCloseableResource()){
 		};
-		
 		assertEquals(1, RunFlag.runTimes());
 		
 		try(AnCloseableResource acr = new AnCloseableResource()){
 		};
-		
 		assertEquals(2, RunFlag.runTimes());
 		
 		RunFlag.reset();

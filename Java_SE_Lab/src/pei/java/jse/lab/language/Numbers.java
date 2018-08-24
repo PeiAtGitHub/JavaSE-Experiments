@@ -86,6 +86,18 @@ public class Numbers {
     }
     
     @Test
+    public void stringRepresentation() {
+        Long num = 123456L;
+        assertEquals("123456", num.toString());
+        assertEquals("123456", new StringBuilder().append(num).toString());
+        
+        num = -123456L;
+        assertEquals("-123456", num.toString());
+        assertEquals("-123456", new StringBuilder().append(num).toString());
+
+    }
+    
+    @Test
     public void randoms() {
 
     	Random r = new Random();
