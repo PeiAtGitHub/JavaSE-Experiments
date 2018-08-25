@@ -4,7 +4,6 @@ import static org.apache.commons.lang3.StringUtils.SPACE;
 
 import org.apache.commons.cli.*;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
@@ -20,16 +19,8 @@ public class CliDemo {
 
     private static Options options = null;
 
-    private DefaultParser defaultParser = null;
-
-    @BeforeEach
-    public void onceBeforeMethod() {
-        defaultParser = new DefaultParser();
-    }
-
     @BeforeAll
     public static void onceBeforeClass() {
-
         options = new Options();
 
         Option optLowerA = new Option("a", false, "I am 'a' option, NO arg");
@@ -54,10 +45,11 @@ public class CliDemo {
         options.addOption("h", "help", false, "I am 'help' option, NO arg");
         options.addRequiredOption("r", "required", false, "I am the ONLY REQUIRED OPTION here, NO arg");
     }
+    
 
     @Test
     public void testAllOptions() throws Exception {
-        CommandLine cmd = defaultParser.parse(options,
+        CommandLine cmd = new DefaultParser().parse(options,
                 commandlineToArray("-a A0 -b A1 A2 -fA3 A4 -t A5 A6 -T A7 A8 -h --required A9"));
 
         assertTrue(cmd.hasOption("a"));
@@ -98,19 +90,19 @@ public class CliDemo {
     @Test
     public void testWrongOptions() throws ParseException {
         assertThatThrownBy(
-                () -> defaultParser.parse(options, commandlineToArray("-A -t hahaha -T HAHAHA -h --required")))
+                () -> new DefaultParser().parse(options, commandlineToArray("-A -t hahaha -T HAHAHA -h --required")))
                         .isInstanceOf(UnrecognizedOptionException.class);
     }
 
     @Test
     public void testMissingRequiredOptions() throws ParseException {
-        assertThatThrownBy(() -> defaultParser.parse(options, commandlineToArray("-a -h")))
+        assertThatThrownBy(() -> new DefaultParser().parse(options, commandlineToArray("-a -h")))
                 .isInstanceOf(MissingOptionException.class);
     }
 
     @Test
     public void testMissingRequiredOptionArgs() throws ParseException {
-
+        DefaultParser defaultParser = new DefaultParser();
         assertThatThrownBy(() -> defaultParser.parse(options, commandlineToArray("-t -r")))
                 .isInstanceOf(MissingArgumentException.class);
 
@@ -119,7 +111,6 @@ public class CliDemo {
 
         assertThatThrownBy(() -> defaultParser.parse(options, commandlineToArray("-T -r")))
                 .isInstanceOf(MissingArgumentException.class);
-
     }
 
     /*
@@ -128,7 +119,6 @@ public class CliDemo {
      * 
      * This mock for now is very basic that it just split the input string by space,
      * it does not handle quotes, glob, and etc like the OS platform does.
-     * 
      * 
      */
     private String[] commandlineToArray(String cmdLineString) {

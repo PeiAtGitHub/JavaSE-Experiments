@@ -5,6 +5,7 @@ import static com.github.peiatgithub.java.utils.Constants.*;
 import java.io.File;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -23,19 +24,19 @@ public class IoFileUtilsTests {
 
     public static final String URL_APACHE_COMMONS_IO_MAIN = "https://commons.apache.org/proper/commons-io/index.html";
 
-    static File dir1 = new File("dir1");
-    static File dir2 = new File("dir2");
-    static File dir21 = new File("dir2/dir1");
+    static File dir1 = Paths.get("dir1").toFile();
+    static File dir2 = Paths.get("dir2").toFile();
+    static File dir21 = Paths.get("dir2", "dir1").toFile();
 
-    static File file11 = new File("dir1/file1.html");
-    static File file12 = new File("dir1/file2.txt");
-    static File fileWrite = new File("dir1/fw.txt");
+    static File file11 = Paths.get("dir1", "file1.html").toFile();
+    static File file12 = Paths.get("dir1", "file2.txt").toFile();
+    static File fileWrite = Paths.get("dir1", "fw.txt").toFile();
 
-    static File file21 = new File("dir2/file1.html");
-    static File file22 = new File("dir2/file2.txt");
+    static File file21 = Paths.get("dir2", "file1.html").toFile();
+    static File file22 = Paths.get("dir2", "file2.txt").toFile();
 
-    static File file211 = new File("dir2/dir1/file1.html");
-    static File file212 = new File("dir2/dir1/file2.txt");
+    static File file211 = Paths.get("dir2", "dir1", "file1.html").toFile();
+    static File file212 = Paths.get("dir2", "dir1", "file2.txt").toFile();
 
 
     @Test
@@ -77,7 +78,7 @@ public class IoFileUtilsTests {
         // after move: file obj won't change! its path won't change
         assertEquals("dir2", dir2.getPath());
         assertFalse(dir2.exists());
-        assertEquals("dir2/dir1/file1.html", file211.getPath());
+        assertEquals(Paths.get("dir2", "dir1", "file1.html").toString(), file211.getPath());
         assertFalse(file211.exists());
 
         // write, read

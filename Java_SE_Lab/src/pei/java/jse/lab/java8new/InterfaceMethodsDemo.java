@@ -4,7 +4,6 @@ package pei.java.jse.lab.java8new;
  * Demo of default impl of interface method
  * Demo of static method of interface.
  * @author pei
- *
  */
 
 interface Vehicle {

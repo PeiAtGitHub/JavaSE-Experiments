@@ -31,7 +31,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class DateAndTimeDemos {
-
     
     static final long ONE_HOUR_IN_SECS = 3600L;
 
@@ -50,7 +49,6 @@ public class DateAndTimeDemos {
      */
     @Test
     public void understandTheJavaDateTime() throws Exception {
-        
         /*
          *  Note: Some people may have language and locale settings different from where they really are,
          *        but people would localise their computer clock & TZ(or automatically synced from network clock)
@@ -177,7 +175,6 @@ public class DateAndTimeDemos {
 
         log.info("Month 100 days later: {}", localDateTime.plusDays(100).getMonthValue());
         log.info("Years to the Java supported MAX date: {}", localDateTime.until(LocalDateTime.MAX, ChronoUnit.YEARS));
-
     }
 
     @Test
@@ -189,7 +186,6 @@ public class DateAndTimeDemos {
 
     @Test
     public void miscs() {
-        
         LocalDate localDate = LocalDate.now();
         LocalTime localTime = LocalTime.now();
 
@@ -215,5 +211,4 @@ public class DateAndTimeDemos {
                         .with(TemporalAdjusters.next(DayOfWeek.SATURDAY)));
     }
 
-    
 }

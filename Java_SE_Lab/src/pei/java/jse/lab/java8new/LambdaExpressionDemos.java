@@ -11,9 +11,7 @@ import java.util.function.Predicate;
 import pei.java.jse.lab.utils.Person;
 
 /**
- * 
  * @author pei
- *
  */
 public class LambdaExpressionDemos {
 
@@ -73,7 +71,6 @@ public class LambdaExpressionDemos {
     static private long calculate(long x, long y, BiFunction<Long, Long, Long> biFunc) {
         return biFunc.apply(x, y);
     }
-    
     
     static private void process(int[] nums, int key, BiConsumer<Integer, Integer> biConsumer) {
         for (int i : nums) {
