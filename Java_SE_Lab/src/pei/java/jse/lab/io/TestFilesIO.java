@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,19 +22,16 @@ import static com.github.peiatgithub.java.utils.Constants.*;
  */
 public class TestFilesIO {
 
-	public static final String testPropertiesFile = "Files/TestProperties.properties";
-	public static final String fileToRead = "Files/TestReadFile.txt";
-	public static final String fileToWrite= "Files/TestWriteFile.txt";
+	public static final String TEST_PROPS_FILE = "Files/TestProperties.properties";
+	public static final String FILE_TO_READ = "Files/TestReadFile.txt";
+	public static final String FILE_TO_WRITE= "Files/TestWriteFile.txt";
 
 	@Test
-	public void testPropertiesFile() throws IOException {
+	public void propertiesFile() throws IOException {
 		Properties props = new Properties();
-		
-		// Properties has another constructor that takes a default Properties object
-		// which has default properties
-		// Demo for this feature is skipped here.
+		// Properties has another constructor that takes a default Properties object.
         
-        try(FileInputStream in = new FileInputStream(testPropertiesFile)){
+        try(FileInputStream in = new FileInputStream(TEST_PROPS_FILE)){
         	props.load(in);
         };
         
@@ -45,17 +43,19 @@ public class TestFilesIO {
     }
     
     @Test
-    public void testFileReadLine() throws IOException {
-        try (BufferedReader br = new BufferedReader(new FileReader(fileToRead))){
+    public void fileReadLine() throws IOException {
+        try (BufferedReader br = new BufferedReader(new FileReader(FILE_TO_READ))){
         	br.lines().forEach(oneLine -> System.out.println(oneLine));
         }
     }
     
     @Test
-    public void testFileWrite() throws IOException{
-        // if file does not exist, it will be created.
-        // if path does not exist, exception thrown
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(fileToWrite))){
+    public void fileWrite() throws IOException{
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_TO_WRITE))){
+            /*
+             *  if file does not exist, it will be created.
+             *  if path does not exist, exception thrown
+             */
         	bw.write(S1);
         	bw.newLine();
         	bw.newLine();
@@ -69,35 +69,52 @@ public class TestFilesIO {
     }
     
     @Test
-    public void testRandomAccessFileLastLine() throws IOException{
+    public void randomAccessFile() throws Exception{
+        try(RandomAccessFile rf = new RandomAccessFile(FILE_TO_READ, "r")){// "r": read only
+            /*
+             * <pre>
+               File content has 3 lines, each line has 26 chars(EXCL. the 2 chars "\r\n"), as follows:
+               The 1st line of this file.
+               The 2nd line of this file.
+               The 3rd line of this file.
+               Total number of chars of the file is 28+28+26=82
+             * </pre>
+             */
+            assertEquals(82, rf.length());
+            assertEquals(0, rf.getFilePointer());
+            
+            // pointer MOVES FORWARD after read byte or read line.
+            assertEquals('T', (char)rf.read());
+            assertEquals(1, rf.getFilePointer()); 
+            
+            assertEquals("he 1st line of this file.", rf.readLine()); // read the line FROM the pointer.
+            assertEquals(28, rf.getFilePointer()); 
+            assertEquals("The 2nd line of this file.", rf.readLine());
+            assertEquals(56, rf.getFilePointer()); 
 
-        try(RandomAccessFile rf = new RandomAccessFile(fileToRead, "r")){// r means read only
-        	//total length
-        	long start = rf.getFilePointer();//start position
-        	long nextend = start + rf.length() - 1; // end position
-        	rf.seek(nextend);// pointer to the end
-        	
-        	int c;//char
-        	int counter = 0;
-        	String theLastLine = null;
-        	
-        	while (nextend > start) {
-        		c = rf.read();
-        		if (c == '\n' || c == '\r') {
-        			theLastLine = rf.readLine();
-        			if (theLastLine != null && ++counter == 1) {
-        				break;
-        			}
-        			nextend--;
-        		}
-        		nextend--;
-        		rf.seek(nextend);
-        		if (nextend == 0) {// pointer goes back to the beginning of file
-        			theLastLine = rf.readLine();
-        		}
-        	}
-        	System.out.println(theLastLine);
+            //
+            rf.seek(26);
+            assertEquals('\r', (char)rf.read());
+            assertEquals('\n', (char)rf.read());
+            assertEquals('T', (char)rf.read());
+            assertEquals('h', (char)rf.read());
+            assertEquals('e', (char)rf.read());
+
+            rf.seek(26);
+            assertEquals("", rf.readLine()); // when pointer on \r
+            rf.seek(27);
+            assertEquals("", rf.readLine()); // when pointer on \n
+            assertEquals("The 2nd line of this file.", rf.readLine()); 
+            
+            // file end
+            rf.seek(rf.length() - 1);
+            assertEquals('.', (char)rf.read());
+            assertEquals(-1, rf.read());
+            
+            rf.seek(rf.length() - 1);
+            assertEquals(".", rf.readLine());
+            assertNull(rf.readLine());
         }
-        
     }
+    
 }
