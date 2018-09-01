@@ -1,4 +1,4 @@
-package pei.java.jse.lab.language;
+package pei.java.jse.lab.specialty;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
