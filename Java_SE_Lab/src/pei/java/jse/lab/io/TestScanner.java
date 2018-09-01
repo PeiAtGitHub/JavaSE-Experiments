@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class TestScanner {
 
     public static void main(String[] args) {
-
         try (Scanner sc = new Scanner(System.in)) {
             while (true) {
                 if (sc.next().equalsIgnoreCase("q")) {
@@ -19,7 +18,6 @@ public class TestScanner {
                 }
             }
         }
-
     }
 
 }

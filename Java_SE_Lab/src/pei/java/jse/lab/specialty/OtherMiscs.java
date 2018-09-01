@@ -1,4 +1,4 @@
-package pei.java.jse.lab.java8new;
+package pei.java.jse.lab.specialty;
 
 import java.util.Base64;
 
@@ -20,11 +20,10 @@ public class OtherMiscs {
 
     public static final String ORIGINAL_TEXT = "OriginalText";
 
-    final static String jsEngineName = "nashorn";
+    public static final String JS_ENGINE_NAME = "nashorn";
 
     @Test
     public void b64() throws Exception {
-
         String b64encoded = Base64.getEncoder().encodeToString(ORIGINAL_TEXT.getBytes(UTF_8.name()));
         log.info("Base64 Encoded String (Basic) :{}", b64encoded);
         log.info("Decoded: {}", new String(Base64.getDecoder().decode(b64encoded), UTF_8.name()));
@@ -37,7 +36,7 @@ public class OtherMiscs {
 
     @Test
     public void basics() throws ScriptException {
-        ScriptEngine nashorn = new ScriptEngineManager().getEngineByName(jsEngineName);
+        ScriptEngine nashorn = new ScriptEngineManager().getEngineByName(JS_ENGINE_NAME);
         nashorn.eval("print('Hello Nashorn!')");
         nashorn.eval("print(new Date())");
         nashorn.eval("print(Math.PI)");

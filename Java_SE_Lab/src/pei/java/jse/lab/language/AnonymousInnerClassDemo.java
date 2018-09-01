@@ -35,7 +35,6 @@ public class AnonymousInnerClassDemo {
 
 }
 
-
 interface Vehicle {
 	String vehicleName = "VEHICLE";
 	void go();

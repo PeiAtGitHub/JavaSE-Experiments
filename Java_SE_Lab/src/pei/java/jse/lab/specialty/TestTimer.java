@@ -16,7 +16,6 @@ public class TestTimer {
     
         @Test
         public void timerAndTimerTask() {
-
             Timer timer1 = new Timer();             
             timer1.schedule(new Task("T1"), 0, 5000);
 
@@ -27,7 +26,6 @@ public class TestTimer {
             
             timer1.cancel();
             timer2.cancel();
-            
         }
 
 }

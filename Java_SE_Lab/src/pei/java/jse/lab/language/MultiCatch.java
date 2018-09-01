@@ -1,4 +1,4 @@
-package pei.java.jse.lab.java7new;
+package pei.java.jse.lab.language;
 
 import static org.assertj.core.api.Assertions.*;
 import java.util.Random;
@@ -11,9 +11,7 @@ public class MultiCatch {
 
     @Test
     public void testMultiCatch() {
-
         Random r = new Random();
-
         for (int i = 0; i < 5; i++) {
             try {
                 if (r.nextBoolean()) {

@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,7 +29,6 @@ public class StringAndCharTests {
 
     @Test
     public void testStringBuilder() throws Exception {
-
         assertEquals(0, EMPTY.length());
         
         StringBuilder sb = new StringBuilder();
@@ -37,7 +38,6 @@ public class StringAndCharTests {
         sb = new StringBuilder(EMPTY);
         assertEquals(0, sb.length());
         assertEquals(EMPTY, sb.toString());
-
     }
 
     @Test
@@ -77,7 +77,6 @@ public class StringAndCharTests {
     @Test
     public void testFormat() throws Exception {
         assertEquals(ABC, String.format(ABC, "def"));
-        
         assertEquals("null", String.format("%s", null));
     }
 
@@ -177,6 +176,21 @@ public class StringAndCharTests {
                 .matcher("First Name: Three; Last Name: Zhang");
         assertTrue(matcher.find());
         assertEquals("Three", matcher.group(1).trim());
+    }
+    
+    @Test
+    public void charsetDemo() {
+        // StandardCharsets is new in Java 7
+        System.out.println(StandardCharsets.ISO_8859_1.name());
+        System.out.println(StandardCharsets.US_ASCII.name());
+        System.out.println(StandardCharsets.UTF_16.name());
+        System.out.println(StandardCharsets.UTF_16BE.name());
+        System.out.println(StandardCharsets.UTF_16LE.name());
+        System.out.println(StandardCharsets.UTF_8.name());
+        // Charset is available since 1.4
+        System.out.println(Charset.isSupported(StandardCharsets.US_ASCII.name()));
+        System.out.println(Charset.availableCharsets());
+        System.out.println(Charset.defaultCharset());
     }
 
 }

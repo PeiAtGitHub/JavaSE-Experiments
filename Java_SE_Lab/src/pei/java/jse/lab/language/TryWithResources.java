@@ -1,4 +1,4 @@
-package pei.java.jse.lab.java7new;
+package pei.java.jse.lab.language;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
  * java.io.Closeable is a subinterface of java.lang.AutoCloseable
  * 
  * @author pei
- *
  */
 public class TryWithResources {
 	
@@ -42,7 +41,6 @@ class AnAutoCloseableResource implements java.lang.AutoCloseable{
 	public void close() throws Exception {
 		RunFlag.run();
 	}
-	
 }
 
 class AnCloseableResource implements java.io.Closeable {

@@ -100,10 +100,10 @@ public class TestFilesIO {
             assertEquals('h', (char)rf.read());
             assertEquals('e', (char)rf.read());
 
-            rf.seek(26);
-            assertEquals("", rf.readLine()); // when pointer on \r
-            rf.seek(27);
-            assertEquals("", rf.readLine()); // when pointer on \n
+            rf.seek(26); // pointer on '\r'
+            assertEquals("", rf.readLine()); 
+            rf.seek(27); // pointer on '\n'
+            assertEquals("", rf.readLine()); 
             assertEquals("The 2nd line of this file.", rf.readLine()); 
             
             // file end

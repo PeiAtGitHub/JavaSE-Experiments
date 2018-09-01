@@ -1,4 +1,4 @@
-package pei.java.jse.lab.java8new;
+package pei.java.jse.lab.language;
 
 import java.util.Arrays;
 import java.util.Collections;

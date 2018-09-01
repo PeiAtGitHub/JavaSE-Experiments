@@ -12,14 +12,12 @@ public class LoggingDemos {
     
     @Test
     public void loggerFormat() throws Exception {
-        
         log.info("Hello, {} and {}.");
         log.info("Hello, {} and {}.", "Tom");
         log.info("Hello, {} and {}.", "Tom", "Jerry");
         log.info("Hello, {} and {}.", "Tom", "Jerry", "Some one");
         log.info("Hello, { } and {}.", "Tom", "Jerry", "Some one");
         log.info("Hello, \\{} and {}.", "Tom", "Jerry", "Some one");
-        
     }
 
 }

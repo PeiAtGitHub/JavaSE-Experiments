@@ -13,7 +13,6 @@ import com.github.peiatgithub.java.utils.RunFlag;
 public class TheMainMethod {
     
     public static void main(String[] args) {
-    	
         if(RunFlag.hasRun()) {
         	assertNotNull(args); 
         	assertThat(args).hasSize(3);
@@ -22,7 +21,6 @@ public class TheMainMethod {
         	assertThat(args).hasSize(0);
         }
         RunFlag.reset();
-        
     }
     
     @Test

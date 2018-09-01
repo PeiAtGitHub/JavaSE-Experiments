@@ -1,6 +1,5 @@
-package pei.java.jse.lab.java8new;
+package pei.java.jse.lab.language;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -20,7 +19,6 @@ public class OptionalDemo {
 
     @Test
     public void basics() {
-
         Optional<String> strOpt1 = Optional.of(S2);
         assertThrows(NPE, () -> Optional.of(null));
 
